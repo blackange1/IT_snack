@@ -1,0 +1,6 @@
+Installing collected packages: typing-extensions, sqlparse, RestrictedPython, asgiref, Django
+  WARNING: The script sqlformat is installed in '/home/superman/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+  WARNING: The script django-admin is installed in '/home/superman/.local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+Successfully installed Django-4.2 RestrictedPython-6.0 asgiref-3.7.2 sqlparse-0.4.4 typing-extensions-4.7.1

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        {% include 'teach_courses_sidebar.html' %}
+        <div class="col-sm-8">
+
+            <h1>Програма курсу</h1>
+            {% for module in course.module_set.all %}
+            {{ module.name }}
+            <ul>
+                {% for lesson in module.lesson_set.all %}
+                <li><a href="{% url 'lesson' lesson.id 1 %}">{{ lesson }}</a></li>
+                {% endfor %}
+            </ul>
+            {% endfor %}
+            <div>
+                У цьому курсі нема уроків. <br>
+                Додайте ваш перший урок у редакторі вмісту курсу.
+            </div>
+            <p>Це якщо ти автор</p>
+            <a class="btn btn-primary" href="{% url 'syllabus_edit' course.id %}">Редагувати зміст</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

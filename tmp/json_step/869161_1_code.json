@@ -1,0 +1,327 @@
+{
+  "block": {
+    "name": "code",
+    "text": "У цьому полі ви можете змінити умови завдання та вказати нижче налаштування. <br><br> Напишіть програму яка рахує суму двох чисел.",
+    "video": null,
+    "options": {
+      "execution_time_limit": 5,
+      "execution_memory_limit": 256,
+      "limits": {
+        "asm32": {
+          "time": 5,
+          "memory": 256
+        },
+        "asm64": {
+          "time": 5,
+          "memory": 256
+        },
+        "c": {
+          "time": 5,
+          "memory": 256
+        },
+        "c_valgrind": {
+          "time": 10,
+          "memory": 256
+        },
+        "clojure": {
+          "time": 10,
+          "memory": 256
+        },
+        "c++": {
+          "time": 5,
+          "memory": 256
+        },
+        "c++11": {
+          "time": 5,
+          "memory": 256
+        },
+        "c++20": {
+          "time": 5,
+          "memory": 256
+        },
+        "c#": {
+          "time": 8,
+          "memory": 256
+        },
+        "dart": {
+          "time": 15,
+          "memory": 256
+        },
+        "go": {
+          "time": 8,
+          "memory": 256
+        },
+        "haskell": {
+          "time": 10,
+          "memory": 256
+        },
+        "haskell 7.10": {
+          "time": 10,
+          "memory": 256
+        },
+        "haskell 8.0": {
+          "time": 10,
+          "memory": 256
+        },
+        "haskell 8.8": {
+          "time": 10,
+          "memory": 256
+        },
+        "java": {
+          "time": 8,
+          "memory": 256
+        },
+        "java11": {
+          "time": 8,
+          "memory": 256
+        },
+        "java17": {
+          "time": 8,
+          "memory": 256
+        },
+        "java8": {
+          "time": 8,
+          "memory": 256
+        },
+        "java9": {
+          "time": 8,
+          "memory": 256
+        },
+        "javascript": {
+          "time": 15,
+          "memory": 256
+        },
+        "julia": {
+          "time": 8,
+          "memory": 256
+        },
+        "kotlin": {
+          "time": 8,
+          "memory": 256
+        },
+        "mono c#": {
+          "time": 8,
+          "memory": 256
+        },
+        "nasm": {
+          "time": 5,
+          "memory": 256
+        },
+        "octave": {
+          "time": 13,
+          "memory": 256
+        },
+        "pascalabc": {
+          "time": 8,
+          "memory": 256
+        },
+        "perl": {
+          "time": 15,
+          "memory": 256
+        },
+        "php": {
+          "time": 15,
+          "memory": 256
+        },
+        "python3": {
+          "time": 15,
+          "memory": 256
+        },
+        "python3.10": {
+          "time": 15,
+          "memory": 256
+        },
+        "r": {
+          "time": 8,
+          "memory": 256
+        },
+        "ruby": {
+          "time": 15,
+          "memory": 256
+        },
+        "rust": {
+          "time": 5,
+          "memory": 256
+        },
+        "scala": {
+          "time": 9,
+          "memory": 256
+        },
+        "scala3": {
+          "time": 9,
+          "memory": 256
+        },
+        "shell": {
+          "time": 5,
+          "memory": 256
+        },
+        "swift": {
+          "time": 5,
+          "memory": 256
+        },
+        "typescript": {
+          "time": 15,
+          "memory": 256
+        }
+      },
+      "code_templates": {
+        "asm32": "# put your asm32 code here",
+        "asm64": "# put your asm64 code here",
+        "c": "#include <stdio.h>\n\nint main() {\n    // put your code here\n    return 0;\n}",
+        "c_valgrind": "#include <stdio.h>\n\nint main() {\n    // put your code here\n    return 0;\n}",
+        "clojure": ";; put your clojure code here",
+        "c++": "#include <iostream>\n\nint main() {\n    // put your code here\n    return 0;\n}",
+        "c++11": "#include <iostream>\n\nint main() {\n    // put your code here\n    return 0;\n}",
+        "c++20": "#include <iostream>\n\nint main() {\n    // put your code here\n    return 0;\n}",
+        "c#": "using System;\n\npublic class MainClass\n{\n    public static void Main()\n    {\n        // put your c# code here\n    }\n}",
+        "dart": "// put your dart code here",
+        "go": "package main\n\nfunc main() {\n    // put your code here\n}",
+        "haskell": "main :: IO ()\n-- put your code here",
+        "haskell 7.10": "main :: IO ()\n-- put your code here",
+        "haskell 8.0": "main :: IO ()\n-- put your code here",
+        "haskell 8.8": "main :: IO ()\n-- put your code here",
+        "java": "class Main {\n    public static void main(String[] args) {\n        // put your code here\n    }\n}",
+        "java11": "class Main {\n    public static void main(String[] args) {\n        // put your code here\n    }\n}",
+        "java17": "class Main {\n    public static void main(String[] args) {\n        // put your code here\n    }\n}",
+        "java8": "class Main {\n    public static void main(String[] args) {\n        // put your code here\n    }\n}",
+        "java9": "class Main {\n    public static void main(String[] args) {\n        // put your code here\n    }\n}",
+        "javascript": "// put your javascript (node.js) code here",
+        "julia": "# put your Julia code here",
+        "kotlin": "fun main() {\n    // put your code here\n}",
+        "mono c#": "using System;\n\npublic class MainClass\n{\n    public static void Main()\n    {\n        // put your c# code here\n    }\n}",
+        "nasm": "; put your NASM code here",
+        "octave": "% put your octave code here",
+        "pascalabc": "begin\n  // put your code here\nend.",
+        "perl": "use 5.024; # strict enabled by default\nuse warnings;\n\n# put your Perl code here",
+        "php": "<?php\n// put your PHP code here\n?>",
+        "python3": "# put your python code here",
+        "python3.10": "# put your python code here",
+        "r": "# put your R code here",
+        "ruby": "# put your ruby code here",
+        "rust": "fn main() {\n    // put your Rust code here\n}",
+        "scala": "object Main {\n  def main(args: Array[String]) {\n    // put your code here\n  }\n}",
+        "scala3": "@main def main =\n  // put your code here",
+        "shell": "# put your shell (bash) code here",
+        "swift": "// put your swift code here",
+        "typescript": "// put your typescript code here"
+      },
+      "code_templates_header_lines_count": {
+        "asm32": 0,
+        "asm64": 0,
+        "c": 0,
+        "c_valgrind": 0,
+        "clojure": 0,
+        "c++": 0,
+        "c++11": 0,
+        "c++20": 0,
+        "c#": 0,
+        "dart": 0,
+        "go": 0,
+        "haskell": 0,
+        "haskell 7.10": 0,
+        "haskell 8.0": 0,
+        "haskell 8.8": 0,
+        "java": 0,
+        "java11": 0,
+        "java17": 0,
+        "java8": 0,
+        "java9": 0,
+        "javascript": 0,
+        "julia": 0,
+        "kotlin": 0,
+        "mono c#": 0,
+        "nasm": 0,
+        "octave": 0,
+        "pascalabc": 0,
+        "perl": 0,
+        "php": 0,
+        "python3": 0,
+        "python3.10": 0,
+        "r": 0,
+        "ruby": 0,
+        "rust": 0,
+        "scala": 0,
+        "scala3": 0,
+        "shell": 0,
+        "swift": 0,
+        "typescript": 0
+      },
+      "code_templates_footer_lines_count": {
+        "asm32": 0,
+        "asm64": 0,
+        "c": 0,
+        "c_valgrind": 0,
+        "clojure": 0,
+        "c++": 0,
+        "c++11": 0,
+        "c++20": 0,
+        "c#": 0,
+        "dart": 0,
+        "go": 0,
+        "haskell": 0,
+        "haskell 7.10": 0,
+        "haskell 8.0": 0,
+        "haskell 8.8": 0,
+        "java": 0,
+        "java11": 0,
+        "java17": 0,
+        "java8": 0,
+        "java9": 0,
+        "javascript": 0,
+        "julia": 0,
+        "kotlin": 0,
+        "mono c#": 0,
+        "nasm": 0,
+        "octave": 0,
+        "pascalabc": 0,
+        "perl": 0,
+        "php": 0,
+        "python3": 0,
+        "python3.10": 0,
+        "r": 0,
+        "ruby": 0,
+        "rust": 0,
+        "scala": 0,
+        "scala3": 0,
+        "shell": 0,
+        "swift": 0,
+        "typescript": 0
+      },
+      "code_templates_options": {},
+      "samples": [
+        [
+          "8 11\n",
+          "19\n"
+        ]
+      ],
+      "is_run_user_code_allowed": true
+    },
+    "subtitle_files": [],
+    "source": {
+      "code": "# This is a sample Code Challenge\n# Learn more: https://stepik.org/lesson/9172\n# Ask your questions via help@stepik.org\n\ndef generate():\n    return []\n\ndef check(reply, clue):\n    return reply.strip() == clue.strip()\n\n# def solve(dataset):\n#     a, b = dataset.split()\n#     return str(int(a) + int(b))",
+      "execution_time_limit": 5,
+      "execution_memory_limit": 256,
+      "samples_count": 1,
+      "templates_data": "",
+      "is_time_limit_scaled": true,
+      "is_memory_limit_scaled": true,
+      "is_run_user_code_allowed": true,
+      "manual_time_limits": [],
+      "manual_memory_limits": [],
+      "test_archive": [],
+      "test_cases": [
+        [
+          "8 11\n",
+          "19\n"
+        ]
+      ]
+    },
+    "subtitles": {},
+    "tests_archive": "/api/step-sources/4426469/tests",
+    "feedback_correct": "",
+    "feedback_wrong": ""
+  },
+  "id": "4426469",
+  "has_review": false,
+  "time": "2023-08-24T10:50:23.969Z"
+}

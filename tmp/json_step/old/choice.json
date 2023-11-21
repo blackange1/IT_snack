@@ -1,0 +1,48 @@
+{
+  "block": {
+    "name": "choice",
+    "text": "У цьому полі ви можете змінити умови завдання та вказати нижче налаштування. <br><br> Скільки буде 1004 поділити на 2?",
+    "video": null,
+    "options": {
+      "is_multiple_choice": false
+    },
+    "subtitle_files": [],
+    "source": {
+      "is_multiple_choice": false,
+      "is_always_correct": false,
+      "sample_size": "4",
+      "preserve_order": false,
+      "is_html_enabled": true,
+      "is_options_feedback": true,
+      "options": [
+        {
+          "is_correct": false,
+          "text": "52",
+          "feedback": "томущо не 52"
+        },
+        {
+          "is_correct": true,
+          "text": "502",
+          "feedback": ""
+        },
+        {
+          "is_correct": false,
+          "text": "520",
+          "feedback": "томущо не 520"
+        },
+        {
+          "is_correct": false,
+          "text": "5002",
+          "feedback": "томущо не 5002"
+        }
+      ]
+    },
+    "subtitles": {},
+    "tests_archive": null,
+    "feedback_correct": "",
+    "feedback_wrong": ""
+  },
+  "id": "4019826",
+  "has_review": false,
+  "time": "2023-05-01T16:35:11.817Z"
+}

@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/module_editor.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        {% include 'teach_courses_sidebar.html' %}
+        <div class="col-sm-8">
+            <h1>Програма курсу</h1>
+            <div>Курс не має уроків. <br>Створіть перший модуль, щоб додати уроки</div>
+
+            <form action="" id="form_editor_course">
+                <div class="module-editor d-none" id="template_module">
+
+                    <div class="module-editor__body">
+                        <div class="module-editor__number">0</div>
+                        <div class="module-editor__content flex-grow-1">
+                            <div class="module-editor__header">
+                                <div class="module-editor__title">
+                                    <input type="text" class="form-control" placeholder="Новий модуль">
+                                </div>
+                                <div class="module-editor__points">Усього балів: 0</div>
+                                <div class="module-editor__menu-more">...</div>
+                            </div>
+                            <div class="module-editor__description">
+                                <textarea name="" id="" cols="30" rows="2" placeholder="Додатковий опис"
+                                    class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="module-editor__lessons"></div>
+                </div>
+
+
+
+
+                <div class="module-editor__lesson ms-4 p-4 d-none" id="template_lesson">
+                    <!-- <div class="lesson__drag"> -->
+                    <!-- <div class="lesson__content  "> -->
+                    <div class="drag-and-drop d-none">
+                        <!-- SVG MOVE -->
+                        <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+                        <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+                        <svg width="30.51613mm" height="30.774185mm" viewBox="0 0 30.51613 45.774185" version="1.1"
+                            id="svg5" inkscape:version="1.2.2 (732a01da63, 2022-12-09)" sodipodi:docname="лего.svg"
+                            inkscape:export-filename="лего.png" inkscape:export-xdpi="96" inkscape:export-ydpi="96"
+                            xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                            xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                            <sodipodi:namedview id="namedview7" pagecolor="#505050" bordercolor="#eeeeee"
+                                borderopacity="1" inkscape:showpageshadow="0" inkscape:pageopacity="0"
+                                inkscape:pagecheckerboard="0" inkscape:deskcolor="#505050" inkscape:document-units="mm"
+                                showgrid="false" inkscape:zoom="2.9825758" inkscape:cx="51.968504"
+                                inkscape:cy="84.490729" inkscape:window-width="1920" inkscape:window-height="1017"
+                                inkscape:window-x="1272" inkscape:window-y="-8" inkscape:window-maximized="1"
+                                inkscape:current-layer="layer1" />
+                            <defs id="defs2" />
+                            <g inkscape:label="Шар 1" inkscape:groupmode="layer" id="layer1"
+                                transform="translate(-21.645163,-19.870966)">
+                                <circle style="fill:#0000ff;fill-opacity:1;stroke-width:1;stroke-linejoin:round"
+                                    id="path283" cx="29.274195" cy="27" r="3" />
+                                <circle style="fill:#0000ff;fill-opacity:1;stroke-width:1;stroke-linejoin:round"
+                                    id="circle1914" cx="29.274195" cy="37" r="3" />
+                                <circle style="fill:#0000ff;fill-opacity:1;stroke-width:1;stroke-linejoin:round"
+                                    id="circle1920" cx="29.274195" cy="47" r="3" />
+                                <circle style="fill:#0000ff;fill-opacity:1;stroke-width:1;stroke-linejoin:round"
+                                    id="circle1926" cx="44.532261" cy="27" r="3" />
+                                <circle style="fill:#0000ff;fill-opacity:1;stroke-width:1;stroke-linejoin:round"
+                                    id="circle1932" cx="44.532261" cy="37" r="3" />
+                                <circle style="fill:#0000ff;fill-opacity:1;stroke-width:1;stroke-linejoin:round"
+                                    id="circle1938" cx="44.532261" cy="47" r="3" />
+                            </g>
+                        </svg>
+                        <!-- <img src="{% static 'img/lego.png' %}" alt="" width="50px"> -->
+                    </div>
+                    <div class="lesson__cover">
+                        <img src="{% static 'img/course_cover.png' %}" alt="">
+                    </div>
+                    <div class="lesson__content flex-grow-1">
+                        <div class="lesson__header">
+                            <div class="lesson__number d-none">0.0</div>
+                            <div class="lesson__title flex-grow-1">
+                                <input type="text" class="form-control"
+                                    placeholder="Напиши назву першого уроку та натисни Enter">
+                            </div>
+                            <div class="lesson__delete btn btn-secondary d-none">x</div>
+                            <div class="new-lesson btn btn-primary">Створити урок</div>
+                        </div>
+                        <div class="lesson__statuses">
+                            <div class="lesson__status">Бабенко Володимир</div>
+                            <div class="lesson__status">Урок не збережено</div>
+                        </div>
+                    </div>
+
+                    <!-- </div> -->
+                    <!-- </div> -->
+
+                </div>
+            </form>
+            <div class="btn btn-primary" id="create_module">+ Додати модуль</div>
+        </div>
+    </div>
+</div>
+<div class="course-editor__menu p-2">
+    <div class="course-editoror__inner">
+        <div class="btn btn-primary">Зберегти зміни</div>
+        <a href="{% url 'syllabus' course.id %}" class="btn btn-secondary">Повернутися до перегляду</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/module_editor.js' %}"></script>
+{% endblock %}

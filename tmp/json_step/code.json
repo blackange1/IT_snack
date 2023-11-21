@@ -1,0 +1,35 @@
+{
+  "block": {
+    "name": "code",
+    "text": "У цьому полі ви можете змінити умови завдання та вказати нижче налаштування. <br><br> Напишіть програму яка рахує суму двох чисел.",
+    "video": null,
+    "options": {},
+    "subtitle_files": [],
+    "source": {
+      "code": "# This is a sample Code Challenge\n# Learn more: https://stepik.org/lesson/9172\n# Ask your questions via help@stepik.org\n\ndef generate():\n    return []\n\ndef check(reply, clue):\n    return reply.strip() == clue.strip()\n\n# def solve(dataset):\n#     a, b = dataset.split()\n#     return str(int(a) + int(b))",
+      "execution_time_limit": 5,
+      "execution_memory_limit": 256,
+      "samples_count": 1,
+      "templates_data": "",
+      "is_time_limit_scaled": true,
+      "is_memory_limit_scaled": true,
+      "is_run_user_code_allowed": true,
+      "manual_time_limits": [],
+      "manual_memory_limits": [],
+      "test_archive": [],
+      "test_cases": [
+        [
+          "8 11\n",
+          "19\n"
+        ]
+      ]
+    },
+    "subtitles": {},
+    "tests_archive": "/api/step-sources/4425562/tests",
+    "feedback_correct": "",
+    "feedback_wrong": ""
+  },
+  "id": "4425562",
+  "has_review": false,
+  "time": "2023-08-24T08:58:55.046Z"
+}

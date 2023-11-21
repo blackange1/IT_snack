@@ -1,0 +1,76 @@
+{
+  "block": {
+    "name": "code",
+    "text": "У цьому полі ви можете змінити умови завдання та вказати нижче налаштування. <br><br> Напишіть програму яка рахує суму двох чисел.",
+    "video": null,
+    "options": {
+      "execution_time_limit": 5,
+      "execution_memory_limit": 255,
+      "limits": {
+        "python3": {
+          "time": 15,
+          "memory": 255
+        },
+        "kotlin": {
+          "time": 8,
+          "memory": 255
+        }
+      },
+      "code_templates": {
+        "python3": "",
+        "kotlin": "def solution():\n    a, b = map(int, input().split())\n    c = ...\n    print(c)\nsolution()"
+      },
+      "code_templates_header_lines_count": {
+        "python3": 0,
+        "kotlin": 0
+      },
+      "code_templates_footer_lines_count": {
+        "python3": 0,
+        "kotlin": 0
+      },
+      "code_templates_options": {},
+      "samples": [
+        [
+          "8 11",
+          "19\n2\n"
+        ],
+        [
+          "1 1",
+          "\n2\n2"
+        ]
+      ],
+      "is_run_user_code_allowed": true
+    },
+    "subtitle_files": [],
+    "source": {
+      "code": "# This is a sample Code Challenge\n# Learn more: https://stepik.org/lesson/9172\n# Ask your questions via support@stepik.org\n\ndef generate():\n    return []\n\ndef check(reply, clue):\n    return reply.strip() == clue.strip()\n\n# def solve(dataset):\n#     a, b = dataset.split()\n#     return str(int(a) + int(b))",
+      "execution_time_limit": 5,
+      "execution_memory_limit": 255,
+      "samples_count": 2,
+      "templates_data": "::python3\n::kotlin\ndef solution():\n    a, b = map(int, input().split())\n    c = ...\n    print(c)\nsolution()",
+      "is_time_limit_scaled": true,
+      "is_memory_limit_scaled": true,
+      "is_run_user_code_allowed": true,
+      "manual_time_limits": [],
+      "manual_memory_limits": [],
+      "test_archive": [],
+      "test_cases": [
+        [
+          "8 11",
+          "19\n2\n"
+        ],
+        [
+          "1 1",
+          "\n2\n2"
+        ]
+      ]
+    },
+    "subtitles": {},
+    "tests_archive": "/api/step-sources/4019825/tests",
+    "feedback_correct": "Коментар до правильної відповіді",
+    "feedback_wrong": "Коментар до неправильної відповіді"
+  },
+  "id": "4019825",
+  "has_review": false,
+  "time": "2023-05-01T16:46:25.978Z"
+}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<h1>Ти на main</h1>
+<h2>{{courses}}</h2>
+{% for course in courses %}
+    <p>{{course.name}} id={{course.id}}</p>
+{% endfor %}
+{% endblock %}

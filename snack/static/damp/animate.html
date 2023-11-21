@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Перетягування і розміщення елементів</title>
+<style>
+  .swap-element {
+    position: relative;
+    transition: transform 0.5s ease;
+    cursor: grab;
+  }
+
+  .swap-element.dragging {
+    cursor: grabbing;
+  }
+
+  #element1.swapped {
+    transform: translateX(100px);
+  }
+
+  #element2.swapped {
+    transform: translateX(-100px);
+  }
+</style>
+</head>
+<body>
+
+<div id="container">
+  <div id="element1" class="swap-element" draggable="true" ondragstart="dragStart(event)" ondragend="dragEnd(event)">Перший елемент</div>
+  <div id="element2" class="swap-element" draggable="true" ondragstart="dragStart(event)" ondragend="dragEnd(event)">Другий елемент</div>
+</div>
+
+<script>
+  let sourceElement = null;
+
+  function dragStart(event) {
+    sourceElement = event.target;
+    event.target.classList.add("dragging");
+    event.dataTransfer.setData("text/plain", ""); // необхідно для Firefox
+  }
+
+  function dragEnd(event) {
+    event.target.classList.remove("dragging");
+    sourceElement = null;
+  }
+
+  function allowDrop(event) {
+    event.preventDefault();
+  }
+
+  function drop(event) {
+    event.preventDefault();
+    if (sourceElement !== null && sourceElement !== event.target) {
+      // Міняємо позиції двох елементів
+      const parent = event.target.parentElement;
+      const index1 = Array.from(parent.children).indexOf(sourceElement);
+      const index2 = Array.from(parent.children).indexOf(event.target);
+      if (index1 !== -1 && index2 !== -1) {
+        parent.insertBefore(sourceElement, event.target);
+      }
+    }
+  }
+</script>
+
+</body>
+</html>

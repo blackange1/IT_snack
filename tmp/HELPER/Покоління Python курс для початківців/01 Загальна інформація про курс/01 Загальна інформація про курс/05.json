@@ -1,0 +1,27 @@
+{
+  "CLASS_NAME": "Choice",
+  "text_html": "Яку освіту маєш?",
+  "is_multiple_choice": false,
+  "is_always_correct": false,
+  "preserve_order": false,
+  "is_html_enabled": false,
+  "is_options_feedback": false,
+  "sample_size": 3,
+  "answers": [
+    {
+      "is_correct": true,
+      "text": "магистр",
+      "feedback": ""
+    },
+    {
+      "is_correct": false,
+      "text": "среднее",
+      "feedback": ""
+    },
+    {
+      "is_correct": false,
+      "text": "неполное среднее (школьник)",
+      "feedback": ""
+    }
+  ]
+}

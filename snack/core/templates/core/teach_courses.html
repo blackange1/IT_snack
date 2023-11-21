@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 sidebar__inner">
+            <div class="btn btn-primary">Новий курси</div>
+            <div class="sidebar__content">Курси</div>
+            <div class="sidebar__content">Уроки</div>
+            <div class="sidebar__content">Класи</div>
+            <div class="sidebar__content">Повідомлення</div>
+            <div class="sidebar__content">Розсилки</div>
+        </div>
+        <div class="col-sm-8">
+            <h1>Курси</h1>
+            <form action="">
+                <div class="input-group">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Усі курси</option>
+                        <option value="1">Чорновики</option>
+                        <option value="2">Приватні</option>
+                        <option value="3">Відкриті</option>
+                        <option value="3">Неактивні</option>
+                    </select>
+                    <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                           aria-describedby="search-addon"/>
+                    <button type="button" class="btn btn-outline-primary">Шукати</button>
+                </div>
+            </form>
+
+            <p>Ви не маєте курсів, але ви можете створити.</p>
+
+            {% for course in courses %}
+            <div class="teach-courses">
+                <div class="teach-course d-flex">
+                    <div class="teach-course__cover">
+                        <img class="teach-course__image" src="{% static 'img/course_cover.png' %}" width="80px" alt="">
+                    </div>
+                    <div class="teach-course__content flex-grow-1 p-2">
+                        <div class="teach-course__title">
+                            <a class="teach-course__link" href="{% url 'syllabus' course.id %}">{{course.name}} id={{course.id}}</a>
+                        </div>
+                        <div class="teach-course__footer">
+                            <a href="">Опис</a>
+                            <a href="{% url 'syllabus_edit' course.id %}">Зміст</a>
+                            <a href="">Права доступу</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

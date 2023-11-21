@@ -1,0 +1,44 @@
+/* sidebar */
+.sidebar__inner{}
+.sidebar__content{}
+.sidebar__section{}
+/* teacher course */
+.teach-courses{}
+.teach-course{}
+.teach-course__cover{}
+.teach-course__image{}
+.teach-course__content{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.teach-course__title{}
+.teach-course__link{}
+.teach-course__footer{}
+/* course-editor */
+.course-editor__menu{
+	background-color: #eee;
+}
+.course-editor__inner{}
+
+/* edit module */
+.module-editor__head {}
+.module-editor__number {}
+.module-editor__content {}
+.module-editor__title {}
+.module-editor__points {}
+.module-editor__menu-more {}
+.module-editor__description {}
+.module-editor__lessons {}
+.module-editor__lesson {}
+
+.lesson__drag {}
+.drag-and-drop {}
+.lesson__content {}
+.lesson__info {}
+.lesson__number {}
+.lesson__title {}
+.lesson__delete {}
+.new-lesson {}
+.lesson__statuses {}
+.lesson__status {}

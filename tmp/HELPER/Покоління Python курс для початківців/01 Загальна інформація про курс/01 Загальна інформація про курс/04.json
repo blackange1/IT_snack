@@ -1,0 +1,32 @@
+{
+  "CLASS_NAME": "Choice",
+  "text_html": "Скільки років? А?",
+  "is_multiple_choice": false,
+  "is_always_correct": false,
+  "preserve_order": false,
+  "is_html_enabled": false,
+  "is_options_feedback": false,
+  "sample_size": 4,
+  "answers": [
+    {
+      "is_correct": false,
+      "text": "Младше 15",
+      "feedback": ""
+    },
+    {
+      "is_correct": false,
+      "text": "15-20 лет",
+      "feedback": ""
+    },
+    {
+      "is_correct": false,
+      "text": "21-25 лет",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "26-35 лет",
+      "feedback": ""
+    }
+  ]
+}

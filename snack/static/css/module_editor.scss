@@ -1,0 +1,105 @@
+@import 'variables';
+
+
+.module-editor__body {
+    margin-bottom: 12px;
+    border: $borderWidth solid $borderColor;
+    border-radius: $borderRadius;
+    padding: 16px;
+    display: flex;
+
+    .module-editor__number {
+        // margin-left: 10px;
+    }
+
+    .module-editor__content {
+        margin-left: 10px;
+
+        .module-editor__header {
+            display: flex;
+            margin-bottom: 12px;
+
+            .module-editor__title {}
+
+            .module-editor__points {
+                padding: 6px 12px;
+            }
+
+        }
+
+        .module-editor__menu-more {}
+
+        .module-editor__description {}
+
+    }
+
+
+}
+
+
+.module-editor__lessons {
+    .module-editor__lesson {
+        transition: all 0.5s ease;
+        position: relative;
+        margin-bottom: 20px;
+        background: #fff;
+        // .lesson__drag {
+
+        // .lesson__content {
+        border: $borderWidth solid $borderColor;
+        border-radius: $borderRadius;
+        display: flex;
+
+        .drag-and-drop {
+            position: relative;
+            cursor: move;
+            transition: none;
+            // top: 25px;
+            // left: 25px;
+        }
+
+        // .drag-and-drop:hover {
+        //     cursor: move;
+        //     // top: 25px;
+        //     // left: 25px;
+        // }
+        .lesson__cover {
+            img {
+                width: 80px;
+            }
+        }
+
+        .lesson__content {
+            display: flex;
+            flex-direction: column;
+            margin-left: 12px;
+
+            .lesson__header {
+                display: flex;
+                margin-bottom: 12px;
+
+                .lesson__number {
+                    padding: 6px;
+                }
+
+                .lesson__title {}
+
+                .lesson__delete {}
+
+                .new-lesson {}
+
+            }
+
+            .lesson__statuses {
+                display: flex;
+
+                .lesson__status {
+                    margin-right: 5px;
+                }
+            }
+        }
+
+        // }
+        // }
+    }
+}

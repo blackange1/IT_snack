@@ -1,0 +1,77 @@
+@import url('var.css');
+
+.code-sample::first-line {
+    font-weight: bold;
+}
+
+.code-sample {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.code-sample__item {}
+
+/* CODE EDITOR */
+
+.code-editor {
+    /* display: flex; */
+}
+
+.code__wraper {
+    display: flex;
+}
+
+.code__number {
+    list-style-type: none;
+    border: 2px solid white;
+    border-right-width: 0;
+    padding: 0;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 15px 0 0 15px;
+    margin: 0;
+    text-align: right;
+}
+
+
+.code__number .number__item {}
+
+.usercode {
+    width: 100%;
+    resize: none;
+    background-color: var(--bg-black);
+    border: 2px solid white;
+    border-radius: 0 15px 15px 0;
+    color: white;
+    padding: 10px;
+    font-family: 'Arial';
+    font-size: 18px;
+}
+
+.usercode:focus {
+    background-color: var(--bg-grey);
+}
+
+.code__check {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 20px 0; */
+    margin: 20px 10px;
+}
+
+.button {
+    padding: 10px 20px;
+    border-width: 0;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.button-primary {
+    background-color: var(--color-line-orange);
+}
+
+.button-secondary {
+    background-color: var(--color-progress-bar-done);
+    color: white;
+}

@@ -127,7 +127,9 @@
     margin: 20px 0;
     position: relative;
     background: var(--bg-black);
-    transition: all 0.5s ease;
+    /* transition: all 0.5s ease; */
+    transition: bottom 0.5s, right 0.5s;
+    
 }
 
 .order__pull {

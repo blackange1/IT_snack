@@ -50,7 +50,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // obj OrderItem
             this.nextItem = undefined
             this.lastItem = undefined
-
             this.bottom = 0
 
             // this.k = 0
@@ -61,13 +60,18 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         orderPullOnmousedown = function (event) {
             this.viewMain.style.zIndex = 500;
+            buffer.currentPositionY = this.bottom
             this.cursorOldX = event.clientX
             this.cursorOldY = event.clientY
 
+            // this.cursorOldY = 0 // del
+
             buffer.nextItemPositionY = - (ORDER_ITEM_MATGIN - this.bottom)
             buffer.lastItemPositionY = ORDER_ITEM_MATGIN + this.bottom
-            print('buffer.nextItemPositionY', buffer.nextItemPositionY)
+            print(this)
+            print('buffer', buffer)
             print('buffer.lastItemPositionY', buffer.lastItemPositionY)
+            print('buffer.nextItemPositionY', buffer.nextItemPositionY)
 
             // this.viewMain.style.transition = 'all 0.2s linear 0s'
             // this.viewMain.style.transition = '1s transform'
@@ -82,19 +86,22 @@ document.addEventListener("DOMContentLoaded", function () {
             this.cursorOldX = e.clientX
             this.elemY += this.cursorOldY - e.clientY
             buffer.vectorY = this.cursorOldY - e.clientY
-
+            print(this.cursorOldY, e.clientY)
             this.cursorOldY = e.clientY
             $body.style.userSelect = 'none'
        
-            this.viewMain.style.bottom = this.elemY + 'px'
             this.bottom = this.elemY
+            this.viewMain.setAttribute('data-bottom', this.bottom)
+            this.viewMain.style.bottom = this.bottom + 'px'
             this.viewMain.style.right = this.elemX + 'px'
 
             // DOWN
             if (buffer.vectorY < 0 && this.nextItem && this.elemY < buffer.nextItemPositionY) {
+                print('DOWN')
                 const bottom = this.nextItem.bottom
-                this.nextItem.viewMain.style.bottom = bottom + this.height + ORDER_ITEM_MATGIN + 'px'
                 this.nextItem.bottom = bottom + this.height + ORDER_ITEM_MATGIN
+                this.nextItem.viewMain.style.bottom = this.nextItem.bottom + 'px'
+                this.nextItem.viewMain.setAttribute('data-bottom', this.nextItem.bottom)
                 buffer.currentPositionY += - (this.nextItem.height + ORDER_ITEM_MATGIN)
 
                 const currentLastItem = this.lastItem
@@ -152,9 +159,11 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 // UP
                 if (buffer.vectorY > 0 && this.lastItem && this.elemY > buffer.lastItemPositionY) {
+                    print('UP')
                     const bottom = this.lastItem.bottom
-                    this.lastItem.viewMain.style.bottom = bottom - (this.height + ORDER_ITEM_MATGIN) + 'px'
                     this.lastItem.bottom = bottom - (this.height + ORDER_ITEM_MATGIN)
+                    this.lastItem.viewMain.style.bottom = this.lastItem.bottom + 'px'
+                    this.lastItem.viewMain.setAttribute('data-bottom', this.lastItem.bottom)
                     buffer.currentPositionY += (this.lastItem.height + ORDER_ITEM_MATGIN)
 
                     const currentNextItem = this.nextItem
@@ -190,22 +199,24 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             // }
 
-            print(this.elemX, this.elemY)
+            // print(this.elemX, this.elemY)
 
         }
 
         orderItemOnmouseup() {
             document.onmousemove = undefined
-            this.viewMain.style.bottom = buffer.currentPositionY + 'px'
             this.bottom = buffer.currentPositionY
+            this.viewMain.style.bottom = this.bottom + 'px'
+            this.viewMain.setAttribute('data-bottom', this.bottom)
             this.viewMain.style.right = 0 + 'px'
             this.elemX = 0
             this.elemY = this.bottom
             // this.elemY = 0
-
+            // print(event)
             print('this.elemY', this.elemY)
             this.viewMain.style.transition = 'bottom 0.5s, right 0.5s'
             const obj = this
+            
             setTimeout(() => {
                 obj.viewMain.style.zIndex = 0
                 let firstChildren = obj
@@ -223,6 +234,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
 
+        // DELETE METHOD
         static getBottom(str) {
             if (str.includes('px')) {
                 return +(str.replace('px', ''))

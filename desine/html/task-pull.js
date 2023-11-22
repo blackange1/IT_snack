@@ -51,6 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
             this.nextItem = undefined
             this.lastItem = undefined
 
+            this.bottom = 0
+
             // this.k = 0
             this.elemX = 0
             this.elemY = 0
@@ -61,10 +63,11 @@ document.addEventListener("DOMContentLoaded", function () {
             this.viewMain.style.zIndex = 500;
             this.cursorOldX = event.clientX
             this.cursorOldY = event.clientY
-            // let elemHeight = this.viewMain.offsetHeight
 
-            buffer.nextItemPositionY = - (ORDER_ITEM_MATGIN - OrderItem.getBottom(this.viewMain.style.bottom))
-            buffer.lastItemPositionY = ORDER_ITEM_MATGIN + OrderItem.getBottom(this.viewMain.style.bottom)
+            buffer.nextItemPositionY = - (ORDER_ITEM_MATGIN - this.bottom)
+            buffer.lastItemPositionY = ORDER_ITEM_MATGIN + this.bottom
+            print('buffer.nextItemPositionY', buffer.nextItemPositionY)
+            print('buffer.lastItemPositionY', buffer.lastItemPositionY)
 
             // this.viewMain.style.transition = 'all 0.2s linear 0s'
             // this.viewMain.style.transition = '1s transform'
@@ -78,29 +81,25 @@ document.addEventListener("DOMContentLoaded", function () {
             this.elemX += this.cursorOldX - e.clientX
             this.cursorOldX = e.clientX
             this.elemY += this.cursorOldY - e.clientY
-            // print(this.cursorOldY, e.clientY)
             buffer.vectorY = this.cursorOldY - e.clientY
-            // print('buffer.vectorY', buffer.vectorY)
 
             this.cursorOldY = e.clientY
             $body.style.userSelect = 'none'
-            // this.k++
-
-            // if (this.k > deleyStep) {
-            // this.k = 0
+       
             this.viewMain.style.bottom = this.elemY + 'px'
+            this.bottom = this.elemY
             this.viewMain.style.right = this.elemX + 'px'
 
             // DOWN
             if (buffer.vectorY < 0 && this.nextItem && this.elemY < buffer.nextItemPositionY) {
-                // print('ops', this.nextItem.viewMain.style.bottom)
-                // print('this.nextItem', this.nextItem)
-                const bottom = OrderItem.getBottom(this.nextItem.viewMain.style.bottom)
+                const bottom = this.nextItem.bottom
                 this.nextItem.viewMain.style.bottom = bottom + this.height + ORDER_ITEM_MATGIN + 'px'
+                this.nextItem.bottom = bottom + this.height + ORDER_ITEM_MATGIN
                 buffer.currentPositionY += - (this.nextItem.height + ORDER_ITEM_MATGIN)
 
                 const currentLastItem = this.lastItem
                 const nextItem = this.nextItem
+                nextItem.elemY = this.nextItem.bottom
 
                 if (nextItem.nextItem) {
                     nextItem.nextItem.lastItem = this
@@ -114,14 +113,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 nextItem.nextItem = this
                 nextItem.lastItem = currentLastItem
                 
-
-                // print('buffer.currentPositionY', buffer.currentPositionY)
                 buffer.nextItemPositionY = buffer.currentPositionY - ORDER_ITEM_MATGIN
                 buffer.lastItemPositionY = buffer.currentPositionY + ORDER_ITEM_MATGIN
-                // print('buffer.lastItemPositionY', buffer.lastItemPositionY)
-
-                // print('buffer.nextItemPositionY', buffer.nextItemPositionY)
-                // print(this.elemX, this.elemY)
+                
 
                 // let t1
                 // let t2
@@ -158,12 +152,10 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 // UP
                 if (buffer.vectorY > 0 && this.lastItem && this.elemY > buffer.lastItemPositionY) {
-                    // print('this.lastItem.viewMain.style.bottom', this.lastItem.viewMain.style.bottom)
-                    const bottom = OrderItem.getBottom(this.lastItem.viewMain.style.bottom)
-                    // print('bottom', bottom)
+                    const bottom = this.lastItem.bottom
                     this.lastItem.viewMain.style.bottom = bottom - (this.height + ORDER_ITEM_MATGIN) + 'px'
+                    this.lastItem.bottom = bottom - (this.height + ORDER_ITEM_MATGIN)
                     buffer.currentPositionY += (this.lastItem.height + ORDER_ITEM_MATGIN)
-                    // print('buffer.currentPositionY', buffer.currentPositionY)
 
                     const currentNextItem = this.nextItem
                     const lastItem = this.lastItem
@@ -198,17 +190,19 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             // }
 
-            // print(this.elemX, this.elemY)
+            print(this.elemX, this.elemY)
 
         }
 
         orderItemOnmouseup() {
             document.onmousemove = undefined
-            // this.viewMain.style.bottom = 0 + 'px'
             this.viewMain.style.bottom = buffer.currentPositionY + 'px'
+            this.bottom = buffer.currentPositionY
             this.viewMain.style.right = 0 + 'px'
             this.elemX = 0
-            this.elemY = OrderItem.getBottom(this.viewMain.style.bottom)
+            this.elemY = this.bottom
+            // this.elemY = 0
+
             print('this.elemY', this.elemY)
             this.viewMain.style.transition = 'bottom 0.5s, right 0.5s'
             const obj = this

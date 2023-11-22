@@ -5,6 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const deleyMove = 0.0
     const deleyStep = 0
 
+    const buffer = {
+        nextItemPositionY: undefined,
+        lastItemPositionY: undefined,
+        currentPositionY: 0,
+        vectorY: 0,
+    }
+
     class OrderList {
         constructor(elem) {
             this.viewMain = elem
@@ -40,8 +47,10 @@ document.addEventListener("DOMContentLoaded", function () {
             this.height = this.viewMain.offsetHeight
             this.viewPull.onmousedown = this.orderPullOnmousedown.bind(this)
             this.viewMain.onmouseup = this.orderItemOnmouseup.bind(this)
+            // obj OrderItem
             this.nextItem = undefined
             this.lastItem = undefined
+
             // this.k = 0
             this.elemX = 0
             this.elemY = 0
@@ -52,7 +61,10 @@ document.addEventListener("DOMContentLoaded", function () {
             this.viewMain.style.zIndex = 500;
             this.cursorOldX = event.clientX
             this.cursorOldY = event.clientY
-            let elemHeight = this.viewMain.offsetHeight
+            // let elemHeight = this.viewMain.offsetHeight
+
+            buffer.nextItemPositionY = - (ORDER_ITEM_MATGIN - OrderItem.getBottom(this.viewMain.style.bottom))
+            buffer.lastItemPositionY = ORDER_ITEM_MATGIN + OrderItem.getBottom(this.viewMain.style.bottom)
 
             // this.viewMain.style.transition = 'all 0.2s linear 0s'
             // this.viewMain.style.transition = '1s transform'
@@ -66,37 +78,162 @@ document.addEventListener("DOMContentLoaded", function () {
             this.elemX += this.cursorOldX - e.clientX
             this.cursorOldX = e.clientX
             this.elemY += this.cursorOldY - e.clientY
+            // print(this.cursorOldY, e.clientY)
+            buffer.vectorY = this.cursorOldY - e.clientY
+            // print('buffer.vectorY', buffer.vectorY)
+
             this.cursorOldY = e.clientY
             $body.style.userSelect = 'none'
             // this.k++
 
             // if (this.k > deleyStep) {
-                this.k = 0
-                this.viewMain.style.bottom = this.elemY + 'px'
-                this.viewMain.style.right = this.elemX + 'px'
+            // this.k = 0
+            this.viewMain.style.bottom = this.elemY + 'px'
+            this.viewMain.style.right = this.elemX + 'px'
 
-                if (this.elemY < -20) {
-                    print('ops', this.nextItem.viewMain.style.bottom)
-                    this.nextItem.viewMain.style.bottom = this.height + ORDER_ITEM_MATGIN + 'px'
+            // DOWN
+            if (buffer.vectorY < 0 && this.nextItem && this.elemY < buffer.nextItemPositionY) {
+                // print('ops', this.nextItem.viewMain.style.bottom)
+                // print('this.nextItem', this.nextItem)
+                const bottom = OrderItem.getBottom(this.nextItem.viewMain.style.bottom)
+                this.nextItem.viewMain.style.bottom = bottom + this.height + ORDER_ITEM_MATGIN + 'px'
+                buffer.currentPositionY += - (this.nextItem.height + ORDER_ITEM_MATGIN)
+
+                const currentLastItem = this.lastItem
+                const nextItem = this.nextItem
+
+                if (nextItem.nextItem) {
+                    nextItem.nextItem.lastItem = this
                 }
+                if (this.lastItem) {
+                    this.lastItem.nextItem = nextItem
+                }
+
+                this.nextItem = nextItem.nextItem
+                this.lastItem = nextItem
+                nextItem.nextItem = this
+                nextItem.lastItem = currentLastItem
+                
+
+                // print('buffer.currentPositionY', buffer.currentPositionY)
+                buffer.nextItemPositionY = buffer.currentPositionY - ORDER_ITEM_MATGIN
+                buffer.lastItemPositionY = buffer.currentPositionY + ORDER_ITEM_MATGIN
+                // print('buffer.lastItemPositionY', buffer.lastItemPositionY)
+
+                // print('buffer.nextItemPositionY', buffer.nextItemPositionY)
+                // print(this.elemX, this.elemY)
+
+                // let t1
+                // let t2
+                // let t3
+                // let t4
+                // let t5
+                // let t6
+                // if (this.lastItem) {
+                //     t1 = this.lastItem.viewMain
+                //     if (this.lastItem.lastItem) {
+                //         t3 = this.lastItem.lastItem.viewMain
+                //     }
+                //     if (this.lastItem.nextItem) {
+                //         t4 = this.lastItem.nextItem.viewMain
+                //     }
+
+                // }
+                // if (this.nextItem) {
+                //     t2 = this.nextItem.viewMain
+                //     if (this.nextItem.lastItem) {
+                //         t5 = this.nextItem.lastItem.viewMain
+                //     }
+                //     if (this.nextItem.nextItem) {
+                //         t6 = this.nextItem.nextItem.viewMain
+                //     }
+                // }
+                // print('lastItem', t1)
+                // print('lastItem.lastItem', t3)
+                // print('lastItem.nextItem', t4)
+                // print('nextItem', t2)
+                // print('nextItem.lastItem', t5)
+                // print('nextItem.nextItem', t6)
+                // print('***')
+            } else {
+                // UP
+                if (buffer.vectorY > 0 && this.lastItem && this.elemY > buffer.lastItemPositionY) {
+                    // print('this.lastItem.viewMain.style.bottom', this.lastItem.viewMain.style.bottom)
+                    const bottom = OrderItem.getBottom(this.lastItem.viewMain.style.bottom)
+                    // print('bottom', bottom)
+                    this.lastItem.viewMain.style.bottom = bottom - (this.height + ORDER_ITEM_MATGIN) + 'px'
+                    buffer.currentPositionY += (this.lastItem.height + ORDER_ITEM_MATGIN)
+                    // print('buffer.currentPositionY', buffer.currentPositionY)
+
+                    const currentNextItem = this.nextItem
+                    const lastItem = this.lastItem
+                    if (lastItem.lastItem) {
+                        lastItem.lastItem.nextItem = this
+                    }
+                    if (this.nextItem) {
+                        this.nextItem.lastItem = lastItem
+                    }
+
+                    this.lastItem = lastItem.lastItem
+                    this.nextItem = lastItem
+                    lastItem.lastItem = this
+                    lastItem.nextItem = currentNextItem
+
+                    buffer.lastItemPositionY = buffer.currentPositionY + ORDER_ITEM_MATGIN
+                    buffer.nextItemPositionY = buffer.currentPositionY - ORDER_ITEM_MATGIN
+                    // print('buffer.lastItemPositionY', buffer.lastItemPositionY)
+                    // print(this)
+                    // let t1
+                    // let t2
+                    // if (this.lastItem) {
+                    //     t1 = this.lastItem.viewMain
+                    // }
+                    // if (this.nextItem) {
+                    //     t2 = this.nextItem.viewMain
+                    // }
+                    // print('t1', t1)
+                    // print('t2', t2)
+                    // print('|||')
+                }
+            }
             // }
 
             // print(this.elemX, this.elemY)
 
         }
 
-        orderItemOnmouseup = function () {
+        orderItemOnmouseup() {
             document.onmousemove = undefined
-            this.viewMain.style.bottom = 0 + 'px'
+            // this.viewMain.style.bottom = 0 + 'px'
+            this.viewMain.style.bottom = buffer.currentPositionY + 'px'
             this.viewMain.style.right = 0 + 'px'
             this.elemX = 0
-            this.elemY = 0
+            this.elemY = OrderItem.getBottom(this.viewMain.style.bottom)
+            print('this.elemY', this.elemY)
             this.viewMain.style.transition = 'bottom 0.5s, right 0.5s'
-            const obj = this.viewMain
+            const obj = this
             setTimeout(() => {
-                obj.style.zIndex = 0
+                obj.viewMain.style.zIndex = 0
+                let firstChildren = obj
+                while (firstChildren.lastItem) {
+                    firstChildren = firstChildren.lastItem
+                    print('firstChildren', firstChildren.viewMain)
+                }
+                // firstChildren.remove()
+                // nextElem
+
+                // print('obj.orderList.viewMain', obj.orderList.viewMain.appendChild(firstChildren.viewMain))
             }, 500)
             $body.style.userSelect = 'auto'
+
+
+        }
+
+        static getBottom(str) {
+            if (str.includes('px')) {
+                return +(str.replace('px', ''))
+            }
+            return 0
         }
 
     }

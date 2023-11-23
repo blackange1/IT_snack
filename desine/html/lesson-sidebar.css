@@ -7,7 +7,7 @@
     border-right: var(--width-line) solid var(--color-line-orange);
     /* height: 100vh; */
     position: fixed;
-    top: 86px;
+    top: var(--height-menu);
     left: 0;
     bottom: 0;
 }

@@ -6,10 +6,13 @@
     padding: var(--padding-menu);
     border-bottom: var(--width-line) solid var(--color-line-orange);
     background-color: var(--bg-black);
-    position: sticky;
+    /* position: sticky; */
+    position: fixed;
     top: 0;
+    right: 0;
+    left: 0;
     z-index: 1000;
-
+    
 }
 
 .menu-logo {

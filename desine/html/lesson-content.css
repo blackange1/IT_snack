@@ -1,9 +1,6 @@
 @import url('var.css');
 
-main {
-    overflow-x: hidden;
-    padding: var(--height-menu)
-}
+
 
 .code-sample::first-line {
     font-weight: bold;

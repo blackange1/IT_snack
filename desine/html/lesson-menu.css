@@ -23,6 +23,7 @@
 #steps {
     display: flex;
     /* width: calc(var(--width-content) - var(--width-userlogo)); */
+    padding: 0 10px;
 }
 
 .step {

@@ -10,6 +10,7 @@
     top: var(--height-menu);
     left: 0;
     bottom: 0;
+    /* position: relative; */
 }
 
 .lesson-sidebar__body {
@@ -159,3 +160,4 @@ article {
 .step-wrapper {}
 
 .step-inner {}
+

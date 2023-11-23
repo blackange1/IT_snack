@@ -19,13 +19,17 @@ p {
     height: 100vh;
 }
 
+
 main {
     display: flex;
+    overflow-x: hidden;
+    padding-top: var(--height-menu)
 }
 
 .lesson-sidebar,
 .empty-sidebar {
     width: var(--width-sidebar);
+    left: 0;
 
 }
 

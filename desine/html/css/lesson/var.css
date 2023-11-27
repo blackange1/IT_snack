@@ -8,6 +8,7 @@
 
     --bg-black: #232529ff;
     --bg-grey: #292c31ff;
+    --bg-tabs: #28313fff;
 
     --width-line: .2rem;
 
@@ -19,5 +20,6 @@
     --width-sidebar: 330px;
     --width-content: 1500px;
     --width-userlogo: 50px;
+    --width-tabs: 40px;
     --height-menu: 86px;
 }

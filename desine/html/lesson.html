@@ -7,15 +7,16 @@
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <link rel="shortcut icon" href="img/favicon.ico" />
 
-    <link rel="stylesheet" href="css/flexboxgrid.css">
-    <link rel="stylesheet" href="css/superflex.css">
-    <link rel="stylesheet" href="lesson-menu.css">
-    <link rel="stylesheet" href="lesson-sidebar.css">
-    <link rel="stylesheet" href="lesson-content.css">
-    <link rel="stylesheet" href="lesson-radio.css">
-    <link rel="stylesheet" href="lesson-responsive.css">
-    <link rel="stylesheet" href="lesson-tabs.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/lib/flexboxgrid.css">
+    <link rel="stylesheet" href="css/lib/superflex.css">
+
+    <link rel="stylesheet" href="css/lesson/lesson-menu.css">
+    <link rel="stylesheet" href="css/lesson/lesson-sidebar.css">
+    <link rel="stylesheet" href="css/lesson/lesson-content.css">
+    <link rel="stylesheet" href="css/lesson/lesson-radio.css">
+    <link rel="stylesheet" href="css/lesson/lesson-responsive.css">
+    <link rel="stylesheet" href="css/lesson/lesson-tabs.css">
+    <link rel="stylesheet" href="css/lesson/lesson-main.css">
     <title>IT snack</title>
 </head>
 
@@ -460,7 +461,14 @@
 
     <main>
         <div class="empty-sidebar">empty-sidebar</div>
-        <div class="tabs">tabs</div>
+        <div class="tabs">
+            <div class="tabs__body">
+
+                <div class="tabs__item">Теорія</div>
+                <div class="tabs__item">Коментарі</div>
+                <!-- <div class="tabs__item">Розв'язки</div> -->
+            </div>  
+        </div>
         <article class="">
             <div class="step-wrapper">
                 <div class="step-inner">
@@ -677,8 +685,8 @@
                                     </svg>
                                 </div>
                                 <div class="order__text">
-                                    <p>Марс</p>
-                                    <p>Марс</p>
+                                    Марс<br>
+                                    Марс<br>
                                 </div>
                                 <div class="order__control">
                                     <button>1</button>
@@ -719,9 +727,9 @@
                                     </svg>
                                 </div>
                                 <div class="order__text">
-                                    <p>Меркурій</p>
-                                    <p>Меркурій</p>
-                                    <p>Меркурій</p>
+                                    Меркурій<br>
+                                    Меркурій<br>
+                                    Меркурій<br>
                                 </div>
                                 <div class="order__control">
                                     <button>1</button>
@@ -737,9 +745,9 @@
 
 
 
-    <script src="menu.js"></script>
-    <script src="editor-code.js"></script>
-    <script src="task-pull.js"></script>
+    <script src="js/lesson/menu.js"></script>
+    <script src="js/lesson/editor-code.js"></script>
+    <script src="js/lesson/task-pull.js"></script>
 </body>
 
 </html>

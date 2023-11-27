@@ -46,7 +46,7 @@
 
 .lesson-sidebar__progress-line {
     width: 100%;
-    background-color: var(--color-progress-bar)
+    background-color: var(--color-line-grey)
 }
 
 .lesson-sidebar__progress-line-done {

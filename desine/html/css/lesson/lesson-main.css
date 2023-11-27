@@ -33,9 +33,35 @@ main {
 
 }
 
+.tabs {
+    width: var(--width-tabs);
+    top: var(--height-menu);
+    left: var(--width-sidebar);
+    position: fixed;
+
+}
+
+.tabs__body {
+    writing-mode: vertical-rl;
+    /* text-orientation: inherit; */
+    transform: rotate(180deg);
+}
+
+.tabs__item {
+    display: inline-block;
+    /* transform: rotate(-90deg); */
+    padding: 10px 5px;
+    background-color: var(--bg-tabs);
+    border: var(--width-line) solid var(--color-line-grey);
+
+
+}
+
+
+
 /* step-wrapper */
 article {
-    width: calc(100% - var(--width-sidebar));
+    width: calc(100% - var(--width-sidebar) - var(--width-tabs));
     background-color: var(--bg-black);
 }
 

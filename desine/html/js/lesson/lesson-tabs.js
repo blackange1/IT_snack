@@ -13,16 +13,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 name: "Розв\'язки",
             }
         ],
+        root: document.querySelector('.tabs__body'),
+        items: [],
         MIN_Z_INDEX:20,
+        
         render() {
-            const tabsBody = document.querySelector('.tabs__body')
+            // const tabsBody = document.querySelector('.tabs__body')
             const dataLength = this.data.length
-            tabsBody.innerHTML = ''
+            this.root.innerHTML = ''
             for (let index = dataLength - 1; index >= 0; index--) {
                 const element = this.data[index];
                 print(element)
-                tabsBody.innerHTML += `<div class="tabs__item">${this.data[index].name}</div>`
+                const div = document.createElement('div')
+                div.classList.add('tabs__item')
+                div.textContent = this.data[index].name
+                this.items.push(div)
+                this.root.appendChild(div)
             }
+            this.items[0].classList.add('active')
         }
     }
     tabs.render()

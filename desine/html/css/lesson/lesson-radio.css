@@ -1,5 +1,3 @@
-@import url('var.css');
-
 /* select radiobatton */
 .task_title {
     font-weight: bold;
@@ -136,7 +134,7 @@
     padding: 0 10px;
     cursor: grab;
 
-    
+
     display: flex;
     flex-direction: column;
     /* justify-content: center; */

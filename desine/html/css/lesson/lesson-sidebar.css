@@ -1,6 +1,3 @@
-@import url('var.css');
-
-
 /* lesson-sidebar */
 .lesson-sidebar {
     background-color: var(--bg-grey);
@@ -161,4 +158,3 @@ article {
 .step-wrapper {}
 
 .step-inner {}
-

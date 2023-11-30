@@ -1,13 +1,19 @@
-@import url('var.css');
+@import url('../var.css');
 
 body {
+    color: white;
     /* display: flex;
     flex-direction: column;
     justify-content: space-between; */
     background: var(--bg-black);
-    font-size: var(--font-size-main);
+    /* font-size: var(--font-size-main); */
 
-    font-family: 'Arial';
+    /* font-family: 'Arial'; */
+}
+
+a,
+p {
+    color: white;
 }
 
 p {

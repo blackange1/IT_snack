@@ -1,7 +1,3 @@
-@import url('var.css');
-
-
-
 .code-sample::first-line {
     font-weight: bold;
 }

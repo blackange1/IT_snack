@@ -1,6 +1,4 @@
 /* TABS */
-@import url('var.css');
-
 .tabs {
     top: var(--height-menu);
     left: var(--width-sidebar);
@@ -26,7 +24,7 @@
     cursor: pointer;
 }
 
-.tabs__item.active{
+.tabs__item.active {
     background-color: var(--color-progress-bar-done);
 }
 

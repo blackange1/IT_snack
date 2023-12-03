@@ -1,11 +1,48 @@
-{% extends 'base.html' %}
-
+{% extends 'base_main.html' %}
+{% load static %}
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-<h1>Ти на main</h1>
-<h2>{{courses}}</h2>
-{% for course in courses %}
-    <p>{{course.name}} id={{course.id}}</p>
-{% endfor %}
+<main class="wrapper">
+    <h1 class="text-center">Наші курси</h1>
+    <div class="courses">
+        {% for course in courses %}
+        <!--    <p>{{course.name}} id={{course.id}}</p>-->
+        <div class="course">
+            <div class="course__main">
+                <div class="course__body">
+                    <div class="course__cover">
+                        <img src="{% static 'img/coverpy.png' %}" alt="">
+                    </div>
+                    <div class="course__content">
+                        <div class="course__date">20 Березня 2023</div>
+                        <div class="course__title"><a href="{% url 'syllabus' course.id %}">{{course.name}}</a></div>
+                        <div class="course__autors">Бабенко Володимир</div>
+                    </div>
+                </div>
+            </div>
+            <div class="course__footer">
+                <div class="footer__item">
+                    <i class="fa fa-star"></i>
+                    <span class="item__text">5</span>
+                </div>
+                <div class="footer__item">
+                    <i class="fa fa-user-o"></i>
+                    <span class="item__text">1.5K</span>
+                </div>
+                <div class="footer__item">
+                    <i class="fa fa-clock-o"></i>
+                    <span class="item__text">22 год</span>
+                </div>
+                <div class="footer__item">
+                    <i class="fa fa-certificate"></i>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+<!--<h2>{{courses}}</h2>-->
+
+
 {% endblock %}

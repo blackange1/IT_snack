@@ -1,0 +1,47 @@
+<!--<nav class="navbar navbar-expand-lg bg-body-tertiary">-->
+<!--    <div class="container-fluid">-->
+<!--        <a class="navbar-brand" href="{% url 'index'%}">IT Snake</a>-->
+<!--        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"-->
+<!--                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--            <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link disabled" href="#">Каталог</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link disabled" href="#">Моє навчання</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="{% url 'teach_courses'%}">Викладання</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            <form class="d-flex" role="search">-->
+<!--                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
+<!--                <button class="btn btn-outline-success" type="submit">Search</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+{% load static %}
+<nav class="menu">
+    <div class="menu-logo colum-center">
+        <a href="{% url 'index'%}">
+            <img src="{% static 'img/main_logo.png' %}" width="180px" alt="main_logo">
+        </a>
+    </div>
+    <ul class="menu__list colum-center">
+        <li class="menu__item"><a href="{% url 'index'%}" class="menu__link">Каталог</a></li>
+        <li class="menu__item"><a href="#" class="menu__link">Моє навчання</a></li>
+        <li class="menu__item"><a href="{% url 'teach_courses'%}" class="menu__link">Викладання</a></li>
+    </ul>
+    <div class="menu__right">
+        <div class="colum-center menu__search">
+            <input type="search" placeholder="Пошук...">
+        </div>
+        <div class="colum-center userlogo">
+            <img  src="{% static 'img/userlogo.jpg' %}" alt="user_logo">
+        </div>
+    </div>
+</nav>

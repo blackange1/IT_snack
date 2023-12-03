@@ -18,7 +18,8 @@ TYPE_STEP = [
 ]
 
 if False:
-    with open(CURRENT_FILE_PATH, 'r') as file:
+    with open(CURRENT_FILE_PATH, 'r', encoding='utf-8') as file:
+        print('file', file)
         json_content = file.read()
         data_dict = json.loads(json_content)
     print(data_dict)

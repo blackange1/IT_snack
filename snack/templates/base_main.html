@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main/main.css' %} ">
+<link rel="stylesheet" type="text/css" href="{% static 'css/main/menu.css' %} ">
+<link rel="stylesheet" type="text/css" href="{% static 'css/main/course.css' %} ">
+{% endblock %}
+
+{% block main_menu %}
+{% include 'navbar_main.html' %}
+{% endblock %}

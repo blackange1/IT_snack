@@ -1,97 +1,184 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">IT Snake</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    тут будуть соти | соти | соти | соти | соти | соти
-                </li>
-                <li>
-                    {% for step in steps %}
-                    <a href="{% url 'lesson' lesson_id step.order %}">##{{ step.order }}##</a>
-                    {% endfor %}
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<div class="container">
-    <div class="row">
-        <div class="col-4" id="lessons_menu">
-            менюха
-        </div>
-        <div class="col-8">
-            <p>lesson | {{ current_step.CLASS_NAME}}</p>
-            <p></p>
-            <p>{{ current_step.text_html|safe }}</p>
+{% extends 'base_course.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
 
-            {% if current_step.CLASS_NAME == 'Choice' %}
-                <ul>
-                {% if current_step.is_multiple_choice %}
-                    {% for answer in current_step.answer_set.all %}
-                    <li><input type="checkbox" name="answer"> {{ answer.text }}</li>
-                    {% endfor %}
-                {% else %}
-                    {% for answer in current_step.answer_set.all %}
-                    <li><input type="radio" name="answer"> {{ answer.text }}</li>
-                    {% endfor %}
-                {% endif %}
-                </ul>
-            {% endif %}
+{% block content %}
+
+<!-- SIDEBAR -->
+<div class="lesson-sidebar" data-course-id="{{ course_id }}">
+    <div class="lesson-sidebar__body">
+        <div class="lesson-sidebar__header">
+            <a href="#" title="Документація IT snack" class="lesson-sidebar__course-title">Документація IT
+                snack</a>
+            <div class="lesson-sidebar__course-progress-wrap">
+                <p class="lesson-sidebar__course-progress">Прогрес у курсі: 3/61</p>
+                <div class="lesson-sidebar__progress-line">
+                    <div class="lesson-sidebar__progress-line-done"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-sidebar__content">
+
+            <!--            <div class="lesson-sidebar__module-header">-->
+            <!--                <div class="line-progress-bar">&nbsp;</div>-->
+            <!--                <div class="line-progress-bar-done" style="height: 33%;">-->
+            <!--                    &nbsp;-->
+            <!--                </div>-->
+            <!--                <div class="sidebar-module-header__title" style="width: 100%;">-->
+            <!--                    1&nbsp;&nbsp;Про курс-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+            <!--            <a href="#" class="lesson-sidebar__lessons-inner">-->
+            <!--                <div class="lesson-sidebar__lesson-header">-->
+            <!--                    <div class="line-progress-bar">&nbsp;</div>-->
+            <!--                    <div class="line-progress-bar-done" style="height: 67%;">-->
+            <!--                        &nbsp;-->
+            <!--                    </div>-->
+            <!--                    <div class="sidebar-lesson-header__title" style="width: 100%;">-->
+            <!--                        1.1&nbsp;&nbsp;Текст-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </a>-->
+
+            <!--            <a href="#" class="lesson-sidebar__lessons-inner">-->
+            <!--                <div class="lesson-sidebar__lesson-header">-->
+            <!--                    <div class="line-progress-bar">&nbsp;</div>-->
+            <!--                    <div class="line-progress-bar-done" style="height: 27%;">-->
+            <!--                        &nbsp;-->
+            <!--                    </div>-->
+            <!--                    <div class="sidebar-lesson-header__title" style="width: 100%;">-->
+            <!--                        1.2&nbsp;&nbsp;Ввідний урок-->
+            <!--                    </div>-->
+
+            <!--                </div>-->
+            <!--            </a>-->
+
+            <!--            <div class="lesson-sidebar__module-header">-->
+            <!--                <div class="line-progress-bar">&nbsp;</div>-->
+            <!--                <div class="line-progress-bar-done" style="height: 33%;">-->
+            <!--                    &nbsp;-->
+            <!--                </div>-->
+            <!--                <div class="sidebar-module-header__title" style="width: 100%;">-->
+            <!--                    2&nbsp;&nbsp;Текстові задачі-->
+            <!--                </div>-->
+            <!--            </div>-->
+
+            <!--            <a href="#" class="lesson-sidebar__lessons-inner">-->
+            <!--                <div class="lesson-sidebar__lesson-header">-->
+            <!--                    <div class="line-progress-bar">&nbsp;</div>-->
+            <!--                    <div class="line-progress-bar-done" style="height: 67%;">-->
+            <!--                        &nbsp;-->
+            <!--                    </div>-->
+            <!--                    <div class="sidebar-lesson-header__title">-->
+            <!--                        2.1&nbsp;&nbsp;Задачка на програмування-->
+            <!--                    </div>-->
+
+            <!--                </div>-->
+            <!--            </a>-->
+
+            <!--            <a href="#" class="lesson-sidebar__lessons-inner">-->
+            <!--                <div class="lesson-sidebar__lesson-header">-->
+            <!--                    <div class="line-progress-bar">&nbsp;</div>-->
+            <!--                    <div class="line-progress-bar-done" style="height: 27%;">-->
+            <!--                        &nbsp;-->
+            <!--                    </div>-->
+            <!--                    <div class="sidebar-lesson-header__title">-->
+            <!--                        2.2&nbsp;&nbsp;Не на програмування-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </a>-->
+
+        </div>
+        <div class="lesson-sidebar__footer">
+            <div class="lesson-controls">
+                <svg width="8mm" height="8.00002mm" viewBox="0 0 9.9999996 10.00002">
+                    <g transform="translate(-48.57283,-108.30979)">
+                        <path
+                                style="color:#000000;fill:#ffffff;stroke-width:0.961311;stroke-linecap:round;stroke-linejoin:round;-inkscape-stroke:none"
+                                d="m 51.63343,108.30979 c -1.68439,0 -3.0606,1.37821 -3.0606,3.06259 v 0.14655 h 1.30899 v -0.14655 c 0,-0.98209 0.76952,-1.7536 1.75161,-1.7536 h 0.14854 v -1.30899 z m 3.73027,0 v 1.30899 h 0.14704 c 0.9821,0 1.75361,0.77151 1.75361,1.7536 v 0.14655 h 1.30848 v -0.14655 c 0,-1.68438 -1.3777,-3.06259 -3.06209,-3.06259 z m -6.79087,6.79087 v 0.14853 c 0,1.68442 1.37621,3.06062 3.0606,3.06062 h 0.14854 v -1.3085 h -0.14854 c -0.98209,0 -1.75161,-0.77 -1.75161,-1.75212 v -0.14853 z m 8.69152,0 v 0.14853 c 0,0.98212 -0.77151,1.75212 -1.75361,1.75212 H 55.3637 v 1.3085 h 0.14704 c 1.68439,0 3.06209,-1.3762 3.06209,-3.06062 v -0.14853 z"/>
+                    </g>
+                </svg>
+
+            </div>
+            <div class="lesson-controls">
+                <div>
+                    <svg width="9.23186mm" height="9.23181mm" viewBox="0 0 12.23186 12.23181">
+                        <g transform="translate(-53.5974,-115.43498)">
+                            <path
+                                    style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+                                    d="m 59.71316,115.43501 c -0.43438,0 -0.78393,0.29015 -0.78393,0.6506 v 0.0419 c -0.9258,0.13535 -1.77282,0.50659 -2.4784,1.05162 l -0.0475,-0.0476 c -0.11151,-0.11147 -0.26113,-0.16596 -0.41962,-0.16639 -0.20376,-5.6e-4 -0.42253,0.0887 -0.59531,0.26148 -0.3069,0.30714 -0.34882,0.75909 -0.094,1.01389 l 0.0693,0.0693 c -0.50361,0.70866 -0.83753,1.54705 -0.94465,2.4567 H 54.248 c -0.36045,0 -0.6506,0.35006 -0.6506,0.78444 0,0.43439 0.29015,0.78393 0.6506,0.78393 h 0.21446 c 0.15192,0.86778 0.51218,1.66191 1.02784,2.32961 l -0.19637,0.1963 c -0.25487,0.2549 -0.21254,0.7078 0.0946,1.015 0.30716,0.3071 0.75953,0.3488 1.01441,0.094 l 0.21859,-0.2186 c 0.66994,0.4761 1.45546,0.8009 2.30787,0.9255 v 0.3395 c 0,0.3605 0.34955,0.6506 0.78393,0.6506 0.43439,0 0.78445,-0.2901 0.78445,-0.6506 v -0.3395 c 0.85231,-0.1246 1.63799,-0.449 2.30787,-0.925 l 0.21807,0.2181 c 0.25488,0.2548 0.70675,0.2131 1.0139,-0.094 0.30716,-0.3072 0.35,-0.7601 0.0951,-1.015 l -0.19637,-0.1963 c 0.51573,-0.6677 0.87592,-1.46176 1.02784,-2.32961 h 0.21446 c 0.36046,0 0.65061,-0.34954 0.65061,-0.78393 0,-0.43438 -0.29015,-0.78444 -0.65061,-0.78444 H 65.0076 c -0.10712,-0.90965 -0.44104,-1.74804 -0.94464,-2.4567 l 0.0692,-0.0693 c 0.25488,-0.25489 0.21263,-0.70725 -0.0946,-1.01441 -0.30715,-0.30715 -0.75953,-0.34944 -1.01441,-0.0946 l -0.0475,0.0476 c -0.70554,-0.54494 -1.55219,-0.91629 -2.47789,-1.05162 v -0.0419 c 0,-0.36045 -0.35006,-0.6506 -0.78445,-0.6506 z m 0,1.95233 c 2.30651,0 4.16357,1.85707 4.16357,4.16357 0,2.30651 -1.85706,4.16358 -4.16357,4.16358 -2.3065,0 -4.16357,-1.85707 -4.16357,-4.16358 0,-2.3065 1.85707,-4.16357 4.16357,-4.16357 z"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const print = console.log
-        const $lessonsMenu = document.getElementById('lessons_menu')
+<div class="tabs">
+    <div class="tabs__body">
+        <!-- <div class="tabs__item">Розв'язки</div>
+        <div class="tabs__item test">Коментарі</div>
+        <div class="tabs__item">Теорія</div> -->
+    </div>
+</div>
 
-        // fetch('https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits')
-        const courseId = {{ course_id }}
-        fetch(`/api/courses/${courseId}?format=json`)
-            .then(response => response.json())
-            .then(course => {
-                print(course)
-                for (const module of course.module_set) {
-                    const moduleDiv = document.createElement('div')
-                    const lessonsUl = document.createElement('ul')
-                    moduleDiv.textContent = module.name
-                    for (const lesson of module.lesson_set) {
-                        lessonsUl.innerHTML += `<li><a href="/lesson/${lesson.id}/step/1">${lesson.name}</a></li>`
-                    }
-                    $lessonsMenu.appendChild(moduleDiv)
-                    $lessonsMenu.appendChild(lessonsUl)
-                }
-                // $lessonsMenu.innerHTML += `
-                //     <ul>${lessons}</ul>
-                // `
-            });
+<main>
+    <div class="empty-sidebar">empty-sidebar</div>
+    <div class="empty-tabs">t</div>
+    <article class="">
+        <div class="step-wrapper">
+            <div class="step-inner">
+                5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
+                <hr>
 
-    });
+                <p>lesson | {{ current_step.CLASS_NAME}}</p>
+                <p>{{ current_step.text_html|safe }}</p>
 
+                {% if current_step.CLASS_NAME == 'Choice' %}
+                <ul>
+                    {% if current_step.is_multiple_choice %}
+                    {% for answer in current_step.answer_set.all %}
+                    <li><input type="checkbox" name="answer"> {{ answer.text }}</li>
+                    {% endfor %}
+                    {% else %}
+                    {% for answer in current_step.answer_set.all %}
+                    <li><input type="radio" name="answer"> {{ answer.text }}</li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </article>
 
-    // let url = 'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';
-    // let response = await fetch(url);
-    //
-    // let commits = await response.json(); // читаем ответ в формате JSON
-    //
-    // alert(commits[0].author.login);
-</script>
-</body>
-</html>
+<!--    <div class="container">-->
+<!--        <div class="row">-->
+<!--            <div class="col-4" id="lessons_menu">-->
+<!--                менюха-->
+<!--            </div>-->
+<!--            <div class="col-8">-->
+<!--                <p>lesson | {{ current_step.CLASS_NAME}}</p>-->
+<!--                <p></p>-->
+<!--                <p>{{ current_step.text_html|safe }}</p>-->
+
+<!--                {% if current_step.CLASS_NAME == 'Choice' %}-->
+<!--                <ul>-->
+<!--                    {% if current_step.is_multiple_choice %}-->
+<!--                    {% for answer in current_step.answer_set.all %}-->
+<!--                    <li><input type="checkbox" name="answer"> {{ answer.text }}</li>-->
+<!--                    {% endfor %}-->
+<!--                    {% else %}-->
+<!--                    {% for answer in current_step.answer_set.all %}-->
+<!--                    <li><input type="radio" name="answer"> {{ answer.text }}</li>-->
+<!--                    {% endfor %}-->
+<!--                    {% endif %}-->
+<!--                </ul>-->
+<!--                {% endif %}-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+</main>
+{% endblock %}

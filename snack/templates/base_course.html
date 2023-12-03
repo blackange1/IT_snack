@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block link %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/lesson/lesson-main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/lesson/lesson-menu.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/lesson/lesson-sidebar.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/lesson/lesson-content.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/lesson/lesson-radio.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/lesson/lesson-responsive.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/lesson/lesson-tabs.css' %}">
+
+{% endblock %}
+
+{% block main_menu %}
+{% include 'navbar_course.html' %}
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/lesson/lesson-menu.js' %}"></script>
+<script src="{% static 'js/lesson/lesson-editor-code.js' %}"></script>
+<script src="{% static 'js/lesson/lesson-task-pull.js' %}"></script>
+<script src="{% static 'js/lesson/lesson-tabs.js' %}"></script>
+
+<script src="{% static 'js/lesson/render_sidebar.js' %}"></script>
+{% endblock %}

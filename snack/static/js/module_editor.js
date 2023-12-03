@@ -119,10 +119,10 @@ const BlockDragManager = {
 };
 
 class Lesson {
-    /* 
+    /*
     @param:
     * number {number}
-    * view {elemHTML}  
+    * view {elemHTML}
     * module {module}
     * elemNumber {elemHTML}
     * btnNewLesson {elemHTML}
@@ -191,7 +191,7 @@ class Lesson {
         this.animatePosition = 0
         this.animateOffsetTop = this.view.offsetTop;
         this.animateTop = this.view.getBoundingClientRect().top;
-        // this.position = first, between, last, none 
+        // this.position = first, between, last, none
 
         this.isSave = false
         this.canDelete = false
@@ -225,7 +225,7 @@ class Module {
     /*
     @param:
     * number {number}
-    * view {elemHTML}  
+    * view {elemHTML}
     * elemNumber {elemHTML}
     * elemLessons {elemHTML}
     * stackLessons {array}

@@ -37,18 +37,18 @@ class Step(Order):
 # Standart
 ## пусто
 class Text(Step):
-    CLASS_NAME = 'Text'
+    TYPE = 'text'
 
 
 ## трикутник
 class Video(Order):
-    CLASS_NAME = 'Video'
+    TYPE = 'video'
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
 
 
 ## знак питання
 class Choice(Step):
-    CLASS_NAME = 'Choice'
+    TYPE = 'choice'
 
     # множинний вибір
     is_multiple_choice = models.BooleanField(default=False)
@@ -78,7 +78,7 @@ class Answer(Order):
 
 ## знак консолі
 class Code(Step):
-    CLASS_NAME = 'Choice'
+    TYPE = 'code'
 
 
 class TestCase(Order):

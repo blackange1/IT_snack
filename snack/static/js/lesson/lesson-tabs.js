@@ -29,24 +29,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 this.root.appendChild(div)
             }
             this.items[0].classList.add('active')
-
             for (const element of this.items) {
-                obj = this
+                // obj = this
+
                 element.onclick = function () {
                     if (this.classList.contains('active')) {
                         return
                     }
                     const nowIndex = +this.dataset.zIndex
-                    for (let index = 0; index < obj.items.length; index++) {
-                        const element = obj.items[index];
+                    for (let index = 0; index < tabs.items.length; index++) {
+                        const element = tabs.items[index];
                         if (element.classList.contains('active')) {
                             element.classList.remove('active')
                         }
                         if (element.dataset.zIndex > nowIndex) {
-                            obj.setIndexZ(element, +element.dataset.zIndex - 1)
+                            tabs.setIndexZ(element, +element.dataset.zIndex - 1)
                         }
                     }
-                    obj.setIndexZ(this, obj.MAX_Z_INDEX)
+                    tabs.setIndexZ(this, tabs.MAX_Z_INDEX)
                     this.classList.add('active')
                 }
             }

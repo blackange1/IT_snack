@@ -2,11 +2,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const print = console.log
     const $lessonSidebar = document.querySelector('.lesson-sidebar')
 
-    const courseId = $lessonSidebar.dataset.courseId
-    fetch(`/api/courses/${courseId}?format=json`)
-        .then(response => response.json())
-        .then(course => {
-            print('course', course)
+
+    const sidebar = {
+        maxLengthModule: 26,
+        maxLengthLesson: 26,
+        cutTitleModule(string) {
+            if (string.length > this.maxLengthModule) {
+                return string.slice(0, this.maxLengthModule) + '...'
+            }
+            return string
+        },
+        cutTitleLesson(string) {
+            if (string.length > this.maxLengthLesson) {
+                return string.slice(0, this.maxLengthLesson) + '...'
+            }
+            return string
+        },
+        render(course) {
             const $lessonSidebarContent = document.querySelector('.lesson-sidebar__content')
             let numberModule = 1
             for (const module of course.module_set) {
@@ -14,11 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 lessonSidebarModuleHeader.classList.add('lesson-sidebar__module-header')
                 lessonSidebarModuleHeader.innerHTML = `
                     <div class="line-progress-bar">&nbsp;</div>
-                    <div class="line-progress-bar-done" style="height: 33%;">
-                    &nbsp;
-                    </div>
-                    <div class="sidebar-module-header__title" style="width: 100%;">
-                    ${numberModule}&nbsp;&nbsp;${module.name}
+                    <div class="line-progress-bar-done" style="height: 33%;">&nbsp;</div>
+                    <div class="sidebar-module-header__title" style="width: 100%;" title="${module.name}">
+                        ${this.cutTitleModule(numberModule + ' ' + module.name)}
                     </div>
                     `
                 $lessonSidebarContent.appendChild(lessonSidebarModuleHeader)
@@ -36,15 +46,29 @@ document.addEventListener("DOMContentLoaded", () => {
                                 &nbsp;
                             </div>
                             <div class="sidebar-lesson-header__title" style="width: 100%;">
-                                ${numberModule}.${numberLesson}&nbsp;&nbsp;${lesson.name}
+                                ${this.cutTitleLesson(numberModule + '.' + numberLesson + ' ' + lesson.name)}
                             </div>
                         </div>
                         `
+                    // ${numberModule}.${numberLesson}&nbsp;&nbsp;
+                    lessonSidebarLessonsInner.onclick = function (event) {
+                        event.preventDefault();
+                        print(this)
+                    }
                     $lessonSidebarContent.appendChild(lessonSidebarLessonsInner)
                     numberLesson++
                 }
                 numberModule++
             }
+        }
+    }
+
+    const courseId = $lessonSidebar.dataset.courseId
+    fetch(`/api/courses/${courseId}?format=json`)
+        .then(response => response.json())
+        .then(course => {
+            print('course', course)
+            sidebar.render(course)
         });
 });
 

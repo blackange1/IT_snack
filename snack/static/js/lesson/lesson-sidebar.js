@@ -1,11 +1,13 @@
-document.addEventListener("DOMContentLoaded", () => {
+// document.addEventListener("DOMContentLoaded", () => {
     const print = console.log
     const $lessonSidebar = document.querySelector('.lesson-sidebar')
 
 
-    const sidebar = {
+    export const sidebar = {
+        activeLesson: 0,
         maxLengthModule: 26,
         maxLengthLesson: 26,
+        root: document.querySelector('.lesson-sidebar__body'),
         cutTitleModule(string) {
             if (string.length > this.maxLengthModule) {
                 return string.slice(0, this.maxLengthModule) + '...'
@@ -19,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return string
         },
         render(course) {
-            const $lessonSidebarContent = document.querySelector('.lesson-sidebar__content')
+            const $lessonSidebarContent = this.root.querySelector('.lesson-sidebar__content')
             let numberModule = 1
             for (const module of course.module_set) {
                 const lessonSidebarModuleHeader = document.createElement('div')
@@ -60,6 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 numberModule++
             }
+            if (this.activeLesson === 0) {
+                this.root.querySelector('.lesson-sidebar__lesson-header').classList.add('lesson-active')
+            }
         }
     }
 
@@ -70,7 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
             print('course', course)
             sidebar.render(course)
         });
-});
+
+    print(200)
+    print('menuSteps', menuSteps)
+    print('numberLesson', numberLesson)
+// });
 
 
 // let url = 'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';

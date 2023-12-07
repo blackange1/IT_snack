@@ -141,3 +141,13 @@ STATICFILES_DIRS = [BASE_DIR.joinpath('static')]
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# module lesson and api
+TYPE_STEPS = [
+    'text',
+    'choice',
+    'code',
+    'video',
+]
+
+LESSON_METHODS = [f'{item}_set' for item in TYPE_STEPS]

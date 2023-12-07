@@ -5,7 +5,11 @@ const menuSteps = {
     activeElement: undefined,
     numberLesson: undefined,
     init(numberLesson) {
-        this.root = document.getElementById('steps')
+        if (!this.root) {
+            this.root = document.getElementById('steps')
+        } else {
+            this.root.innerHTML = ''
+        }
         this.numberLesson = numberLesson
     },
     addEmptyElement(order) {
@@ -85,10 +89,7 @@ const menuSteps = {
         const step = div.querySelector('a')
         step.onclick = function (event) {
             event.preventDefault();
-            print(this)
-            print(menuSteps)
 
-            print(menuSteps.activeElement == this)
             if (menuSteps.activeElement == this) {
                 return
             }
@@ -133,12 +134,12 @@ const menuSteps = {
             order++
             countSteps++
         }
-        this.root.querySelector('a').click()
+        const $a = this.root.querySelector('a')
+        if ($a) {
+            $a.click()
+        }
     },
     run() {
-        // FWXED delete step-next class first elemet
-        // let $steps = document.getElementById('steps')
-        // print($steps)
         fetch(`/api/step-menu/${this.numberLesson}?format=json`)
             .then(response => response.json())
             .then(lessons => {

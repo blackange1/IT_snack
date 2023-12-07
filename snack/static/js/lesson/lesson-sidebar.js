@@ -10,9 +10,12 @@ const sidebar = {
     maxLengthLesson: 26,
     courseId: undefined,
     root: undefined,
-    init(courseId) {
-        this.root = document.querySelector('.lesson-sidebar__body'),
-            this.courseId = courseId
+    init(courseId, activeLesson = 0) {
+        this.root = document.querySelector('.lesson-sidebar__body')
+        this.courseId = courseId
+        // if (activeLesson == 0) {
+        //     const activeLesson = this.root.querySelector('lesson-sidebar__lessons-inner')
+        // }
     },
     cutTitleModule(string) {
         if (string.length > this.maxLengthModule) {
@@ -45,6 +48,7 @@ const sidebar = {
             let numberLesson = 1
             for (const lesson of module.lesson_set) {
                 const lessonSidebarLessonsInner = document.createElement('a')
+                lessonSidebarLessonsInner.dataset.lessonId = lesson.id
                 lessonSidebarLessonsInner.classList.add('lesson-sidebar__lessons-inner')
                 lessonSidebarLessonsInner.href = `/lesson/${lesson.id}/step/1`
                 lessonSidebarLessonsInner.innerHTML = `
@@ -61,9 +65,16 @@ const sidebar = {
                 // ${numberModule}.${numberLesson}&nbsp;&nbsp;
                 lessonSidebarLessonsInner.onclick = function (event) {
                     event.preventDefault();
-                    print(this)
-                    // FIXED
-                    menuSteps.init(3)
+
+                    if (sidebar.activeLesson !== 0) {
+                        const $oldLessonHeader = this.parentElement.querySelector('.lesson-active')
+                        $oldLessonHeader.classList.remove('lesson-active')
+                    }
+                    const $lessonHeader = this.querySelector('.lesson-sidebar__lesson-header')
+                    $lessonHeader.classList.add('lesson-active')
+                    sidebar.activeLesson = this.dataset.lessonId
+
+                    menuSteps.init(this.dataset.lessonId)
                     menuSteps.run()
                 }
                 $lessonSidebarContent.appendChild(lessonSidebarLessonsInner)
@@ -72,11 +83,11 @@ const sidebar = {
             numberModule++
         }
         if (this.activeLesson === 0) {
-            this.root.querySelector('.lesson-sidebar__lesson-header').classList.add('lesson-active')
+            const lessonHeader = this.root.querySelector('.lesson-sidebar__lesson-header')
+            lessonHeader.click()
         }
     },
     run() {
-        // const courseId = $lessonSidebar.dataset.courseId
         // const courseId = 3
         fetch(`/api/courses/${this.courseId}?format=json`)
             .then(response => response.json())
@@ -88,18 +99,3 @@ const sidebar = {
 }
 
 export default sidebar
-
-// print(200)
-// print('menuSteps', menuSteps)
-// print('numberLesson', numberLesson)
-
-
-// });
-
-
-// let url = 'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';
-// let response = await fetch(url);
-//
-// let commits = await response.json(); // читаем ответ в формате JSON
-//
-// alert(commits[0].author.login);

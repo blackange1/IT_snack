@@ -128,57 +128,55 @@
 <main>
     <div class="empty-sidebar">empty-sidebar</div>
     <div class="empty-tabs">t</div>
-    <article class="">
-        <div class="step-wrapper">
-            <div class="step-inner">
-                5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
-                <hr>
+    <article class="step-content step-wrapper">
+<!--        <div class="step-inner">-->
+<!--            5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано-->
+<!--            <hr>-->
 
-                <p>lesson | {{ current_step.CLASS_NAME}}</p>
-                <p>{{ current_step.text_html|safe }}</p>
+<!--            <p>lesson | {{ current_step.CLASS_NAME}}</p>-->
+<!--            <p>{{ current_step.text_html|safe }}</p>-->
 
-                {% if current_step.CLASS_NAME == 'Choice' %}
-                <ul>
-                    {% if current_step.is_multiple_choice %}
-                    {% for answer in current_step.answer_set.all %}
-                    <li><input type="checkbox" name="answer"> {{ answer.text }}</li>
-                    {% endfor %}
-                    {% else %}
-                    {% for answer in current_step.answer_set.all %}
-                    <li><input type="radio" name="answer"> {{ answer.text }}</li>
-                    {% endfor %}
-                    {% endif %}
-                </ul>
-                {% endif %}
-            </div>
-        </div>
+<!--            {% if current_step.CLASS_NAME == 'Choice' %}-->
+<!--            <ul>-->
+<!--                {% if current_step.is_multiple_choice %}-->
+<!--                {% for answer in current_step.answer_set.all %}-->
+<!--                <li><input type="checkbox" name="answer"> {{ answer.text }}</li>-->
+<!--                {% endfor %}-->
+<!--                {% else %}-->
+<!--                {% for answer in current_step.answer_set.all %}-->
+<!--                <li><input type="radio" name="answer"> {{ answer.text }}</li>-->
+<!--                {% endfor %}-->
+<!--                {% endif %}-->
+<!--            </ul>-->
+<!--            {% endif %}-->
+<!--        </div>-->
     </article>
 
-<!--    <div class="container">-->
-<!--        <div class="row">-->
-<!--            <div class="col-4" id="lessons_menu">-->
-<!--                менюха-->
-<!--            </div>-->
-<!--            <div class="col-8">-->
-<!--                <p>lesson | {{ current_step.CLASS_NAME}}</p>-->
-<!--                <p></p>-->
-<!--                <p>{{ current_step.text_html|safe }}</p>-->
+    <!--    <div class="container">-->
+    <!--        <div class="row">-->
+    <!--            <div class="col-4" id="lessons_menu">-->
+    <!--                менюха-->
+    <!--            </div>-->
+    <!--            <div class="col-8">-->
+    <!--                <p>lesson | {{ current_step.CLASS_NAME}}</p>-->
+    <!--                <p></p>-->
+    <!--                <p>{{ current_step.text_html|safe }}</p>-->
 
-<!--                {% if current_step.CLASS_NAME == 'Choice' %}-->
-<!--                <ul>-->
-<!--                    {% if current_step.is_multiple_choice %}-->
-<!--                    {% for answer in current_step.answer_set.all %}-->
-<!--                    <li><input type="checkbox" name="answer"> {{ answer.text }}</li>-->
-<!--                    {% endfor %}-->
-<!--                    {% else %}-->
-<!--                    {% for answer in current_step.answer_set.all %}-->
-<!--                    <li><input type="radio" name="answer"> {{ answer.text }}</li>-->
-<!--                    {% endfor %}-->
-<!--                    {% endif %}-->
-<!--                </ul>-->
-<!--                {% endif %}-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--                {% if current_step.CLASS_NAME == 'Choice' %}-->
+    <!--                <ul>-->
+    <!--                    {% if current_step.is_multiple_choice %}-->
+    <!--                    {% for answer in current_step.answer_set.all %}-->
+    <!--                    <li><input type="checkbox" name="answer"> {{ answer.text }}</li>-->
+    <!--                    {% endfor %}-->
+    <!--                    {% else %}-->
+    <!--                    {% for answer in current_step.answer_set.all %}-->
+    <!--                    <li><input type="radio" name="answer"> {{ answer.text }}</li>-->
+    <!--                    {% endfor %}-->
+    <!--                    {% endif %}-->
+    <!--                </ul>-->
+    <!--                {% endif %}-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 </main>
 {% endblock %}

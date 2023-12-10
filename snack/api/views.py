@@ -10,10 +10,7 @@ from .serializers import CourseSerializer, \
     CourseDetailSerializer, ModuleSerializer, LessonSerializer
 from course.models import Course, Module
 from lesson.models import Lesson
-from django.conf import settings
-
-LESSON_METHODS = settings.LESSON_METHODS
-TYPE_STEPS = settings.TYPE_STEPS
+from step.models import STEP_LIST, LESSON_METHODS, Text, Choice
 
 
 class CourseList(APIView):
@@ -59,16 +56,34 @@ class StepMenu(APIView):
         return Response(data)
 
 
-class StepItem(APIView):
-    def get(self, request, step_type, step_id):
-        print(step_type, step_id)
-        print(TYPE_STEPS)
-        if step_type not in TYPE_STEPS:
-            print(step_type)
-            return Response({
-                'status': 'error',
-            })
+# class StepItem(APIView):
+#     def get(self, request, step_type, step_id):
+#         # print(step_type, step_id)
+#         class_step = STEP_LIST.get(step_type, None)
+#         data = {}
+#         if not class_step:
+#             print(class_step)
+#             return Response({
+#                 'status': 'error',
+#             })
+#         if class_step.TYPE == 'text':
+#             ret
+#         print(class_step.TYPE)
+#         return Response({
+#             'data': 'data',
+#         })
 
+class StepText(APIView):
+    def get(self, request, step_id):
+        text = get_object_or_404(Text, pk=step_id)
         return Response({
-            'data': 'data',
+            'text_html': text.text_html
+        })
+
+
+class StepChoice(APIView):
+    def get(self, request, step_id):
+        choice = get_object_or_404(Choice, pk=step_id)
+        return Response({
+            'text_html': choice.text_html
         })

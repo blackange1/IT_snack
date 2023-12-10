@@ -17,6 +17,10 @@ body {
     text-align: center;
 }
 
+.hide {
+    display: none !important;
+}
+
 /* a,
 p {
     color: white;

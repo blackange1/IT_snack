@@ -1,8 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Lesson
-from django.conf import settings
-
-LESSON_METHODS = settings.LESSON_METHODS
+from step.models import LESSON_METHODS
 
 
 # lesson/<int:lesson_id>"

@@ -27,7 +27,9 @@
 .step {
     height: 15.9814596mm;
 }
-
+.step-link {
+    cursor: pointer;
+}
 /* .step-bottom a {
     position: relative;
     top: 20px;

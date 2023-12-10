@@ -7,6 +7,9 @@ from course.models import Course, Module
 from lesson.models import Lesson
 from step.models import Text, Choice, Answer
 from pathlib import Path
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 CURRENT_FILE_PATH = Path.cwd().joinpath('core').joinpath('models_TEST_DATA.json')
 
@@ -90,3 +93,21 @@ if False:
                         elif type_step == 'Code':
                             pass
     # m = Module.objects.get(name='test Module')
+
+
+# https://vegibit.com/how-to-extend-django-user-model/
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    study_courses = models.ManyToManyField(Course)
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()

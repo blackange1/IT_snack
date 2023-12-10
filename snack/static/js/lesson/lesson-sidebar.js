@@ -1,4 +1,3 @@
-// document.addEventListener("DOMContentLoaded", () => {
 import menuSteps from './lesson-menu.js'
 const print = console.log
 const $lessonSidebar = document.querySelector('.lesson-sidebar')

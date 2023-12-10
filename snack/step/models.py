@@ -93,3 +93,7 @@ STEP_LIST = {
     'code': Code,
     'video': Video,
 }
+
+TYPE_STEPS = list(STEP_LIST.keys())
+
+LESSON_METHODS = [f'{item}_set' for item in TYPE_STEPS]

@@ -1,3 +1,5 @@
+import stepsContent from './lesson-content-steps.js'
+
 let print = console.log
 const menuSteps = {
     root: undefined,
@@ -6,6 +8,7 @@ const menuSteps = {
     numberLesson: undefined,
     init(numberLesson) {
         if (!this.root) {
+            stepsContent.inti()
             this.root = document.getElementById('steps')
         } else {
             this.root.innerHTML = ''
@@ -39,56 +42,57 @@ const menuSteps = {
         if (order % 2) {
             div.classList.add('step-bottom')
         }
+        const step = document.createElement('a')
+        // step.setAttribute('href', `?type=${type}&id=${id}`)
+        step.classList.add('step-link')
+        step.dataset.type = type
+        step.dataset.id = id
+        step.dataset.solved = +solved
 
         switch (type) {
             // add type video
             case 'text':
-                div.innerHTML = `
-                        <a href="?type=${type}&id=${id}" data-solved="${+solved}">
-                            <svg width="11.5256mm" height="9.9814596mm" viewBox="0 0 11.5256 9.9814596">
-                                <g transform="translate(-47.980416,-108.30979)">
-                                    <path style="fill:${bgColor};fill-opacity:1;stroke:none;stroke-width:0.147642;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 47.980416,113.30052 2.8814,-4.99073 h 5.7628 l 1.46806,2.54274 1.41334,2.44799 -1.4649,2.53729 -1.4165,2.45344 h -5.7628 z"></path>
-                                </g>
-                            </svg>
-                        </a>
-                    `
+                step.innerHTML = `
+                    <svg width="11.5256mm" height="9.9814596mm" viewBox="0 0 11.5256 9.9814596">
+                        <g transform="translate(-47.980416,-108.30979)">
+                            <path style="fill:${bgColor};fill-opacity:1;stroke:none;stroke-width:0.147642;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 47.980416,113.30052 2.8814,-4.99073 h 5.7628 l 1.46806,2.54274 1.41334,2.44799 -1.4649,2.53729 -1.4165,2.45344 h -5.7628 z"></path>
+                        </g>
+                    </svg>
+                `
                 break
             case 'choice':
-                div.innerHTML = `
-                        <a href="?type=${type}&id=${id}" data-solved="${+solved}">
-                            <svg width="11.5256mm" height="9.9814596mm" viewBox="0 0 11.5256 9.9814596">
-                                <g transform="translate(-47.980416,-108.30979)">
-                                    <path style="fill:${bgColor};fill-opacity:1;stroke:none;stroke-width:0.147642;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 47.980416,113.30052 2.8814,-4.99073 h 5.7628 l 1.46806,2.54274 1.41334,2.44799 -1.4649,2.53729 -1.4165,2.45344 h -5.7628 z"></path>
-                                    <text style="font-size:8.25679px;font-family:Arial;-inkscape-font-specification:Arial;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:26.0056;stroke-linejoin:round" x="51.473404" y="116.30611">
-                                        <tspan style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:26.0056" x="51.473404" y="116.30611">?
-                                        </tspan>
-                                    </text>
-                                </g>
-                            </svg>
-                        </a>
-                    `
+                step.innerHTML = `
+                    <svg width="11.5256mm" height="9.9814596mm" viewBox="0 0 11.5256 9.9814596">
+                        <g transform="translate(-47.980416,-108.30979)">
+                            <path style="fill:${bgColor};fill-opacity:1;stroke:none;stroke-width:0.147642;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 47.980416,113.30052 2.8814,-4.99073 h 5.7628 l 1.46806,2.54274 1.41334,2.44799 -1.4649,2.53729 -1.4165,2.45344 h -5.7628 z"></path>
+                                <text style="font-size:8.25679px;font-family:Arial;-inkscape-font-specification:Arial;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:26.0056;stroke-linejoin:round" x="51.473404" y="116.30611">
+                                    <tspan style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:26.0056" x="51.473404" y="116.30611">?
+                                    </tspan>
+                                </text>
+                        </g>
+                    </svg>
+                `
                 break
             case 'code':
-                div.innerHTML = `
-                        <a href="?type=${type}&id=${id}" data-solved="${+solved}">
-                            <svg width="11.5256mm" height="9.9814596mm" viewBox="0 0 11.5256 9.9814596">
-                                <g transform="translate(-47.980416,-108.30979)">
-                                    <path style="fill:${bgColor};fill-opacity:1;stroke:none;stroke-width:0.147642;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 47.980416,113.30052 2.8814,-4.99073 h 5.7628 l 1.46806,2.54274 1.41334,2.44799 -1.4649,2.53729 -1.4165,2.45344 h -5.7628 z"></path>
-                                    <path style="fill:#232529;fill-opacity:1;stroke:#ffffff;stroke-width:0.4;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 50.181306,113.30052 1.780955,-3.0847 h 3.561909 l 0.907385,1.57163 0.87357,1.51307 -0.905438,1.56826 -0.875517,1.51644 h -3.561909 z"></path>
-                                    <path style="fill:#232529;fill-opacity:1;stroke:#ffffff;stroke-width:0.292629;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 51.936422,114.85288 h 3.680146"></path>
-                                    <path style="fill:#232529;fill-opacity:1;stroke:#ffffff;stroke-width:0.292629;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 51.936422,114.02244 1.281091,-0.95347"></path>
-                                    <path style="fill:#232529;fill-opacity:1;stroke:#ffffff;stroke-width:0.292629;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 51.936422,112.1155 1.281091,0.95347"></path>
-                                </g>
-                            </svg>
-                        </a>
-                    `
+                step.innerHTML = `
+                    <svg width="11.5256mm" height="9.9814596mm" viewBox="0 0 11.5256 9.9814596">
+                        <g transform="translate(-47.980416,-108.30979)">
+                            <path style="fill:${bgColor};fill-opacity:1;stroke:none;stroke-width:0.147642;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 47.980416,113.30052 2.8814,-4.99073 h 5.7628 l 1.46806,2.54274 1.41334,2.44799 -1.4649,2.53729 -1.4165,2.45344 h -5.7628 z"></path>
+                            <path style="fill:#232529;fill-opacity:1;stroke:#ffffff;stroke-width:0.4;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 50.181306,113.30052 1.780955,-3.0847 h 3.561909 l 0.907385,1.57163 0.87357,1.51307 -0.905438,1.56826 -0.875517,1.51644 h -3.561909 z"></path>
+                            <path style="fill:#232529;fill-opacity:1;stroke:#ffffff;stroke-width:0.292629;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 51.936422,114.85288 h 3.680146"></path>
+                            <path style="fill:#232529;fill-opacity:1;stroke:#ffffff;stroke-width:0.292629;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 51.936422,114.02244 1.281091,-0.95347"></path>
+                            <path style="fill:#232529;fill-opacity:1;stroke:#ffffff;stroke-width:0.292629;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 51.936422,112.1155 1.281091,0.95347"></path>
+                        </g>
+                    </svg>
+                `
                 break
-
         }
+        div.appendChild(step)
         // obj = this
-        const step = div.querySelector('a')
+        // const step = div.querySelector('a')
         step.onclick = function (event) {
             event.preventDefault();
+            stepsContent.renderContent(type, id)
 
             if (menuSteps.activeElement == this) {
                 return

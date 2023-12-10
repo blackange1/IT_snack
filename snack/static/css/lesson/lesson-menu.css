@@ -29,6 +29,7 @@
 }
 .step-link {
     cursor: pointer;
+    user-select: none;
 }
 /* .step-bottom a {
     position: relative;

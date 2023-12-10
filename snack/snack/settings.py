@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'step.apps.StepConfig',
     'lesson.apps.LessonConfig',
     'course.apps.CourseConfig',
+    'progress.apps.ProgressConfig',
     # 'polls.apps.PollsConfig',
     # comment
     # solution

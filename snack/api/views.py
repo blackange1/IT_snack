@@ -80,10 +80,49 @@ class StepText(APIView):
             'text_html': text.text_html
         })
 
+    def post(self, request, step_id):
+        print(dir(request))
+        print(request.user)
+        print(request.data)
+        print(step_id)
+        return Response({
+            'status': 'ok'
+        })
+
 
 class StepChoice(APIView):
     def get(self, request, step_id):
         choice = get_object_or_404(Choice, pk=step_id)
+        if choice.preserve_order:
+            answer_set = choice.answer_set.all()
+        else:
+            answer_set = choice.answer_set.order_by("?")
+
+        answers = []
+        for answer in answer_set[:choice.sample_size]:
+            answers.append({
+                'id': answer.id,
+                'text': answer.text
+            })
+
         return Response({
-            'text_html': choice.text_html
+            'id': choice.id,
+            'text_html': choice.text_html,
+            'is_multiple_choice': choice.is_multiple_choice,
+            'is_always_correct': choice.is_always_correct,
+            'preserve_order': choice.preserve_order,
+            'is_html_enabled': choice.is_html_enabled,
+            'is_options_feedback': choice.is_options_feedback,
+            'sample_size': choice.sample_size,
+            'points': choice.points,
+            'answers': answers,
+        })
+
+    def post(self, request, step_id):
+        print(dir(request))
+        print(request.user)
+        print(request.data)
+        print(step_id)
+        return Response({
+            'status': 'ok'
         })

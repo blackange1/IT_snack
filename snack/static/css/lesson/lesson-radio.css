@@ -1,5 +1,5 @@
 /* select radiobatton */
-.task_title {
+.task__title {
     font-weight: bold;
 }
 
@@ -7,7 +7,7 @@
     margin: 20px 0;
 }
 
-.task_points {
+.task__points {
     font-size: 10px;
     margin-bottom: 5px;
 }
@@ -109,7 +109,7 @@
 }
 
 /* ORDER */
-.task_title {}
+.task__title {}
 
 .order__list {}
 

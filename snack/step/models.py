@@ -56,8 +56,8 @@ class Choice(Step):
     # Будь-яка відповідь є правильною
     is_always_correct = models.BooleanField(default=False)
 
-    # Не виводити відповіді випадково
-    preserve_order = models.BooleanField(default=False)
+    # Не виводити відповіді випадково | зберігати порядок
+    preserve_order = models.BooleanField(default=True)
 
     # увімкнено html
     is_html_enabled = models.BooleanField(default=False)
@@ -67,6 +67,10 @@ class Choice(Step):
 
     # Розмір вибірки з варіантів відповіді
     sample_size = models.PositiveSmallIntegerField()
+
+    points = models.PositiveSmallIntegerField(default=1)
+    # def check(self):
+    #     pass
 
 
 class Answer(Order):

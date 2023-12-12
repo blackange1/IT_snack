@@ -7,5 +7,5 @@ from .models import Lesson
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
     model = Lesson
-    list_display = ("name",)
+    list_display = ("name", "order")
     list_filter = ("module",)

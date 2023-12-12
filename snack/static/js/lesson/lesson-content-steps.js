@@ -1,19 +1,6 @@
+import getCookie from '../tools.js'
 let print = console.log
 
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
 
 function getTextPoints(num) {
     const nn = num % 100
@@ -44,7 +31,7 @@ const stepsContent = {
         return elem
     },
     renderContent(type, id) {
-        print(type, id)
+        print("type, id =>", type, id)
         const div = document.getElementById(type + id)
         if (div) {
             this.activeTeoryIttem.classList.add('hide')
@@ -62,7 +49,7 @@ const stepsContent = {
                             this.renderChoice(step, type, id)
                             break
                     }
-                    print('fetch step', step)
+                    print('fetch_step', step)
                     // menuSteps.renderMenuStep(lessons)
                 })
         }

@@ -88,8 +88,8 @@ class StepTextItem(APIView):
         print(request.data)
         print(step_id)
         text = get_object_or_404(StepText, pk=step_id)
-        print(text.test())
-        print(dir(text))
+        print('text.get_points()', text.get_points())
+        # add progres text if isnue
         return Response({
             'status': 'ok'
         })

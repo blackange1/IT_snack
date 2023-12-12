@@ -1,3 +1,4 @@
+import getCookie from '../tools.js'
 import stepsContent from './lesson-content-steps.js'
 
 let print = console.log
@@ -93,6 +94,35 @@ const menuSteps = {
         step.onclick = function (event) {
             event.preventDefault();
             stepsContent.renderContent(type, id)
+            switch (type) {
+                case 'text':
+                    if (this.dataset.points == 0) {
+                        print('type', type)
+
+                        // menuSteps.setPoint["text"](this, id)
+                        const csrftoken = getCookie('csrftoken');
+                        fetch(`/api/step-item/text/${id}/?format=json`, {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json, text/plain, */*',
+                                'Content-Type': 'application/json',
+                                "X-CSRFToken": csrftoken
+                            },
+                            body: JSON.stringify({})
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status == 'ok') {
+                                    print(this)
+                                    this.dataset.points = 1
+                                }
+                            })
+                    }
+                    break
+                case 'choice':
+                    print('choice')
+                    break
+            }
 
             if (menuSteps.activeElement == this) {
                 return

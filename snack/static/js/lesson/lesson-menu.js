@@ -31,9 +31,9 @@ const menuSteps = {
             `
         this.root.appendChild(div)
     },
-    addElement(type, id, order, solved = false) {
+    addElement(type, id, points, order) {
         let bgColor = '#605f62'
-        if (solved) {
+        if (points) {
             bgColor = '#235ecd'
         }
         const div = document.createElement('div')
@@ -47,7 +47,7 @@ const menuSteps = {
         step.classList.add('step-link')
         step.dataset.type = type
         step.dataset.id = id
-        step.dataset.solved = +solved
+        step.dataset.points = +points
 
         switch (type) {
             // add type video
@@ -109,7 +109,7 @@ const menuSteps = {
     changeStep(obj, activate) {
         // active: bool | True - activate, false - deactivate
         let bgColor = '#605f62'
-        if (obj.dataset.solved == "1") {
+        if (obj.dataset.points > 0) {
             bgColor = '#235ecd'
         }
         const $path = obj.querySelector('path')
@@ -129,7 +129,7 @@ const menuSteps = {
         let countSteps = 0
         let order = 0
         for (const lesson of lessons) {
-            this.addElement(lesson.type, lesson.id, order)
+            this.addElement(lesson.type, lesson.id, lesson.points, order)
             order++
             countSteps++
         }

@@ -4,8 +4,8 @@ from django.db import models
 
 # add course | test data
 from course.models import Course, Module
-from lesson.models import Lesson
-from step.models import Text, Choice, Answer
+# from lesson.models import Lesson
+# from step.models import Text, Choice, Answer
 from pathlib import Path
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save

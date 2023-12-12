@@ -11,6 +11,7 @@ from .serializers import CourseSerializer, \
 from course.models import Course, Module
 from lesson.models import Lesson
 from step.models import STEP_LIST, LESSON_METHODS, Text, Choice
+from progress.models import get_step_progres, StepText
 
 
 class CourseList(APIView):
@@ -40,15 +41,16 @@ class StepMenu(APIView):
     def get(self, request, lesson_id):
         data = []
         lesson = get_object_or_404(Lesson, pk=lesson_id)
-        print(dir(lesson))
 
         for attribute in LESSON_METHODS:
             for item in lesson.__getattribute__(attribute).all():
+                print('item', dir(item))
+                print('item', item.TYPE)
                 data.append({
                     'order': item.order,
                     'type': item.TYPE,
                     'id': item.id,
-                    'solved': False,
+                    'points': get_step_progres(item.TYPE, item, request.user),
                 })
                 # print(item.TYPE, item.order, item.id)
 
@@ -73,11 +75,11 @@ class StepMenu(APIView):
 #             'data': 'data',
 #         })
 
-class StepText(APIView):
+class StepTextItem(APIView):
     def get(self, request, step_id):
-        text = get_object_or_404(Text, pk=step_id)
+        text = get_object_or_404(StepText, pk=step_id)
         return Response({
-            'text_html': text.text_html
+            'text_html': text.text_html,
         })
 
     def post(self, request, step_id):
@@ -85,6 +87,9 @@ class StepText(APIView):
         print(request.user)
         print(request.data)
         print(step_id)
+        text = get_object_or_404(StepText, pk=step_id)
+        print(text.test())
+        print(dir(text))
         return Response({
             'status': 'ok'
         })

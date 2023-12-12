@@ -39,6 +39,16 @@ class Step(Order):
 class Text(Step):
     TYPE = 'text'
 
+    # def get_points(self, user):
+    #     print(dir(self))
+    #     print(self.progresstext_set)
+    #     print(self.progresstext_set.fi)
+    #     print(self, user)
+    #     return 4
+        # progress_text = ProgressText.objects.filter(step=self, user=user)
+        # print('progress_text', progress_text)
+        # return bool(progress_text)
+
 
 ## трикутник
 class Video(Order):
@@ -69,8 +79,12 @@ class Choice(Step):
     sample_size = models.PositiveSmallIntegerField()
 
     points = models.PositiveSmallIntegerField(default=1)
+
     # def check(self):
     #     pass
+
+    # def get_points(self, user):
+    #     return 9
 
 
 class Answer(Order):

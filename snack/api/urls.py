@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import CourseList, CourseDetail, ModuleDetail, StepMenu, \
-    StepText, StepChoice
+    StepTextItem, StepChoice
 
 urlpatterns = [
     # ex: /api/
@@ -10,6 +10,6 @@ urlpatterns = [
     path("modules/<int:module_id>/", ModuleDetail.as_view(), name="module_detail"),
     path("step-menu/<int:lesson_id>/", StepMenu.as_view(), name="steps_menu"),
     # path("step-item/<slug:step_type>/<int:step_id>/", StepItem.as_view(), name="steps_item"),
-    path("step-item/text/<int:step_id>/", StepText.as_view(), name="steps_text"),
+    path("step-item/text/<int:step_id>/", StepTextItem.as_view(), name="steps_text"),
     path("step-item/choice/<int:step_id>/", StepChoice.as_view(), name="steps_choice"),
 ]

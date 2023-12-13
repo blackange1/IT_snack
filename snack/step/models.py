@@ -45,9 +45,16 @@ class Text(Step):
     #     print(self.progresstext_set.fi)
     #     print(self, user)
     #     return 4
-        # progress_text = ProgressText.objects.filter(step=self, user=user)
-        # print('progress_text', progress_text)
-        # return bool(progress_text)
+    # progress_text = ProgressText.objects.filter(step=self, user=user)
+    # print('progress_text', progress_text)
+    # return bool(progress_text)
+
+    def get_points(self, user):
+        # print(dir(self))
+        progress = self.progresstext_set.filter(user=user).first()
+        if progress:
+            return 1
+        return 0
 
 
 ## трикутник
@@ -83,8 +90,8 @@ class Choice(Step):
     # def check(self):
     #     pass
 
-    # def get_points(self, user):
-    #     return 9
+    def get_points(self, user):
+        return 999
 
 
 class Answer(Order):

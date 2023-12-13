@@ -11,7 +11,7 @@ from .serializers import CourseSerializer, \
 from course.models import Course, Module
 from lesson.models import Lesson
 from step.models import STEP_LIST, LESSON_METHODS, Text, Choice
-from progress.models import get_step_progres, StepText
+from progress.models import get_step_progres, ProgressText
 
 
 class CourseList(APIView):
@@ -50,8 +50,8 @@ class StepMenu(APIView):
                     'order': item.order,
                     'type': item.TYPE,
                     'id': item.id,
-
-                    'points': get_step_progres(item.TYPE, item, request.user),
+                    'points': item.get_points(request.user),
+                    # 'points': get_step_progres(item.TYPE, item, request.user),
                 })
                 # print(item.TYPE, item.order, item.id)
 
@@ -78,18 +78,24 @@ class StepMenu(APIView):
 
 class StepTextItem(APIView):
     def get(self, request, step_id):
-        text = get_object_or_404(StepText, pk=step_id)
+        text = get_object_or_404(Text, pk=step_id)
         return Response({
             'text_html': text.text_html,
         })
 
     def post(self, request, step_id):
-        print(dir(request))
-        print(request.user)
-        print(request.data)
-        print(step_id)
-        text = get_object_or_404(StepText, pk=step_id)
-        print('text.get_points()', text.get_points())
+        text = get_object_or_404(Text, pk=step_id)
+        print('text', text)
+        user = request.user
+        points = text.get_points(request.user)
+        if not points:
+            item = ProgressText.objects.create(user=user, step=text)
+        # print('item', item)
+        # print(dir(request))
+        # print(request.user)
+        # print(request.data)
+        # print(step_id)
+        # # print('text.get_points()', text.get_points())
         # add progres text if isnue
         return Response({
             'status': 'ok'
@@ -129,6 +135,18 @@ class StepChoice(APIView):
         print(request.user)
         print(request.data)
         print(step_id)
+        return Response({
+            'status': 'ok'
+        })
+
+
+class Test(APIView):
+    def get(self, request):
+        # obj = Text.objects.all()
+        # for item in obj:
+        #     item.get_points(request.user)
+        #
+        # print(obj)
         return Response({
             'status': 'ok'
         })

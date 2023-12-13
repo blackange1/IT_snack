@@ -39,11 +39,11 @@ def get_step_progres(typeof, step, user):
     return 0
 
 
-class StepText(Text):
-    class Meta:
-        proxy = True
-
-    def get_points(self):
-        print('self', self)
-        print('test')
-        return 2
+# class StepText(Text):
+#     class Meta:
+#         proxy = True
+#
+#     def get_points(self):
+#         print('self', self)
+#         print('test')
+#         return 2

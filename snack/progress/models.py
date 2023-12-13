@@ -27,10 +27,12 @@ PROGRES_LIST = {
 def get_step_progres(typeof, step, user):
     if typeof in ['text']:
         progres = PROGRES_LIST.get(typeof)
-        item = progres.objects.filter(step=step, user=user)
+        item = 0
+        # item = progres.objects.filter(step=step, user=user)
         return 1 if item else 0
     progres = PROGRES_LIST.get(typeof)
-    item = progres.objects.filter(step=step, user=user)
+    item = 0
+    # item = progres.objects.filter(step=step, user=user)
     if item:
         print(item)
         return item[0].points

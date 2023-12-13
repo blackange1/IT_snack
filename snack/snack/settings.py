@@ -37,11 +37,11 @@ INSTALLED_APPS = [
     'rest_framework',
     # 'snippets',
     'core.apps.CoreConfig',
-    'api.apps.ApiConfig',
     'step.apps.StepConfig',
     'lesson.apps.LessonConfig',
     'course.apps.CourseConfig',
     'progress.apps.ProgressConfig',
+    'api.apps.ApiConfig',
     # 'polls.apps.PollsConfig',
     # comment
     # solution

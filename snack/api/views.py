@@ -50,6 +50,7 @@ class StepMenu(APIView):
                     'order': item.order,
                     'type': item.TYPE,
                     'id': item.id,
+
                     'points': get_step_progres(item.TYPE, item, request.user),
                 })
                 # print(item.TYPE, item.order, item.id)

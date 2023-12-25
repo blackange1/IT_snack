@@ -91,7 +91,10 @@ class Choice(Step):
     #     pass
 
     def get_points(self, user):
-        return 999
+        progress = self.progresschoice_set.filter(user=user).first()
+        if progress:
+            return progress.points
+        return 0
 
 
 class Answer(Order):

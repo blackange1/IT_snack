@@ -1,4 +1,5 @@
 import getCookie from '../tools.js'
+import colors from '../vars.js'
 import stepsContent from './lesson-content-steps.js'
 
 let print = console.log
@@ -32,10 +33,15 @@ const menuSteps = {
             `
         this.root.appendChild(div)
     },
+    updateElement(menuItem, points=1) {
+        menuItem.dataset.points = points
+        const $path = menuItem.querySelector('path')
+        $path.style.fill = colors.blue
+    },
     addElement(type, id, points, order) {
-        let bgColor = '#605f62'
+        let bgColor = colors.grey
         if (points) {
-            bgColor = '#235ecd'
+            bgColor = colors.blue
         }
         const div = document.createElement('div')
         div.classList.add('step')
@@ -113,8 +119,8 @@ const menuSteps = {
                             .then(response => response.json())
                             .then(data => {
                                 if (data.status == 'ok') {
-                                    print(this)
-                                    this.dataset.points = 1
+                                    menuSteps.updateElement(this)
+                                    
                                 }
                             })
                     }
@@ -138,15 +144,13 @@ const menuSteps = {
     },
     changeStep(obj, activate) {
         // active: bool | True - activate, false - deactivate
-        let bgColor = '#605f62'
-        if (obj.dataset.points > 0) {
-            bgColor = '#235ecd'
-        }
+        let bgColor = obj.dataset.points > 0 ? colors.blue: colors.grey
+
         const $path = obj.querySelector('path')
         let style = `fill:${bgColor};`
         let d = ''
         if (activate) {
-            style = style + 'fill-opacity:1;stroke:#ffbd00;stroke-width:0.908896;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1'
+            style = style + `fill-opacity:1;stroke:${colors.orange};stroke-width:0.908896;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1`
             d = "m 48.505164,113.30029 2.618892,-4.53605 h 5.237786 l 1.334314,2.31109 1.28458,2.22496 -1.331442,2.30614 -1.287452,2.22991 h -5.237786 z"
         } else {
             style = style + 'fill-opacity:1;stroke:none;stroke-width:0.147642;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1'

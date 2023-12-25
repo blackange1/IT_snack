@@ -101,7 +101,8 @@ const stepsContent = {
             customRadio.appendChild(taskCheck)
             stepInner.appendChild(customRadio)
         } else {
-            const customRadio = this.createElement('div', 'custom-radio')
+            const customRadio = this.createElement('form', 'custom-radio')
+            customRadio.setAttribute('data-id', id)
             // const customRadio = this.createElement('form', 'custom-radio')
             // customRadio.setAttribute('action', `/api/step-item/choice/1/`)
             customRadio.setAttribute('method', 'POST')
@@ -111,7 +112,7 @@ const stepsContent = {
             for (const answer of step.answers) {
                 const label = this.createElement('label', 'custom-radio__label')
                 label.innerHTML = `
-                    <input type="radio" name="answer${step.id}" id="answer${answer.id}">
+                    <input type="radio" name="answer${step.id}" id="answer${answer.id}" data-id="${answer.id}">
                     <span class="custom-radio__text">${answer.text}</span>
                 `
                 customRadio.appendChild(label)
@@ -121,29 +122,40 @@ const stepsContent = {
                 <div class="task__points">${getTextPoints(step.points)} за розв’язок.</div>
             `
             const submit = this.createElement('button', 'button button-primary')
-            submit.setAttribute('type', 'button')
-            // submit.setAttribute('type', 'submit')
+
+            submit.setAttribute('type', 'submit')
             submit.textContent = 'Надіслати'
-            submit.onclick = function (event) {
-                // event.preventDefault();
-                print(this)
-                const csrftoken = getCookie('csrftoken');
-                // FIXED
-                const data = JSON.stringify({
-                    action: "checed",
-                })
-                
-                fetch("/api/step-item/choice/1/", {
-                    method: 'POST',
-                    body: data,
-                    headers: { 'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json',
-                        "X-CSRFToken": csrftoken },
-                }).then(response => response.json())
-                .then(data => {
-                    print('data', data)
-                })
+
+            customRadio.onsubmit = async (event) => {
+                event.preventDefault();
+                const $radioAnsver = customRadio.querySelector('input[type="radio"]:checked')
+                if ($radioAnsver) {
+                    print('$radioAnsver', $radioAnsver)
+                    const csrftoken = getCookie('csrftoken');
+                    const data = JSON.stringify({
+                        action: "check",
+                        selected: $radioAnsver.dataset.id,
+                        // FIXED
+                    })
+                    const stepId = customRadio.dataset.id
+                    fetch(`/api/step-item/choice/${stepId}/`, {
+                        method: 'POST',
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json, text/plain, */*',
+                            'Content-Type': 'application/json',
+                            "X-CSRFToken": csrftoken
+                        },
+                    }).then(response => response.json()
+                    ).then(data => {
+                        print('data', data)
+                    })
+                } else {
+                    alert('Ти не вибрав жодного елемента')
+                }
+
             }
+
             taskCheck.appendChild(submit)
             customRadio.appendChild(taskCheck)
             stepInner.appendChild(customRadio)

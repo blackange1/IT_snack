@@ -77,6 +77,7 @@ class StepMenu(APIView):
 #         })
 
 class StepTextItem(APIView):
+    # api/step-item/text/<int:step_id>
     def get(self, request, step_id):
         text = get_object_or_404(Text, pk=step_id)
         return Response({

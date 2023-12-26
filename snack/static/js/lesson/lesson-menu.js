@@ -120,7 +120,6 @@ const menuSteps = {
                             .then(data => {
                                 if (data.status == 'ok') {
                                     menuSteps.updateElement(this)
-                                    
                                 }
                             })
                     }

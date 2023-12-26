@@ -96,6 +96,20 @@ class Choice(Step):
             return progress.points
         return 0
 
+    def check_answer(self, user, select):
+        # FIXED додати ліміт на спроби
+        answer = self.answer_set.filter(pk=select).first()
+        progress = self.progresschoice_set.filter(user=user).first()
+        max_points = self.points
+        if answer:
+            if answer.is_correct:
+                if progress:
+                    progress.points = max_points
+                    progress.save()
+                    return True, max_points, True
+                return False, max_points, True
+        return False, 0, False
+
 
 class Answer(Order):
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)

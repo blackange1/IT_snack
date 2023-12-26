@@ -1,4 +1,5 @@
 import getCookie from '../tools.js'
+import colors from '../vars.js'
 let print = console.log
 
 
@@ -19,6 +20,7 @@ function getTextPoints(num) {
 
 const stepsContent = {
     $theory: undefined,
+    $menuSteps: document.getElementById('steps'),
     activeTeoryIttem: undefined,
     // steps: [],
     inti() {
@@ -81,31 +83,50 @@ const stepsContent = {
 
         if (step.is_multiple_choice) {
             print('is_multiple_choice')
-            const customRadio = document.createElement('div')
+            const customCheckbox = document.createElement('form')
+            customCheckbox.setAttribute('data-id', id)
             const taskTitle = this.createElement('p', 'task__title')
             taskTitle.textContent = "Виберіть декілька відповідей"
-            customRadio.appendChild(taskTitle)
+            customCheckbox.appendChild(taskTitle)
             for (const answer of step.answers) {
                 const label = this.createElement('label', 'container')
                 label.innerHTML = `
-                    <input type="checkbox" id="answer${answer.id}">
+                    <input type="checkbox" id="answer${answer.id} data-id=${answer.id}">
                     <span class="checkmark"></span>${answer.text}
                 `
-                customRadio.appendChild(label)
+                customCheckbox.appendChild(label)
             }
             const taskCheck = this.createElement('div', 'task__check')
             taskCheck.innerHTML = `
                 <div class="task__points">${getTextPoints(step.points)} за розв’язок.</div>
-                <button type="button" class="button button-primary">Надіслати</button>
             `
-            customRadio.appendChild(taskCheck)
-            stepInner.appendChild(customRadio)
+            const submit = this.createElement('button', 'button button-primary')
+            submit.setAttribute('type', 'submit')
+            submit.textContent = 'Надіслати'
+
+
+            customCheckbox.onsubmit = (event) => {
+                event.preventDefault()
+                const $checkboxAnsver = customCheckbox.querySelectorAll('input[type="checkbox"]:checked')
+                print('$checkboxAnsver', $checkboxAnsver)
+                if ($checkboxAnsver.length) {
+                    // FIXED
+                } else {
+                    alert('Ти не вибрав жодного елемента')
+                }
+            }
+
+            taskCheck.appendChild(submit)
+            customCheckbox.appendChild(taskCheck)
+            stepInner.appendChild(customCheckbox)
+
+
         } else {
             const customRadio = this.createElement('form', 'custom-radio')
             customRadio.setAttribute('data-id', id)
             // const customRadio = this.createElement('form', 'custom-radio')
             // customRadio.setAttribute('action', `/api/step-item/choice/1/`)
-            customRadio.setAttribute('method', 'POST')
+            // customRadio.setAttribute('method', 'POST')
             const taskTitle = this.createElement('p', 'task__title')
             taskTitle.textContent = "Виберіть один варіант зі списку"
             customRadio.appendChild(taskTitle)
@@ -126,18 +147,20 @@ const stepsContent = {
             submit.setAttribute('type', 'submit')
             submit.textContent = 'Надіслати'
 
-            customRadio.onsubmit = async (event) => {
+            // customRadio.onsubmit = async (event) => {
+            customRadio.onsubmit = (event) => {
                 event.preventDefault();
                 const $radioAnsver = customRadio.querySelector('input[type="radio"]:checked')
                 if ($radioAnsver) {
                     print('$radioAnsver', $radioAnsver)
-                    const csrftoken = getCookie('csrftoken');
-                    const data = JSON.stringify({
-                        action: "check",
-                        selected: $radioAnsver.dataset.id,
-                        // FIXED
-                    })
+                    const csrftoken = getCookie('csrftoken')
                     const stepId = customRadio.dataset.id
+                    const data = JSON.stringify({
+                        // id: +stepId,
+                        // is_multiple_choice: false,
+                        selected: +$radioAnsver.dataset.id,
+                        action: "check",
+                    })
                     fetch(`/api/step-item/choice/${stepId}/`, {
                         method: 'POST',
                         body: data,
@@ -149,6 +172,23 @@ const stepsContent = {
                     }).then(response => response.json()
                     ).then(data => {
                         print('data', data)
+                        // $stepMenuItem = document.querySelector('')
+                        // FIXED
+                        if (data['solved']) {
+                            const menuChoices = stepsContent.$menuSteps.querySelectorAll(`a[data-type="choice"]`)
+                            print('a', menuChoices)
+                            for (const menuChoice of menuChoices) {
+                                if (menuChoice.dataset.id == stepId) {
+                                    menuChoice.dataset.points = data['points']
+                                    const $path = menuChoice.querySelector('path')
+                                    $path.style.fill = colors.blue
+                                    // menuChoice.click()
+                                    break
+                                }
+                            }
+                            print('stepsContent.$menuSteps', stepsContent.$menuSteps)
+                        }
+
                     })
                 } else {
                     alert('Ти не вибрав жодного елемента')

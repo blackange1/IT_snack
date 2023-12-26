@@ -11,7 +11,7 @@ from .serializers import CourseSerializer, \
 from course.models import Course, Module
 from lesson.models import Lesson
 from step.models import STEP_LIST, LESSON_METHODS, Text, Choice
-from progress.models import get_step_progres, ProgressText
+from progress.models import get_step_progres, ProgressText, ProgressChoice
 
 
 class CourseList(APIView):
@@ -90,14 +90,8 @@ class StepTextItem(APIView):
         user = request.user
         points = text.get_points(request.user)
         if not points:
-            item = ProgressText.objects.create(user=user, step=text)
-        # print('item', item)
-        # print(dir(request))
-        # print(request.user)
-        # print(request.data)
-        # print(step_id)
-        # # print('text.get_points()', text.get_points())
-        # add progres text if isnue
+            ProgressText.objects.create(user=user, step=text)
+
         return Response({
             'status': 'ok'
         })
@@ -132,13 +126,25 @@ class StepChoice(APIView):
         })
 
     def post(self, request, step_id):
-        print(dir(request))
-        print(request.user)
-        print(request.data)
-        print(step_id)
-        return Response({
-            'status': 'ok'
-        })
+        data = request.data
+        selected = data.get('selected', None)
+        if not selected:
+            return Response({
+                'status': 'error'
+            })
+        choice = get_object_or_404(Choice, pk=step_id)
+        user = request.user
+        if choice.is_multiple_choice:
+            pass
+        else:
+            is_choice_create, points, solved = choice.check_answer(user, selected)
+            if (not is_choice_create) and solved:
+                ProgressChoice.objects.create(user=user, step=choice, points=points)
+            return Response({
+                'status': 'ok',
+                'points': points,  # int
+                'solved': solved  # bool
+            })
 
 
 class Test(APIView):

@@ -96,6 +96,12 @@ class Choice(Step):
             return progress.points
         return 0
 
+    def get_solved(self, user):
+        progress = self.progresschoice_set.filter(user=user).first()
+        if progress:
+            return progress.solved
+        return False
+
     def check_answer(self, user, select):
         # FIXED додати ліміт на спроби
         answer = self.answer_set.filter(pk=select).first()
@@ -106,9 +112,36 @@ class Choice(Step):
                 if progress:
                     progress.points = max_points
                     progress.save()
-                    return True, max_points, True
-                return False, max_points, True
-        return False, 0, False
+                    return progress, max_points, True
+                return None, max_points, True
+        return None, 0, False
+
+    def check_answer_multi(self, user, selected, answers):
+        # FIXED додаткова перевірка на кількість отриманих запитань
+        not_correct, correct = 0, 0
+        for index, pk in enumerate(answers):
+            answer = self.answer_set.filter(pk=pk).first()
+            select = selected[index]
+            if answer:
+                if answer.is_correct:
+                    if select:
+                        correct += 1
+                    else:
+                        not_correct += 1
+                elif select:
+                    not_correct += 1
+            else:
+                pass  # errot
+
+        points = self.points * round(correct / (correct + not_correct), 2)
+        print('points', points)
+        progress = self.progresschoice_set.filter(user=user).first()
+        if progress:
+            if points >= progress.points:
+                progress.points = points
+                # progress.save()
+            return progress, points, points > 0
+        return None, points, points > 0
 
 
 class Answer(Order):

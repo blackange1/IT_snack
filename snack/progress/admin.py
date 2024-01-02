@@ -12,4 +12,4 @@ class ProgressTextAdmin(admin.ModelAdmin):
 @admin.register(ProgressChoice)
 class ProgressChoiceAdmin(admin.ModelAdmin):
     model = ProgressChoice
-    list_display = ("user", "step", "points")
+    list_display = ("user", "step", "points", "solved")

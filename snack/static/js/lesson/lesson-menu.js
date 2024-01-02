@@ -10,7 +10,8 @@ const menuSteps = {
     numberLesson: undefined,
     init(numberLesson) {
         if (!this.root) {
-            stepsContent.inti()
+            // stepsContent.init(this)
+            stepsContent.init()
             this.root = document.getElementById('steps')
         } else {
             this.root.innerHTML = ''
@@ -33,12 +34,19 @@ const menuSteps = {
             `
         this.root.appendChild(div)
     },
-    updateElement(menuItem, points=1) {
-        menuItem.dataset.points = points
+    // updateElement(menuItem, points=1) {
+    updateElement(menuItem, attributes) {
+        for (const [key, value] of Object.entries(attributes)) {
+            menuItem.setAttribute(`data-${key}`, value)
+        }
+        // menuItem.dataset.points = points
         const $path = menuItem.querySelector('path')
         $path.style.fill = colors.blue
     },
-    addElement(type, id, points, order) {
+    addElement(lesson, order) {
+        const type = lesson.type
+        const id = lesson.id
+        const points = lesson.points
         let bgColor = colors.grey
         if (points) {
             bgColor = colors.blue
@@ -52,10 +60,13 @@ const menuSteps = {
         const step = document.createElement('a')
         // step.setAttribute('href', `?type=${type}&id=${id}`)
         step.classList.add('step-link')
-        step.dataset.type = type
-        step.dataset.id = id
-        step.dataset.points = +points
 
+        // step.dataset.type = type
+        // step.dataset.id = id
+        // step.dataset.points = points
+        for (const [key, value] of Object.entries(lesson)) {
+            step.setAttribute(`data-${key}`, value)
+        }
         switch (type) {
             // add type video
             case 'text':
@@ -119,7 +130,7 @@ const menuSteps = {
                             .then(response => response.json())
                             .then(data => {
                                 if (data.status == 'ok') {
-                                    menuSteps.updateElement(this)
+                                    menuSteps.updateElement(this, { 'points': 1 })
                                 }
                             })
                     }
@@ -143,7 +154,7 @@ const menuSteps = {
     },
     changeStep(obj, activate) {
         // active: bool | True - activate, false - deactivate
-        let bgColor = obj.dataset.points > 0 ? colors.blue: colors.grey
+        let bgColor = obj.dataset.points > 0 ? colors.blue : colors.grey
 
         const $path = obj.querySelector('path')
         let style = `fill:${bgColor};`
@@ -162,7 +173,8 @@ const menuSteps = {
         let countSteps = 0
         let order = 0
         for (const lesson of lessons) {
-            this.addElement(lesson.type, lesson.id, lesson.points, order)
+            // this.addElement(lesson.type, lesson.id, lesson.points, order)
+            this.addElement(lesson, order)
             order++
             countSteps++
         }

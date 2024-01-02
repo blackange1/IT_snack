@@ -1,0 +1,17 @@
+.lesson-form {
+    margin-top: 20px;
+}
+
+.form-disabled {
+    color: #999;
+
+}
+.form__fieldset {
+    background-color: #235;
+}
+
+.button-checed-again {
+    display: inline-block;
+    font-size: .8rem;
+    margin-left: 10px;
+}

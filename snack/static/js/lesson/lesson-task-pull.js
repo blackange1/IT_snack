@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const print = console.log
     const $body = document.querySelector('body')
-    const ORDER_ITEM_MATGIN = 20
-    const deleyMove = 0.0
-    // const deleyStep = 0
-
+    const ORDER_ITEM_MARGIN = 20
+    const delayMove = 0
     const buffer = {
         nextItemPositionY: undefined,
         lastItemPositionY: undefined,
@@ -61,10 +59,10 @@ document.addEventListener("DOMContentLoaded", function () {
             this.cursorOldY = event.clientY
 
 
-            buffer.nextItemPositionY = - (ORDER_ITEM_MATGIN - this.bottom)
-            buffer.lastItemPositionY = ORDER_ITEM_MATGIN + this.bottom
+            buffer.nextItemPositionY = - (ORDER_ITEM_MARGIN - this.bottom)
+            buffer.lastItemPositionY = ORDER_ITEM_MARGIN + this.bottom
 
-            this.viewMain.style.transition = `bottom ${deleyMove}s, right ${deleyMove}s`
+            this.viewMain.style.transition = `bottom ${delayMove}s, right ${delayMove}s`
 
             // add bing
             document.onmousemove = this.documentOnmousemove.bind(this)
@@ -86,10 +84,10 @@ document.addEventListener("DOMContentLoaded", function () {
             // DOWN
             if (buffer.vectorY < 0 && this.nextItem && this.elemY < buffer.nextItemPositionY) {
                 const bottom = this.nextItem.bottom
-                this.nextItem.bottom = bottom + this.height + ORDER_ITEM_MATGIN
+                this.nextItem.bottom = bottom + this.height + ORDER_ITEM_MARGIN
                 this.nextItem.viewMain.style.bottom = this.nextItem.bottom + 'px'
                 // this.nextItem.viewMain.setAttribute('data-bottom', this.nextItem.bottom)
-                buffer.currentPositionY += - (this.nextItem.height + ORDER_ITEM_MATGIN)
+                buffer.currentPositionY += - (this.nextItem.height + ORDER_ITEM_MARGIN)
 
                 const currentLastItem = this.lastItem
                 const nextItem = this.nextItem
@@ -107,16 +105,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 nextItem.nextItem = this
                 nextItem.lastItem = currentLastItem
                 
-                buffer.nextItemPositionY = buffer.currentPositionY - ORDER_ITEM_MATGIN
-                buffer.lastItemPositionY = buffer.currentPositionY + ORDER_ITEM_MATGIN
+                buffer.nextItemPositionY = buffer.currentPositionY - ORDER_ITEM_MARGIN
+                buffer.lastItemPositionY = buffer.currentPositionY + ORDER_ITEM_MARGIN
             } else {
                 // UP
                 if (buffer.vectorY > 0 && this.lastItem && this.elemY > buffer.lastItemPositionY) {
                     const bottom = this.lastItem.bottom
-                    this.lastItem.bottom = bottom - (this.height + ORDER_ITEM_MATGIN)
+                    this.lastItem.bottom = bottom - (this.height + ORDER_ITEM_MARGIN)
                     this.lastItem.viewMain.style.bottom = this.lastItem.bottom + 'px'
                     // this.lastItem.viewMain.setAttribute('data-bottom', this.lastItem.bottom)
-                    buffer.currentPositionY += (this.lastItem.height + ORDER_ITEM_MATGIN)
+                    buffer.currentPositionY += (this.lastItem.height + ORDER_ITEM_MARGIN)
 
                     const currentNextItem = this.nextItem
                     const lastItem = this.lastItem
@@ -134,8 +132,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     lastItem.lastItem = this
                     lastItem.nextItem = currentNextItem
 
-                    buffer.lastItemPositionY = buffer.currentPositionY + ORDER_ITEM_MATGIN
-                    buffer.nextItemPositionY = buffer.currentPositionY - ORDER_ITEM_MATGIN
+                    buffer.lastItemPositionY = buffer.currentPositionY + ORDER_ITEM_MARGIN
+                    buffer.nextItemPositionY = buffer.currentPositionY - ORDER_ITEM_MARGIN
                 }
             }
             // print(this.elemX, this.elemY)

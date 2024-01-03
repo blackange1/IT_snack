@@ -83,9 +83,8 @@ const menuSteps = {
                     <svg width="11.5256mm" height="9.9814596mm" viewBox="0 0 11.5256 9.9814596">
                         <g transform="translate(-47.980416,-108.30979)">
                             <path style="fill:${bgColor};fill-opacity:1;stroke:none;stroke-width:0.147642;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1" d="m 47.980416,113.30052 2.8814,-4.99073 h 5.7628 l 1.46806,2.54274 1.41334,2.44799 -1.4649,2.53729 -1.4165,2.45344 h -5.7628 z"></path>
-                                <text style="font-size:8.25679px;font-family:Arial;-inkscape-font-specification:Arial;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:26.0056;stroke-linejoin:round" x="51.473404" y="116.30611">
-                                    <tspan style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:26.0056" x="51.473404" y="116.30611">?
-                                    </tspan>
+                                <text style="font-size:8.25679px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:26.0056;stroke-linejoin:round" x="51.473404" y="116.30611">
+                                    <tspan style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:26.0056" x="51.473404" y="116.30611">?</tspan>
                                 </text>
                         </g>
                     </svg>
@@ -113,7 +112,7 @@ const menuSteps = {
             stepsContent.renderContent(type, id)
             switch (type) {
                 case 'text':
-                    if (this.dataset.points == 0) {
+                    if (this.dataset.points === '0') {
                         print('type', type)
 
                         // menuSteps.setPoint["text"](this, id)
@@ -129,7 +128,7 @@ const menuSteps = {
                         })
                             .then(response => response.json())
                             .then(data => {
-                                if (data.status == 'ok') {
+                                if (data.status === 'ok') {
                                     menuSteps.updateElement(this, { 'points': 1 })
                                 }
                             })
@@ -140,7 +139,7 @@ const menuSteps = {
                     break
             }
 
-            if (menuSteps.activeElement == this) {
+            if (menuSteps.activeElement === this) {
                 return
             }
             menuSteps.changeStep(this, true)

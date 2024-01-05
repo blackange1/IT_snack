@@ -10,7 +10,7 @@ from lesson.models import Lesson
 #             'Code': 0,
 #         },
 #         'Video': 0,
-#         'Answer': 0,
+#         'AnswerChoice': 0,
 #         'TestCase': 0,
 #     }
 # }
@@ -39,18 +39,10 @@ class Step(Order):
 class Text(Step):
     TYPE = 'text'
 
-    # def get_points(self, user):
-    #     print(dir(self))
-    #     print(self.progresstext_set)
-    #     print(self.progresstext_set.fi)
-    #     print(self, user)
-    #     return 4
-    # progress_text = ProgressText.objects.filter(step=self, user=user)
-    # print('progress_text', progress_text)
-    # return bool(progress_text)
+    def get_solved(self, user):
+        return bool(self.progresstext_set.filter(user=user).first())
 
     def get_points(self, user):
-        # print(dir(self))
         progress = self.progresstext_set.filter(user=user).first()
         if progress:
             return 1
@@ -63,14 +55,7 @@ class Video(Order):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
 
 
-## знак питання
-class Choice(Step):
-    TYPE = 'choice'
-
-    # множинний вибір
-    is_multiple_choice = models.BooleanField(default=False)
-
-    # Будь-яка відповідь є правильною
+class StepChoice(models.Model):
     is_always_correct = models.BooleanField(default=False)
 
     # Не виводити відповіді випадково | зберігати порядок
@@ -82,13 +67,15 @@ class Choice(Step):
     # Пояснення поруч з відповідями
     is_options_feedback = models.BooleanField(default=False)
 
-    # Розмір вибірки з варіантів відповіді
-    sample_size = models.PositiveSmallIntegerField()
-
     points = models.PositiveSmallIntegerField(default=1)
 
-    # def check(self):
-    #     pass
+    class Meta:
+        abstract = True
+
+
+## знак питання
+class Choice(Step, StepChoice):
+    TYPE = 'choice'
 
     def get_points(self, user):
         progress = self.progresschoice_set.filter(user=user).first()
@@ -104,23 +91,31 @@ class Choice(Step):
 
     def check_answer(self, user, select):
         # FIXED додати ліміт на спроби
-        answer = self.answer_set.filter(pk=select).first()
+        answer = self.answerchoice_set.filter(pk=select).first()
+        if not answer:
+            return ValueError('invalid select')
         progress = self.progresschoice_set.filter(user=user).first()
         max_points = self.points
-        if answer:
-            if answer.is_correct:
-                if progress:
-                    progress.points = max_points
-                    progress.save()
-                    return progress, max_points, True
-                return None, max_points, True
-        return None, 0, False
+        points = self.points if answer.is_correct else 0
+        if progress:
+            # progress.points = max_points
+            # progress.save()
+            return progress, points, answer.is_correct
+        return None, points, answer.is_correct
+
+
+class ChoiceMulti(Step, StepChoice):
+    TYPE = 'choice_multi'
+    # множинний вибір
+    # is_multiple_choice = models.BooleanField(default=False)
+
+    sample_size = models.PositiveSmallIntegerField()
 
     def check_answer_multi(self, user, selected, answers):
         # FIXED додаткова перевірка на кількість отриманих запитань
         not_correct, correct = 0, 0
         for index, pk in enumerate(answers):
-            answer = self.answer_set.filter(pk=pk).first()
+            answer = self.answerchoice_set.filter(pk=pk).first()
             select = selected[index]
             if answer:
                 if answer.is_correct:
@@ -144,8 +139,15 @@ class Choice(Step):
         return None, points, points > 0
 
 
-class Answer(Order):
+class AnswerChoice(Order):
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
+    is_correct = models.BooleanField(default=False)
+    text = models.CharField(max_length=512)
+    feedback = models.CharField(max_length=512, blank=True, null=True)
+
+
+class AnswerChoiceMulti(Order):
+    choice_multi = models.ForeignKey(ChoiceMulti, on_delete=models.CASCADE)
     is_correct = models.BooleanField(default=False)
     text = models.CharField(max_length=512)
     feedback = models.CharField(max_length=512, blank=True, null=True)

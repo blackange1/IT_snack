@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ProgressText, ProgressChoice
+from .models import ProgressText, ProgressChoice, ProgressChoiceItem
 
 
 @admin.register(ProgressText)
@@ -13,3 +13,9 @@ class ProgressTextAdmin(admin.ModelAdmin):
 class ProgressChoiceAdmin(admin.ModelAdmin):
     model = ProgressChoice
     list_display = ("user", "step", "points", "solved")
+
+
+@admin.register(ProgressChoiceItem)
+class ProgressChoiceItemAdmin(admin.ModelAdmin):
+    model = ProgressChoiceItem
+    list_display = ("progress_choice", "points", "solved")

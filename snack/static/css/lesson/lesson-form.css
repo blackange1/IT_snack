@@ -6,11 +6,14 @@
     color: #999;
 
 }
-.form__fieldset {
+.form__fieldset-wrong {
+    background-color: #ff000011;
+}
+.form__fieldset-true {
     background-color: #235;
 }
 
-.button-checed-again {
+.button-checked-again {
     display: inline-block;
     font-size: .8rem;
     margin-left: 10px;

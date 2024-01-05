@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import Text, Video, Choice, Code, Answer, TestCase
+from .models import Text, Video, Choice, Code, AnswerChoice, AnswerChoiceMulti, TestCase
 
 admin.site.register(Text)
 
 
 # Choice
 class AnswerInline(admin.StackedInline):
-    model = Answer
+    model = AnswerChoice
     extra = 0
 
 

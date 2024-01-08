@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import ProgressText, ProgressChoice, ProgressChoiceItem
+from .models import ProgressText, ProgressChoice, ProgressChoiceItem, ProgressChoiceMulti, ProgressChoiceMultiItem
 
 
 @admin.register(ProgressText)
 class ProgressTextAdmin(admin.ModelAdmin):
     model = ProgressText
-    list_display = ("user", "step", "checked")
+    list_display = ("user", "step")
     # list_filter = ("module",)
 
 
@@ -18,4 +18,16 @@ class ProgressChoiceAdmin(admin.ModelAdmin):
 @admin.register(ProgressChoiceItem)
 class ProgressChoiceItemAdmin(admin.ModelAdmin):
     model = ProgressChoiceItem
+    list_display = ("progress_choice", "points", "solved")
+
+
+@admin.register(ProgressChoiceMulti)
+class ProgressChoiceMultiAdmin(admin.ModelAdmin):
+    model = ProgressChoiceMulti
+    list_display = ("user", "step", "points", "solved")
+
+
+@admin.register(ProgressChoiceMultiItem)
+class ProgressChoiceMultiItemAdmin(admin.ModelAdmin):
+    model = ProgressChoiceMultiItem
     list_display = ("progress_choice", "points", "solved")

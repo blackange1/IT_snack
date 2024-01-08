@@ -6,69 +6,102 @@ let print = console.log
 
 
 // https://learn.javascript.ru/decorators
-stepsContent.renderChoice = function (step, type, id) {
-    const stepInner = document.createElement('div')
-    stepInner.classList.add('step-inner')
-    stepInner.setAttribute('id', type + id)
-    stepInner.innerHTML = `
-            5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
-            <hr>
-            ${step['text_html']}
-        `
+stepsContent.update = function (step, id) {
+    const $form = document.querySelector(`#choice${id} form`)
+    const wrapperLabel = $form.querySelector('.wrapper_label')
+    wrapperLabel.innerHTML = ''
+    for (const answer of step['answers']) {
+        const label = this.createElement(
+            'label', 'custom-radio__label', `
+                <input type="radio" name="answer${step.id}" id="answer${answer.id}" data-id="${answer.id}">
+                <span class="custom-radio__text">${answer.text}</span>`, true)
+        wrapperLabel.appendChild(label)
+    }
+    // $form.querySelector('.task__points').textContent = this.getTextPoints(step['points']) + ' за розв’язок.'
+    const btnNextStep = $form.querySelector('.button-next-step')
+    if (!btnNextStep.classList.contains('hide')) {
+        btnNextStep.classList.add('hide')
+    }
+}
+stepsContent.renderChoice = function (step, id) {
+    const stepInner = this.createElement('div', {'class': 'step-inner', 'id': 'choice' + id}, `
+        5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
+        <hr>${step['text_html']}`, true)
 
-    const customRadio = this.createElement('form', 'lesson-form custom-radio')
-    customRadio.setAttribute('data-id', id)
-    // const stepId = customRadio.dataset.id
-
+    // CREATE FORM
+    const mainForm = this.createElement('form', {'class': 'lesson-form', 'data-id': id})
+    const isMultipleChoice = step['is_multiple_choice']
     const fieldset = document.createElement('fieldset')
-    const legend = this.createElement('legend', 'task__title')
-    legend.textContent = "Виберіть один варіант зі списку"
+    const legend = this.createElement('legend', 'task__title',
+        (isMultipleChoice) ? "Виберіть декілька відповідей" : "Виберіть один варіант зі списку")
 
-    customRadio.appendChild(fieldset)
+    mainForm.appendChild(fieldset)
     fieldset.appendChild(legend)
     fieldset.appendChild(this.createElement('div', 'attempt__message'))
     const answers = step['answers']
     const repeat_task = step['repeat_task']
+    const wrapperLabel = this.createElement('div', 'wrapper_label')
     if (repeat_task) {
-        for (const answer of answers) {
-            const label = this.createElement('label', 'custom-radio__label')
-            label.innerHTML = `
+        if (isMultipleChoice) {
+            for (const answer of answers) {
+                const label = this.createElement('label', 'container', `
+                    <input type="checkbox" name="answer${step.id}"  id="answer${answer.id}" data-id="${answer.id}">
+                    <span class="checkmark"></span>${answer.text}`, true)
+                wrapperLabel.appendChild(label)
+            }
+            fieldset.appendChild(wrapperLabel)
+        } else {
+            for (const answer of answers) {
+                const label = this.createElement('label', 'custom-radio__label', `
                     <input type="radio" name="answer${step.id}" id="answer${answer.id}" data-id="${answer.id}">
-                    <span class="custom-radio__text">${answer.text}</span>
-                `
-            fieldset.appendChild(label)
+                    <span class="custom-radio__text">${answer.text}</span>`, true)
+                wrapperLabel.appendChild(label)
+            }
+            fieldset.appendChild(wrapperLabel)
         }
     } else {
-        const orderAnswers = step['order_answers'].split('-')
-        print('orderAnswers', orderAnswers)
-
-        for (const index of orderAnswers) {
-            const answer = answers[index]
+        // FIXED
+        const wrapperLabel = this.createElement('div', 'wrapper_label')
+        let j = 0
+        const index = step['answers_json'][1]
+        for (const answer of step["answers_json"][0]) {
             const label = this.createElement('label', 'custom-radio__label')
-            label.innerHTML = `
-                    <input type="radio" name="answer${step.id}" id="answer${answer.id}" data-id="${answer.id}">
-                    <span class="custom-radio__text">${answer.text}</span>
-                `
-            fieldset.appendChild(label)
+            const input = this.createElement('input', {type: 'radio'})
+            const span = this.createElement('span', 'custom-radio__text', answer)
+            label.appendChild(input)
+            label.appendChild(span)
+            if (j === index) {
+                input.checked = true
+            }
+            j++
+            wrapperLabel.appendChild(label)
         }
-        fieldset.querySelector(`#answer${step['select_answer']}`).checked = true
+        fieldset.appendChild(wrapperLabel)
     }
 
     const taskCheck = this.createElement('div', 'task__check')
-    taskCheck.innerHTML = `
-                <div class="task__points">${this.getTextPoints(step.points)} за розв’язок.</div>
-            `
-    const btnSubmit = this.createElement('button', 'button button-primary')
+    const taskPoints = this.createElement('div', 'task__points')
+    if (!step['has_progress']) {
+        taskPoints.textContent = `${this.getTextPoints(step.points)} за розв’язок.`
+    }
+    taskCheck.appendChild(taskPoints)
+    // BUTTON
+    const btnSubmit = this.createElement('button',
+        {'class': 'button button-primary', type: 'submit'}, 'Надіслати')
+    taskCheck.appendChild(btnSubmit)
 
-    btnSubmit.setAttribute('type', 'submit')
-    btnSubmit.textContent = 'Надіслати'
+    const btnNextStep = this.createElement('div',
+        'button button-primary button-next-step hide', 'Наступний крок')
+    btnNextStep.onclick = () => {
+        print('btnNextStep.onclick')
+    }
+    taskCheck.appendChild(btnNextStep)
 
-    const btnCheckedAgain = this.createElement('div', 'button button-secondary button-checked-again hide')
-    btnCheckedAgain.textContent = "btnCheckedAgain"
+    const btnCheckedAgain = this.createElement('div',
+        'button button-secondary button-checked-again hide', "btnCheckedAgain")
     btnCheckedAgain.onclick = () => {
         // розморозити
         this.toggleFrozen(id)
-        print('btnCheckedAgain.onclick')
         const csrftoken = getCookie('csrftoken')
         fetch(`/api/step-item/choice/${id}/`, {
             method: 'PATCH',
@@ -82,47 +115,82 @@ stepsContent.renderChoice = function (step, type, id) {
             },
         }).then(response => response.json()
         ).then(data => {
-            print('PATCHHH')
+            print('data PATCH: ', data)
+            this.update(data, id)
         })
     }
+    taskCheck.appendChild(btnCheckedAgain)
+    // END BUTTON
 
-    // customRadio.onsubmit = async (event) => {
-    customRadio.onsubmit = (event) => {
+    fieldset.appendChild(taskCheck)
+
+    const formFooter = this.createElement('div', 'form__footer')
+
+    if (step['has_progress']) {
+        formFooter.innerHTML = `
+                <a href="#">Розв'язки</a> Ви отримали <span class="student_points">${this.getTextPoints(step['student_points'])}</span> з ${step['points']}
+        `
+    }
+    fieldset.appendChild(formFooter)
+    mainForm.appendChild(fieldset)
+    stepInner.appendChild(mainForm)
+    this.$theory.appendChild(stepInner)
+
+    if (!repeat_task) {
+        if (step['student_solved']) {
+            this.toggleFrozen(id, '1', false)
+            // btnNextStep.classList.remove('hide')
+        } else {
+            this.toggleFrozen(id, '0', false)
+        }
+        // this.toggleFrozen(id, (step['student_solved']) ? '1' : '0')
+    }
+    if (this.activeTheoryItem) {
+        this.activeTheoryItem.classList.add('hide')
+    }
+    this.activeTheoryItem = stepInner
+
+    // mainForm.onsubmit = async (event) => {
+    mainForm.onsubmit = (event) => {
         event.preventDefault();
-        const $radioAnswer = customRadio.querySelector('input[type="radio"]:checked')
-        if ($radioAnswer) {
-            print('$radioAnswer', $radioAnswer)
-            const csrftoken = getCookie('csrftoken')
-            const answers = []
-            for (const $checkboxAnswer of customRadio.querySelectorAll('input[type="radio"]')) {
-                answers.push(+$checkboxAnswer.dataset.id)
-            }
-            print('answers', answers)
-            const orderAnswers = []
-            for (const index in answers) {
-                orderAnswers.push(-1)
-            }
-            for (const i in answers) {
-                let minIndex = 0
-                let bufferValue = Infinity
-                for (const j in answers) {
-                    const answerValue = answers[j]
-                    if (bufferValue > answerValue) {
-                        bufferValue = answerValue
-                        minIndex = j
-                    }
+        let listAnswerId = []
+        let selectedIndexes
+        let selected = []
+        if (isMultipleChoice) {
+            const listCheckboxAnswer = mainForm.querySelectorAll('input[type="checkbox"]')
+            selectedIndexes = []
+            let i = 0
+            for (const checkboxAnswer of listCheckboxAnswer) {
+                listAnswerId.push(checkboxAnswer.dataset.id)
+                if (checkboxAnswer.checked) {
+                    selected.push(checkboxAnswer.dataset.id)
+                    selectedIndexes.push(i)
                 }
-                answers[minIndex] = Infinity
-                orderAnswers[i] = minIndex
+                i++
             }
-            print('orderAnswers', orderAnswers)
+        } else {
+            const listRadioAnswer = mainForm.querySelectorAll('input[type="radio"]')
+            let i = 0
+            for (const radioAnswer of listRadioAnswer) {
+                listAnswerId.push(radioAnswer.dataset.id)
+                if (radioAnswer.checked) {
+                    selected.push(+radioAnswer.dataset.id),
+                    selectedIndexes = i
+                }
+                i++
+            }
+        }
+
+        // const $radioAnswer = mainForm.querySelector('input[type="radio"]:checked')
+        if (selected.length) {
+            const csrftoken = getCookie('csrftoken')
 
             fetch(`/api/step-item/choice/${id}/`, {
                 method: 'POST',
                 body: JSON.stringify({
-                    selected: +$radioAnswer.dataset.id,
-                    order_answers: orderAnswers.join('-'),
-                    action: "check",
+                    selected: (isMultipleChoice) ? selected: selected[0],
+                    selected_indexes: selectedIndexes,
+                    answer_ids: listAnswerId
                 }),
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
@@ -131,13 +199,21 @@ stepsContent.renderChoice = function (step, type, id) {
                 },
             }).then(response => response.json()
             ).then(data => {
-                print('data', data)
-                if (data['solved']) {
-                    const $menuChoice = this.getMenuItem('choice', id)
+                print('data POST:', data)
+                mainForm.querySelector('.task__points').textContent = ''
 
+                if (!step['has_progress']) {
+                    step['has_progress'] = true
+                    mainForm.querySelector('.form__footer').innerHTML = `
+                        <a href="#">Розв'язки</a> Ви отримали <span class="student_points">${this.getTextPoints(data['student_points'])}</span> з ${step['points']}`
+                }
+                if (data['solved']) {
+                    mainForm.querySelector('.form__footer .student_points').textContent = this.getTextPoints(data['student_points'])
+                    btnNextStep.classList.remove('hide')
+                    const $menuChoice = this.getMenuItem('choice', id)
                     if ($menuChoice) {
-                        $menuChoice.dataset.points = data['points']
-                        $menuChoice.dataset.solved = true
+                        // $menuChoice.dataset.points = data['student_points']
+                        $menuChoice.dataset.solved = 'true'
                         const $path = $menuChoice.querySelector('path')
                         $path.style.fill = colors.blue
 
@@ -152,26 +228,8 @@ stepsContent.renderChoice = function (step, type, id) {
             alert('Ти не вибрав жодного елемента')
             // звертатися залежно від статі
         }
+        ``
     }
-
-    taskCheck.appendChild(btnSubmit)
-    taskCheck.appendChild(btnCheckedAgain)
-
-    fieldset.appendChild(taskCheck)
-    customRadio.appendChild(fieldset)
-    stepInner.appendChild(customRadio)
-
-    this.$theory.appendChild(stepInner)
-
-    if (!repeat_task) {
-        this.toggleFrozen(id, (step['solved_item']) ? '1' : '0')
-    }
-
-
-    if (this.activeTheoryItem) {
-        this.activeTheoryItem.classList.add('hide')
-    }
-    this.activeTheoryItem = stepInner
 }
 
 

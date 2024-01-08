@@ -6,15 +6,34 @@
     color: #999;
 
 }
+
 .form__fieldset-wrong {
     background-color: #ff000011;
 }
+
 .form__fieldset-true {
     background-color: #235;
 }
 
+.button-next-step,
 .button-checked-again {
     display: inline-block;
     font-size: .8rem;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
+    margin-right: 10px;
+}
+.button-next-step{
+    color: buttontext;
+}
+.wrapper_label {
+    padding: 10px 0;
+}
+
+.form__footer {
+    padding: 10px;
+    font-size: .8rem;
+}
+
+.student_points {
+    font-weight: bold;
 }

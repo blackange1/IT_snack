@@ -15,6 +15,26 @@ from lesson.models import Lesson
 #     }
 # }
 
+class VerboseName(object):
+    def __init__(self, verbose_name_plural):
+        self.verbose_name_plural = verbose_name_plural
+        self.MAX_LEN_KEY = max(*[len(key) for key in verbose_name_plural.keys()])
+
+    def get_verbose_name(self, key):
+        value = self.verbose_name_plural.get(key, None)
+        if value:
+            return f'{value + " " + ("_" * (self.MAX_LEN_KEY - len(value)))} {key}'
+        return f"Not key {key}"
+
+
+step_verbose_name = VerboseName({
+    "Text": "Текст",
+    "Video": "Відео",
+    "Choice": "Тест",
+    "ChoiceMulti": "Тест Мульти",
+    "Code": "Код",
+})
+
 
 class Order(models.Model):
     order = models.PositiveSmallIntegerField(default=0)
@@ -48,11 +68,17 @@ class Text(Step):
             return 1
         return 0
 
+    class Meta:
+        verbose_name_plural = step_verbose_name.get_verbose_name("Text")
+
 
 ## трикутник
 class Video(Order):
     TYPE = 'video'
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural = step_verbose_name.get_verbose_name("Video")
 
 
 class StepChoice(models.Model):
@@ -67,7 +93,9 @@ class StepChoice(models.Model):
     # Пояснення поруч з відповідями
     is_options_feedback = models.BooleanField(default=False)
 
-    points = models.PositiveSmallIntegerField(default=1)
+    # is_multiple_choice = models.BooleanField(default=False)
+
+    sample_size = models.PositiveSmallIntegerField(default=4, )
 
     class Meta:
         abstract = True
@@ -76,6 +104,8 @@ class StepChoice(models.Model):
 ## знак питання
 class Choice(Step, StepChoice):
     TYPE = 'choice'
+
+    points = models.PositiveSmallIntegerField(default=1)
 
     def get_points(self, user):
         progress = self.progresschoice_set.filter(user=user).first()
@@ -89,19 +119,29 @@ class Choice(Step, StepChoice):
             return progress.solved
         return False
 
-    def check_answer(self, user, select):
+    def check_answer(self, user, select: int, answer_ids: list):
         # FIXED додати ліміт на спроби
         answer = self.answerchoice_set.filter(pk=select).first()
         if not answer:
             return ValueError('invalid select')
         progress = self.progresschoice_set.filter(user=user).first()
-        max_points = self.points
         points = self.points if answer.is_correct else 0
+
+        list_answers = []
+        if self.preserve_order:
+            list_answers = [answer_choice.text for answer_choice in self.answerchoice_set.order_by("order")]
+        else:
+            for answer_id in answer_ids:
+                list_answers.append(self.answerchoice_set.filter(pk=answer_id).first().text)
         if progress:
-            # progress.points = max_points
-            # progress.save()
-            return progress, points, answer.is_correct
-        return None, points, answer.is_correct
+            return progress, points, answer.is_correct or self.is_always_correct, list_answers
+        return None, points, answer.is_correct or self.is_always_correct, list_answers
+
+    def check_answer_multi(self, user, select, answer_ids):
+        pass
+
+    class Meta:
+        verbose_name_plural = step_verbose_name.get_verbose_name("Choice")
 
 
 class ChoiceMulti(Step, StepChoice):
@@ -109,7 +149,8 @@ class ChoiceMulti(Step, StepChoice):
     # множинний вибір
     # is_multiple_choice = models.BooleanField(default=False)
 
-    sample_size = models.PositiveSmallIntegerField()
+    points = models.FloatField(default=1)
+    full_answer = models.BooleanField(default=True)
 
     def check_answer_multi(self, user, selected, answers):
         # FIXED додаткова перевірка на кількість отриманих запитань
@@ -138,6 +179,9 @@ class ChoiceMulti(Step, StepChoice):
             return progress, points, points > 0
         return None, points, points > 0
 
+    class Meta:
+        verbose_name_plural = step_verbose_name.get_verbose_name("ChoiceMulti")
+
 
 class AnswerChoice(Order):
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
@@ -156,6 +200,9 @@ class AnswerChoiceMulti(Order):
 ## знак консолі
 class Code(Step):
     TYPE = 'code'
+
+    class Meta:
+        verbose_name_plural = step_verbose_name.get_verbose_name("Code")
 
 
 class TestCase(Order):

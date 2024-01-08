@@ -18,10 +18,10 @@ stepsContent.renderContent = function (type, id) {
             .then(step => {
                 switch (type) {
                     case 'text':
-                        this.renderText(step, type, id)
+                        this.renderText(step, id)
                         break
                     case 'choice':
-                        this.renderChoice(step, type, id)
+                        this.renderChoice(step, id)
                         break
                 }
                 print('fetch_step', step)

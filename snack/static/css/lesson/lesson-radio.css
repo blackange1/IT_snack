@@ -4,15 +4,18 @@
 }
 
 .task__check {
-    margin: 20px 0;
+    /*margin: 20px 0 10px 0;*/
+    padding: 10px;
 }
 
 .task__points {
     font-size: 10px;
-    margin-bottom: 5px;
+    padding: 0 10px 10px 5px;
+    /*margin-bottom: 5px;*/
+    /*margin-left: 10px;*/
 }
 
-.custom-radio input[type="radio"] {
+.lesson-form  input[type="radio"] {
     appearance: none;
     border-radius: 50%;
     width: 22px;
@@ -27,7 +30,7 @@
     /* background: red; */
 }
 
-.custom-radio input[type="radio"]:checked {
+.lesson-form input[type="radio"]:checked {
     /* border: 6px solid var(--color-line-orange); */
     background: var(--color-progress-bar-done);
 }

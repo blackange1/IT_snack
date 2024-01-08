@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Text, Video, Choice, Code, AnswerChoice, AnswerChoiceMulti, TestCase
+from .models import Text, Video, Choice, Code, AnswerChoice, TestCase
 
 admin.site.register(Text)
 

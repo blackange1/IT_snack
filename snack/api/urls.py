@@ -2,7 +2,8 @@ from django.urls import path
 
 from .views import CourseList, CourseDetail, ModuleDetail, StepMenu
 
-from .views_lessons import StepTextItem, StepChoice, Test
+from .views_lessons_choice import StepChoice, Test
+from .views_lessons_text import StepTextItem
 
 urlpatterns = [
     # ex: /api/

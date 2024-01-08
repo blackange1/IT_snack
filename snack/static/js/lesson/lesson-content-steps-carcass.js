@@ -15,9 +15,23 @@ const stepsContent = {
         this.$theory = document.querySelector('.step-content')
         // this.menuSteps = menuSteps
     },
-    createElement(nameElement, cssClass) {
+    createElement(nameElement, data, content = '', isHTML = false) {
         const elem = document.createElement(nameElement)
-        elem.setAttribute('class', cssClass)
+        // data is cssClass or objectAttribute
+        if (typeof data === 'string') {
+            elem.setAttribute('class', data)
+        } else {
+            for (const key in data) {
+                elem.setAttribute(key, data[key])
+            }
+        }
+        if (content) {
+            if (isHTML) {
+                elem.innerHTML = content
+            } else {
+                elem.textContent = content
+            }
+        }
         return elem
     },
     // https://learn.javascript.ru/decorators
@@ -35,16 +49,19 @@ const stepsContent = {
         }
         this.activeTheoryItem = stepInner
     },
-    toggleFrozen(id, result='') {
+    toggleFrozen(id, result = '', isMessage = true) {
         const $form = this.$stepContent.querySelector(`form[data-id="${id}"]`)
         const $btnCheckedAgain = $form.querySelector('.button-checked-again')
         $btnCheckedAgain.classList.toggle('hide')
         if (result) {
             $form.dataset.result = result
             // const $attemptMessage = $form.querySelector('.attempt__message')
-            const message = (result === '1') ? '<i class="fa fa-check"></i> Відмінно!' : '<i class="fa fa-crosshairs"></i> Хибно!'
+            if (isMessage) {
+                // додати привітальні фрази
+                const message = (result === '1') ? '<i class="fa fa-check"></i> Відмінно!' : '<i class="fa fa-crosshairs"></i> Хибно!'
+                $form.querySelector('.attempt__message').innerHTML = message
+            }
             const titleButton = (result === '1') ? "Розв’язати знову" : "Спробувати ще раз"
-            $form.querySelector('.attempt__message').innerHTML = message
             $btnCheckedAgain.innerHTML = titleButton
         } else {
             $form.querySelector('.attempt__message').innerHTML = ''
@@ -52,7 +69,7 @@ const stepsContent = {
         // Розв’язати знову
         // Спробувати ще раз
         $form.classList.toggle('form-disabled')
-        const cssClass = (Boolean(+$form.dataset.result)) ? 'form__fieldset-true': 'form__fieldset-wrong'
+        const cssClass = (Boolean(+$form.dataset.result)) ? 'form__fieldset-true' : 'form__fieldset-wrong'
         const $fieldset = $form.querySelector('fieldset')
         $fieldset.toggleAttribute("disabled")
         $fieldset.classList.toggle(cssClass)
@@ -76,7 +93,8 @@ const stepsContent = {
     //     }
     // },
     // wrongAnswer() {},
-    getTextPoints(num) {
+    getTextPoints(num, bonusText = false) {
+        // const text = (bonusText) ? " за розв'язок" : ''
         const nn = num % 100
         if (nn >= 11 && nn <= 19) {
             return `${num} балів`

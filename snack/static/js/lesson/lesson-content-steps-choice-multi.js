@@ -102,7 +102,7 @@ stepsContent.renderChoiceMulti = function (step, type, id) {
                         const $menuChoice = this.getMenuItem('choice', stepId)
                         if ($menuChoice) {
                             $menuChoice.dataset.points = data['points']
-                            $menuChoice.dataset.solved = true
+                            $menuChoice.dataset.solved = 'true'
                             const $path = $menuChoice.querySelector('path')
                             $path.style.fill = colors.blue
 
@@ -128,7 +128,6 @@ stepsContent.renderChoiceMulti = function (step, type, id) {
     if ($menuItem.dataset.solved === 'true') {
         this.toggleFrozen(id)
     }
-
 
     if (this.activeTheoryItem) {
         this.activeTheoryItem.classList.add('hide')

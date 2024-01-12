@@ -6,134 +6,235 @@ let print = console.log
 
 
 // https://learn.javascript.ru/decorators
-stepsContent.renderChoiceMulti = function (step, type, id) {
-    const stepInner = document.createElement('div')
-    stepInner.classList.add('step-inner')
-    stepInner.setAttribute('id', type + id)
-    stepInner.innerHTML = `
-            5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
-            <hr>
-            ${step.text_html}
-        `
 
-        print('is_multiple_choice')
-        const customCheckbox = this.createElement('form', 'lesson-form')
-        customCheckbox.setAttribute('data-id', id)
+// stepsContent.update = function (step, id) {
+//     const $form = document.querySelector(`#choice${id} form`)
+//     const wrapperLabel = $form.querySelector('.wrapper_label')
+//     wrapperLabel.innerHTML = ''
+//     for (const answer of step['answers']) {
+//         const label = this.createElement(
+//             'label', 'custom-radio__label', `
+//                 <input type="radio" name="answer${step.id}" id="answer${answer.id}" data-id="${answer.id}">
+//                 <span class="custom-radio__text">${answer.text}</span>`, true)
+//         wrapperLabel.appendChild(label)
+//     }
+//     // $form.querySelector('.task__points').textContent = this.getTextPoints(step['points']) + ' за розв’язок.'
+//     const btnNextStep = $form.querySelector('.button-next-step')
+//     if (!btnNextStep.classList.contains('hide')) {
+//         btnNextStep.classList.add('hide')
+//     }
+// }
 
-        const fieldset = document.createElement('fieldset')
-        const legend = this.createElement('legend', 'task__title')
-        legend.textContent = "Виберіть декілька відповідей"
+stepsContent.renderChoiceMulti = function (step, id) {
+    const stepInner = this.createElement('div', {'class': 'step-inner', 'id': 'choice' + id}, `
+        5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
+        <hr>${step['text_html']}`, true)
 
-        customCheckbox.appendChild(fieldset)
-        fieldset.appendChild(legend)
-        // add to css
-        fieldset.appendChild(this.createElement('div', 'attempt__message'))
+    // CREATE FORM
+    const mainForm = this.createElement('form', {'class': 'lesson-form', 'data-id': id})
+    const isMultipleChoice = true
+    const fieldset = document.createElement('fieldset')
+    const legend = this.createElement('legend', 'task__title',
+        (isMultipleChoice) ? "Виберіть декілька відповідей" : "Виберіть один варіант зі списку")
 
-        for (const answer of step.answers) {
-            const label = this.createElement('label', 'container')
-            label.innerHTML = `
-                    <input type="checkbox" id="answer${answer.id}" data-id="${answer.id}">
-                    <span class="checkmark"></span>${answer.text}
-                `
-            fieldset.appendChild(label)
-        }
-        const taskCheck = this.createElement('div', 'task__check')
-        taskCheck.innerHTML = `
-                <div class="task__points">${this.getTextPoints(step.points)} за розв’язок.</div>
-            `
-        const btnSubmit = this.createElement('button', 'button button-primary')
-        btnSubmit.setAttribute('type', 'submit')
-        btnSubmit.textContent = 'Надіслати'
-
-        const btnCheckedAgain = this.createElement('div', 'button button-secondary button-checked-again hide')
-        btnCheckedAgain.textContent = "Розв'язати знову"
-        btnCheckedAgain.onclick = () => {
-            // розморозити
-            this.toggleFrozen(id)
-            print('btnCheckedAgain.onclick')
-        }
-
-        customCheckbox.onsubmit = (event) => {
-            event.preventDefault()
-            const $checkboxAnswers = customCheckbox.querySelectorAll('input[type="checkbox"]:checked')
-            print('$checkboxAnswers', $checkboxAnswers)
-            if ($checkboxAnswers.length) {
-                // FIXED
-                const selected = []
-                // for (const $checkboxAnsver of $checkboxAnswers) {
-                //     selected.push(+$checkboxAnsver.dataset.id)
-                // }
-                // const notSelected = []
-                // for (const $checkboxAnsver of customCheckbox.querySelectorAll('input[type="checkbox"]')) {
-                //     const id = +$checkboxAnsver.dataset.id
-                //     if (!selected.includes(id)) {
-                //         notSelected.push(id)
-                //     }
-                // }
-                const answers = []
-                for (const $checkboxAnsver of customCheckbox.querySelectorAll('input[type="checkbox"]')) {
-                    answers.push(+$checkboxAnsver.dataset.id)
-                    selected.push(+$checkboxAnsver.checked)
-                }
-
-                const csrftoken = getCookie('csrftoken')
-                const stepId = customCheckbox.dataset.id
-                const data = JSON.stringify({
-                    selected: selected,
-                    // not_selected: notSelected,
-                    answers: answers,
-                    action: "check",
-                })
-                fetch(`/api/step-item/choice/${stepId}/`, {
-                    method: 'POST',
-                    body: data,
-                    headers: {
-                        'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json',
-                        "X-CSRFToken": csrftoken
-                    },
-                }).then(response => response.json()
-                ).then(data => {
-                    print('data', data)
-
-                    const $attemptMessage = customCheckbox.querySelector('.attempt__message')
-                    if (data['solved']) {
-                        $attemptMessage.innerHTML = this.getTemplateRes(true)
-                        const $menuChoice = this.getMenuItem('choice', stepId)
-                        if ($menuChoice) {
-                            $menuChoice.dataset.points = data['points']
-                            $menuChoice.dataset.solved = 'true'
-                            const $path = $menuChoice.querySelector('path')
-                            $path.style.fill = colors.blue
-
-                            // заморозити
-                            this.toggleFrozen(stepId)
-                        }
-                    } else {
-                        $attemptMessage.innerHTML = this.getTemplateRes(false)
-                    }
-                })
-            } else {
-                alert('Ти не вибрав жодного елемента')
+    mainForm.appendChild(fieldset)
+    fieldset.appendChild(legend)
+    fieldset.appendChild(this.createElement('div', 'attempt__message'))
+    const answers = step['answers']
+    const repeat_task = step['repeat_task']
+    const wrapperLabel = this.createElement('div', 'wrapper_label')
+    if (repeat_task) {
+        if (isMultipleChoice) {
+            for (const answer of answers) {
+                const label = this.createElement('label', 'container', `
+                    <input type="checkbox" name="answer${step.id}"  id="answer${answer.id}" data-id="${answer.id}">
+                    <span class="checkmark"></span>${answer.text}`, true)
+                wrapperLabel.appendChild(label)
             }
+            fieldset.appendChild(wrapperLabel)
+        } else {
+            for (const answer of answers) {
+                const label = this.createElement('label', 'custom-radio__label', `
+                    <input type="radio" name="answer${step.id}" id="answer${answer.id}" data-id="${answer.id}">
+                    <span class="custom-radio__text">${answer.text}</span>`, true)
+                wrapperLabel.appendChild(label)
+            }
+            fieldset.appendChild(wrapperLabel)
         }
-        taskCheck.appendChild(btnSubmit)
-        taskCheck.appendChild(btnCheckedAgain)
-        fieldset.appendChild(taskCheck)
-        stepInner.appendChild(customCheckbox)
-
-    this.$theory.appendChild(stepInner)
-    // перемістити вниз після додавання чеків
-    const $menuItem = this.getMenuItem(type, id)
-    if ($menuItem.dataset.solved === 'true') {
-        this.toggleFrozen(id)
+    } else {
+        // FIXED
+        const wrapperLabel = this.createElement('div', 'wrapper_label')
+        let j = 0
+        const index = step['answers_json'][1]
+        for (const answer of step["answers_json"][0]) {
+            const label = this.createElement('label', 'custom-radio__label')
+            const input = this.createElement('input', {type: 'radio'})
+            const span = this.createElement('span', 'custom-radio__text', answer)
+            label.appendChild(input)
+            label.appendChild(span)
+            if (j === index) {
+                input.checked = true
+            }
+            j++
+            wrapperLabel.appendChild(label)
+        }
+        fieldset.appendChild(wrapperLabel)
     }
 
+    const taskCheck = this.createElement('div', 'task__check')
+    const taskPoints = this.createElement('div', 'task__points')
+    if (!step['has_progress']) {
+        taskPoints.textContent = `${this.getTextPoints(step.points)} за розв’язок.`
+    }
+    taskCheck.appendChild(taskPoints)
+    // BUTTON
+    const btnSubmit = this.createElement('button',
+        {'class': 'button button-primary', type: 'submit'}, 'Надіслати')
+    taskCheck.appendChild(btnSubmit)
+
+    const btnNextStep = this.createElement('div',
+        'button button-primary button-next-step hide', 'Наступний крок')
+    btnNextStep.onclick = () => {
+        print('btnNextStep.onclick')
+    }
+    taskCheck.appendChild(btnNextStep)
+
+    const btnCheckedAgain = this.createElement('div',
+        'button button-secondary button-checked-again hide', "btnCheckedAgain")
+    btnCheckedAgain.onclick = () => {
+        // розморозити
+        this.toggleFrozen(id)
+        const csrftoken = getCookie('csrftoken')
+        fetch(`/api/step-item/choice_multi/${id}/`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                repeat_task: true,
+            }),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                "X-CSRFToken": csrftoken
+            },
+        }).then(response => response.json()
+        ).then(data => {
+            print('data PATCH: ', data)
+            this.update(data, id)
+        })
+    }
+    taskCheck.appendChild(btnCheckedAgain)
+    // END BUTTON
+
+    fieldset.appendChild(taskCheck)
+
+    const formFooter = this.createElement('div', 'form__footer')
+
+    if (step['has_progress']) {
+        formFooter.innerHTML = `
+                <a href="#">Розв'язки</a> Ви отримали <span class="student_points">${this.getTextPoints(step['student_points'])}</span> з ${step['points']}
+        `
+    }
+    fieldset.appendChild(formFooter)
+    mainForm.appendChild(fieldset)
+    stepInner.appendChild(mainForm)
+    this.$theory.appendChild(stepInner)
+
+    if (!repeat_task) {
+        if (step['student_solved']) {
+            this.toggleFrozen(id, '1', false)
+            btnNextStep.classList.remove('hide')
+        } else {
+            this.toggleFrozen(id, '0', false)
+        }
+        // this.toggleFrozen(id, (step['student_solved']) ? '1' : '0')
+    }
     if (this.activeTheoryItem) {
         this.activeTheoryItem.classList.add('hide')
     }
     this.activeTheoryItem = stepInner
+
+    // mainForm.onsubmit = async (event) => {
+    mainForm.onsubmit = (event) => {
+        event.preventDefault();
+        let listAnswerId = []
+        let selectedIndexes
+        let selected = []
+        if (isMultipleChoice) {
+            const listCheckboxAnswer = mainForm.querySelectorAll('input[type="checkbox"]')
+            selectedIndexes = []
+            let i = 0
+            for (const checkboxAnswer of listCheckboxAnswer) {
+                listAnswerId.push(checkboxAnswer.dataset.id)
+                if (checkboxAnswer.checked) {
+                    selected.push(checkboxAnswer.dataset.id)
+                    selectedIndexes.push(i)
+                }
+                i++
+            }
+        } else {
+            const listRadioAnswer = mainForm.querySelectorAll('input[type="radio"]')
+            let i = 0
+            for (const radioAnswer of listRadioAnswer) {
+                listAnswerId.push(radioAnswer.dataset.id)
+                if (radioAnswer.checked) {
+                    selected.push(+radioAnswer.dataset.id)
+                    selectedIndexes = i
+                }
+                i++
+            }
+        }
+
+        // const $radioAnswer = mainForm.querySelector('input[type="radio"]:checked')
+        if (selected.length) {
+            const csrftoken = getCookie('csrftoken')
+
+            fetch(`/api/step-item/choice_multi/${id}/`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    selected: (isMultipleChoice) ? selected: selected[0],
+                    selected_indexes: selectedIndexes,
+                    answer_ids: listAnswerId
+                }),
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                    "X-CSRFToken": csrftoken
+                },
+            }).then(response => response.json()
+            ).then(data => {
+                print('data POST:', data)
+                mainForm.querySelector('.task__points').textContent = ''
+
+                if (!step['has_progress']) {
+                    step['has_progress'] = true
+                    mainForm.querySelector('.form__footer').innerHTML = `
+                        <a href="#">Розв'язки</a> Ви отримали <span class="student_points">${this.getTextPoints(data['student_points'])}</span> з ${step['points']}`
+                }
+                if (data['solved']) {
+                    mainForm.querySelector('.form__footer .student_points').textContent = this.getTextPoints(data['student_points'])
+                    btnNextStep.classList.remove('hide')
+                    const $menuChoice = this.getMenuItem('choice', id)
+                    if ($menuChoice) {
+                        // $menuChoice.dataset.points = data['student_points']
+                        $menuChoice.dataset.solved = 'true'
+                        const $path = $menuChoice.querySelector('path')
+                        $path.style.fill = colors.blue
+
+                        // заморозити
+                        this.toggleFrozen(id, '1')
+                    }
+                } else {
+                    this.toggleFrozen(id, '0')
+                }
+            })
+        } else {
+            alert('Ти не вибрав жодного елемента')
+            // звертатися залежно від статі
+        }
+    }
 }
+
+
+
 
 
 export default stepsContent

@@ -2,8 +2,8 @@ from django.shortcuts import get_object_or_404
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from step.models import Text, Choice, AnswerChoice
-from progress.models import ProgressText, ProgressChoice, ProgressChoiceItem
+from step.models import Choice
+from progress.models import ProgressChoice, ProgressChoiceItem
 
 error = Response({
     'status': 'error'
@@ -18,12 +18,9 @@ class StepChoice(APIView):
         data = {
             'id': choice.id,
             'text_html': choice.text_html,
-            # 'is_always_correct': choice.is_always_correct,  # del
-            # 'preserve_order': choice.preserve_order,  # del
             'is_html_enabled': choice.is_html_enabled,
             'is_options_feedback': choice.is_options_feedback,
             'points': choice.points,
-            # 'is_multiple_choice': choice.is_multiple_choice,
         }
         progress = choice.progresschoice_set.filter(user=request.user).first()
         student_points, answers = 0, []
@@ -75,78 +72,41 @@ class StepChoice(APIView):
             return error
         choice = get_object_or_404(Choice, pk=step_id)
         user = request.user
-        if False:
-        # if choice.is_multiple_choice:
-            answer_ids = data.get('answer_ids', [])
-            print('selected', selected)
-            print('user, selected, answer_ids', user, selected, answer_ids)
 
-            return Response({
-                'status': 'ok',
-                'points': 1,  # int
-                'solved': False  # bool
-            })
-            # FIXED
-            answer_ids = data.get('answer_ids', [])
-            # progress, points, solved, list_answers = choice.check_answer_multi(user, selected, answer_ids)
-            if len(answers) != len(selected):
-                return error
-            progress_choice, points, solved = choice.check_answer_multi(user, selected, answers)
-            if (not progress_choice) and solved:
-                progress_choice = ProgressChoice.objects.create(user=user, step=choice, points=points)
-            if progress_choice:
-                progress_choice.answers.clear()
-                progress_choice.answers_select.clear()
-                for i, pk in enumerate(answers):
-                    progress_choice.answers.add(pk)
-                    if selected[i]:
-                        progress_choice.answers_select.add(pk)
-                # progress_choice.answers_select.clear()
-                # for pk in selected:
-                #     progress_choice.answers_select.add(pk)
-                progress_choice.save()
-            return Response({
-                'status': 'ok',
-                'points': points,  # int
-                'solved': solved  # bool
-            })
-        else:
-            answer_ids = data.get('answer_ids', [])
-            progress, points, solved, list_answers = choice.check_answer(user, selected, answer_ids)
-            if not progress:
-                progress = ProgressChoice.objects.create(
-                    user=user,
-                    step=choice,
-                    points=points,
-                    solved=solved,
-                )
-            # select_answer = AnswerChoice.objects.get(pk=selected)
-            if (not progress.solved) and solved:
-                if points > 0:
-                    progress.points = points
-                progress.solved = True
-            progress.repeat_task = False
-            progress.save()
-
-            selected_indexes = data.get('selected_indexes', [])
-            ProgressChoiceItem.objects.create(
-                progress_choice=progress,
+        answer_ids = data.get('answer_ids', [])
+        progress, points, solved, list_answers = choice.check_answer(user, selected, answer_ids)
+        if not progress:
+            progress = ProgressChoice.objects.create(
+                user=user,
+                step=choice,
                 points=points,
                 solved=solved,
-                # index=index,
-                answers_json=[list_answers, selected_indexes]
             )
+        if (not progress.solved) and solved:
+            if points > 0:
+                progress.points = points
+            progress.solved = True
+        progress.repeat_task = False
+        progress.save()
 
-            # delete progress_choice_item
-            progress_choice_item_set = progress.progresschoiceitem_set.all().order_by('-id')
-            for progress_choice_item in progress_choice_item_set[LIMIT_RECORD:]:
-                progress_choice_item.delete()
+        selected_indexes = data.get('selected_indexes', [])
+        ProgressChoiceItem.objects.create(
+            progress_choice=progress,
+            points=points,
+            solved=solved,
+            answers_json=[list_answers, selected_indexes]
+        )
 
-            return Response({
-                'status': 'ok',
-                'student_points': points,  # int
-                'solved': solved  # bool
-            })
+        # delete progress_choice_item
+        progress_choice_item_set = progress.progresschoiceitem_set.all().order_by('-id')
+        for progress_choice_item in progress_choice_item_set[LIMIT_RECORD:]:
+            progress_choice_item.delete()
+
+        return Response({
+            'status': 'ok',
+            'student_points': points,  # int
+            'solved': solved  # bool
+        })
 
     def patch(self, request, step_id):
         choice = get_object_or_404(Choice, pk=step_id)
@@ -159,8 +119,6 @@ class StepChoice(APIView):
 
         choice = get_object_or_404(Choice, pk=step_id)
         data = {
-            # 'id': choice.id,
-            # 'text_html': choice.text_html,
             'is_html_enabled': choice.is_html_enabled,
             'is_options_feedback': choice.is_options_feedback,
             'points': choice.points,
@@ -179,22 +137,8 @@ class StepChoice(APIView):
             })
 
         data.update({
-            # 'is_multiple_choice': choice.is_multiple_choice,
             'points': choice.points,
             'answers': answers,
             'repeat_task': True,
         })
         return Response(data)
-
-
-class Test(APIView):
-    def get(self, request):
-        repeat_task = True
-        # obj = Text.objects.all()
-        # for item in obj:
-        #     item.get_points(request.user)
-        #
-        # print(obj)
-        return Response({
-            'status': 'ok'
-        })

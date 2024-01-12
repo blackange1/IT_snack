@@ -2,8 +2,9 @@ from django.urls import path
 
 from .views import CourseList, CourseDetail, ModuleDetail, StepMenu
 
-from .views_lessons_choice import StepChoice, Test
 from .views_lessons_text import StepTextItem
+from .views_lessons_choice import StepChoice
+from .views_lessons_choice_multi import StepChoiceMulti
 
 urlpatterns = [
     # ex: /api/
@@ -16,5 +17,6 @@ urlpatterns = [
     # views_lessons
     path("step-item/text/<int:step_id>/", StepTextItem.as_view(), name="steps_text"),
     path("step-item/choice/<int:step_id>/", StepChoice.as_view(), name="steps_choice"),
-    path("test/", Test.as_view(), name="test"),
+    path("step-item/choice_multi/<int:step_id>/", StepChoiceMulti.as_view(), name="steps_choice_multi"),
+    # path("test/", Test.as_view(), name="test"),
 ]

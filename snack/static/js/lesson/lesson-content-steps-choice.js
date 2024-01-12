@@ -30,7 +30,7 @@ stepsContent.renderChoice = function (step, id) {
 
     // CREATE FORM
     const mainForm = this.createElement('form', {'class': 'lesson-form', 'data-id': id})
-    const isMultipleChoice = step['is_multiple_choice']
+    const isMultipleChoice = false
     const fieldset = document.createElement('fieldset')
     const legend = this.createElement('legend', 'task__title',
         (isMultipleChoice) ? "Виберіть декілька відповідей" : "Виберіть один варіант зі списку")
@@ -139,7 +139,7 @@ stepsContent.renderChoice = function (step, id) {
     if (!repeat_task) {
         if (step['student_solved']) {
             this.toggleFrozen(id, '1', false)
-            // btnNextStep.classList.remove('hide')
+            btnNextStep.classList.remove('hide')
         } else {
             this.toggleFrozen(id, '0', false)
         }
@@ -174,7 +174,7 @@ stepsContent.renderChoice = function (step, id) {
             for (const radioAnswer of listRadioAnswer) {
                 listAnswerId.push(radioAnswer.dataset.id)
                 if (radioAnswer.checked) {
-                    selected.push(+radioAnswer.dataset.id),
+                    selected.push(+radioAnswer.dataset.id)
                     selectedIndexes = i
                 }
                 i++
@@ -228,7 +228,6 @@ stepsContent.renderChoice = function (step, id) {
             alert('Ти не вибрав жодного елемента')
             // звертатися залежно від статі
         }
-        ``
     }
 }
 

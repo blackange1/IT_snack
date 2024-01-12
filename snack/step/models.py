@@ -23,7 +23,7 @@ class VerboseName(object):
     def get_verbose_name(self, key):
         value = self.verbose_name_plural.get(key, None)
         if value:
-            return f'{value + " " + ("_" * (self.MAX_LEN_KEY - len(value)))} {key}'
+            return f'{value + " " + ("_" * (self.MAX_LEN_KEY - len(value)))} | {key}'
         return f"Not key {key}"
 
 
@@ -45,7 +45,7 @@ class Order(models.Model):
 
 class Step(Order):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
-    text_html = models.TextField()
+    text_html = models.TextField(verbose_name="HTML контент | text_html")
 
     # def __str__(self):
     #     return f'{self.lesson} - {self.order}'
@@ -82,20 +82,25 @@ class Video(Order):
 
 
 class StepChoice(models.Model):
-    is_always_correct = models.BooleanField(default=False)
+    is_always_correct = models.BooleanField(
+        default=False, verbose_name="is_always_correct | Всі відповіді правильні")
 
     # Не виводити відповіді випадково | зберігати порядок
-    preserve_order = models.BooleanField(default=True)
+    preserve_order = models.BooleanField(
+        default=True, verbose_name="preserve_order | Не виводити відповіді випадково")
 
     # увімкнено html
-    is_html_enabled = models.BooleanField(default=False)
+    is_html_enabled = models.BooleanField(
+        default=False, verbose_name="is_html_enabled | Рендерити як HTML")
 
     # Пояснення поруч з відповідями
-    is_options_feedback = models.BooleanField(default=False)
+    is_options_feedback = models.BooleanField(
+        default=False, verbose_name="is_options_feedback | Пояснення поруч з відповідями")
 
     # is_multiple_choice = models.BooleanField(default=False)
 
-    sample_size = models.PositiveSmallIntegerField(default=4, )
+    sample_size = models.PositiveSmallIntegerField(
+        default=4, verbose_name="sample_size | Розмір відповідей")
 
     class Meta:
         abstract = True
@@ -105,7 +110,8 @@ class StepChoice(models.Model):
 class Choice(Step, StepChoice):
     TYPE = 'choice'
 
-    points = models.PositiveSmallIntegerField(default=1)
+    points = models.PositiveSmallIntegerField(
+        default=1, verbose_name="points | Бали")
 
     def get_points(self, user):
         progress = self.progresschoice_set.filter(user=user).first()
@@ -149,35 +155,43 @@ class ChoiceMulti(Step, StepChoice):
     # множинний вибір
     # is_multiple_choice = models.BooleanField(default=False)
 
-    points = models.FloatField(default=1)
-    full_answer = models.BooleanField(default=True)
+    points = models.FloatField(
+        default=1, verbose_name="points | Бали")
+    full_answer = models.BooleanField(default=True,
+                                      verbose_name="full_answer | відповідь вірна за умови всіх відповідей")
 
-    def check_answer_multi(self, user, selected, answers):
-        # FIXED додаткова перевірка на кількість отриманих запитань
-        not_correct, correct = 0, 0
-        for index, pk in enumerate(answers):
-            answer = self.answerchoice_set.filter(pk=pk).first()
-            select = selected[index]
-            if answer:
-                if answer.is_correct:
-                    if select:
-                        correct += 1
-                    else:
-                        not_correct += 1
-                elif select:
-                    not_correct += 1
-            else:
-                pass  # errot
-
-        points = self.points * round(correct / (correct + not_correct), 2)
-        print('points', points)
-        progress = self.progresschoice_set.filter(user=user).first()
+    def get_solved(self, user):
+        progress = self.progresschoicemulti_set.filter(user=user).first()
         if progress:
-            if points >= progress.points:
-                progress.points = points
-                # progress.save()
-            return progress, points, points > 0
-        return None, points, points > 0
+            return progress.solved
+        return False
+
+    # def check_answer_multi(self, user, selected, answers):
+    #     # FIXED додаткова перевірка на кількість отриманих запитань
+    #     not_correct, correct = 0, 0
+    #     for index, pk in enumerate(answers):
+    #         answer = self.answerchoice_set.filter(pk=pk).first()
+    #         select = selected[index]
+    #         if answer:
+    #             if answer.is_correct:
+    #                 if select:
+    #                     correct += 1
+    #                 else:
+    #                     not_correct += 1
+    #             elif select:
+    #                 not_correct += 1
+    #         else:
+    #             pass  # errot
+    #
+    #     points = self.points * round(correct / (correct + not_correct), 2)
+    #     print('points', points)
+    #     progress = self.progresschoice_set.filter(user=user).first()
+    #     if progress:
+    #         if points >= progress.points:
+    #             progress.points = points
+    #             # progress.save()
+    #         return progress, points, points > 0
+    #     return None, points, points > 0
 
     class Meta:
         verbose_name_plural = step_verbose_name.get_verbose_name("ChoiceMulti")
@@ -214,6 +228,7 @@ class TestCase(Order):
 STEP_LIST = {
     'text': Text,
     'choice': Choice,
+    'choicemulti': ChoiceMulti,
     'code': Code,
     'video': Video,
 }

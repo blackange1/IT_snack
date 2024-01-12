@@ -13,6 +13,7 @@ stepsContent.renderContent = function (type, id) {
         div.classList.remove('hide')
         this.activeTheoryItem = div
     } else {
+        print('/api/step-item type', type)
         fetch(`/api/step-item/${type}/${id}/?format=json`)
             .then(response => response.json())
             .then(step => {
@@ -22,6 +23,9 @@ stepsContent.renderContent = function (type, id) {
                         break
                     case 'choice':
                         this.renderChoice(step, id)
+                        break
+                    case 'choice_multi':
+                        this.renderChoiceMulti(step, id)
                         break
                 }
                 print('fetch_step', step)

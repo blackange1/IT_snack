@@ -171,8 +171,8 @@ class Generator(object):
                 for j in range(len(self.courses_path)):
                     print(f'  |-- {j + 1}: {self.courses_path.get(str(j + 1), "ERROR").name}')
                 # FIXED
-                # n = input('Обери курс для генерації ввівши його номер: ')
-                n = '3'
+                n = input('Обери курс для генерації ввівши його номер: ')
+                # n = '3'
                 if n in self.courses_path:
                     course_path = self.courses_path.get(n)
                     self.course_path = course_path

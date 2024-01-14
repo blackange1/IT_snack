@@ -143,9 +143,6 @@ class Choice(Step, StepChoice):
             return progress, points, answer.is_correct or self.is_always_correct, list_answers
         return None, points, answer.is_correct or self.is_always_correct, list_answers
 
-    def check_answer_multi(self, user, select, answer_ids):
-        pass
-
     class Meta:
         verbose_name_plural = step_verbose_name.get_verbose_name("Choice")
 
@@ -166,32 +163,50 @@ class ChoiceMulti(Step, StepChoice):
             return progress.solved
         return False
 
-    # def check_answer_multi(self, user, selected, answers):
-    #     # FIXED додаткова перевірка на кількість отриманих запитань
-    #     not_correct, correct = 0, 0
-    #     for index, pk in enumerate(answers):
-    #         answer = self.answerchoice_set.filter(pk=pk).first()
-    #         select = selected[index]
-    #         if answer:
-    #             if answer.is_correct:
-    #                 if select:
-    #                     correct += 1
-    #                 else:
-    #                     not_correct += 1
-    #             elif select:
-    #                 not_correct += 1
-    #         else:
-    #             pass  # errot
-    #
-    #     points = self.points * round(correct / (correct + not_correct), 2)
-    #     print('points', points)
-    #     progress = self.progresschoice_set.filter(user=user).first()
-    #     if progress:
-    #         if points >= progress.points:
-    #             progress.points = points
-    #             # progress.save()
-    #         return progress, points, points > 0
-    #     return None, points, points > 0
+    def check_answer_multi(self, user, selected_indexes, answer_ids):
+        # FIXED додаткова перевірка на кількість отриманих запитань
+        # FIXED якщо хоч одна відповідь правильна
+        if 0:
+            not_correct, correct = 0, 0
+            for index, pk in enumerate(answer_ids):
+                answer = self.answerchoicemulti_set.filter(pk=pk).first()
+                print('selected_indexes', selected_indexes)
+                is_select = index in selected_indexes
+                if not answer:
+                    return ValueError('invalid select')
+                if answer.is_correct:
+                    if is_select:
+                        correct += 1
+                    else:
+                        not_correct += 1
+                elif is_select:
+                    not_correct += 1
+
+            points = self.points * round(correct / (correct + not_correct), 2)
+            print('points', points)
+            return 0, 0, 0, 0
+
+        list_answers = []
+        solved = True
+        for index, pk in enumerate(answer_ids):
+            answer = self.answerchoicemulti_set.filter(pk=pk).first()
+            if not answer:
+                return ValueError('invalid select')
+            list_answers.append(answer.text)
+            is_select = index in selected_indexes
+            if is_select:
+                if not answer.is_correct:
+                    solved = False
+            else:
+                if answer.is_correct:
+                    solved = False
+
+        progress = self.progresschoicemulti_set.filter(user=user).first()
+        points = self.points if solved else 0
+
+        if progress:
+            return progress, points, solved or self.is_always_correct, list_answers
+        return None, points, solved or self.is_always_correct, list_answers
 
     class Meta:
         verbose_name_plural = step_verbose_name.get_verbose_name("ChoiceMulti")

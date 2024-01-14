@@ -17,7 +17,7 @@ class ProgressChoice(models.Model):
     points = models.PositiveSmallIntegerField()
     solved = models.BooleanField(default=False)
     repeat_task = models.BooleanField(default=False)
-    is_multiple_choice = models.BooleanField(default=False)
+    # is_multiple_choice = models.BooleanField(default=False)
 
 
 class ProgressChoiceItem(models.Model):
@@ -27,7 +27,7 @@ class ProgressChoiceItem(models.Model):
     solved = models.BooleanField(default=False)  # del
     # index = models.SmallIntegerField()  # del
     # selected_indexes = models.CharField(max_length=256)
-    is_multiple_choice = models.BooleanField(default=False)
+    # is_multiple_choice = models.BooleanField(default=False)
     # https: // docs.djangoproject.com / en / 5.0 / topics / db / queries /  # querying-jsonfield
     # answers_json = {
     #     0'answ-ers': ['apple', 'orange'],

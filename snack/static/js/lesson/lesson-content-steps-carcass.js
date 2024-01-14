@@ -76,11 +76,11 @@ const stepsContent = {
         $fieldset.querySelector('button[type="submit"]').classList.toggle('hide')
     },
     getMenuItem(type, stepId) {
-        const menuChoices = stepsContent.$menuSteps.querySelectorAll(`a[data-type="${type}"]`)
-        print('a', menuChoices)
-        for (const menuChoice of menuChoices) {
-            if (menuChoice.dataset.id == stepId) {
-                return menuChoice
+        const menuTasks = stepsContent.$menuSteps.querySelectorAll(`a[data-type="${type}"]`)
+        print('a', menuTasks)
+        for (const menuTask of menuTasks) {
+            if (menuTask.dataset.id == stepId) {
+                return menuTask
             }
         }
     },

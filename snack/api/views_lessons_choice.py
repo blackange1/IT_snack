@@ -89,7 +89,7 @@ class StepChoice(APIView):
         progress.repeat_task = False
         progress.save()
 
-        selected_indexes = data.get('selected_indexes', [])
+        selected_indexes = data.get('selected_indexes', None)
         ProgressChoiceItem.objects.create(
             progress_choice=progress,
             points=points,
@@ -117,7 +117,6 @@ class StepChoice(APIView):
         progress.repeat_task = True
         progress.save()
 
-        choice = get_object_or_404(Choice, pk=step_id)
         data = {
             'is_html_enabled': choice.is_html_enabled,
             'is_options_feedback': choice.is_options_feedback,

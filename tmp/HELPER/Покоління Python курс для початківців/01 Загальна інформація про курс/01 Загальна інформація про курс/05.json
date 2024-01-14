@@ -1,27 +1,41 @@
 {
   "CLASS_NAME": "Choice",
-  "text_html": "Яку освіту маєш?",
-  "is_multiple_choice": false,
-  "is_always_correct": false,
+  "text_html": "Вкажи свою освіту",
+  "is_always_correct": true,
   "preserve_order": false,
   "is_html_enabled": false,
   "is_options_feedback": false,
-  "sample_size": 3,
+  "sample_size": 10,
   "answers": [
     {
-      "is_correct": true,
-      "text": "магистр",
-      "feedback": ""
+      "text": "неповне середнє"
     },
     {
-      "is_correct": false,
-      "text": "среднее",
-      "feedback": ""
+      "text": "среднє"
     },
     {
-      "is_correct": false,
-      "text": "неполное среднее (школьник)",
-      "feedback": ""
+      "text": "середнє спеціальне"
+    },
+    {
+      "text": "неповне вище (студент)"
+    },
+    {
+      "text": "незакінчене вище"
+    },
+    {
+      "text": "вище (бакалавр/спеціаліст)"
+    },
+    {
+      "text": "магістр"
+    },
+    {
+      "text": "кандидат наук"
+    },
+    {
+      "text": "доктор наук"
+    },
+    {
+      "text": "інше"
     }
   ]
 }

@@ -1,31 +1,30 @@
 {
-  "CLASS_NAME": "Choice",
-  "text_html": "Звідки знаєш про курс",
-  "is_multiple_choice": true,
-  "is_always_correct": false,
+  "CLASS_NAME": "ChoiceMulti",
+  "text_html": "Звідки ти дізнався/дізналася про курс",
+  "is_always_correct": true,
   "preserve_order": false,
   "is_html_enabled": false,
   "is_options_feedback": false,
   "sample_size": 5,
   "answers": [
     {
-      "is_correct": true,
-      "text": "Из социальных сетей",
-      "feedback": ""
-    },
-    {
-      "is_correct": true,
-      "text": "Из рассылки Stepik",
+      "is_correct": false,
+      "text": "Із соціальний мереж",
       "feedback": ""
     },
     {
       "is_correct": false,
-      "text": "Из поисковых систем (Google, Yandex, Bing)",
+      "text": "Із розсилки IT snack",
       "feedback": ""
     },
     {
       "is_correct": false,
-      "text": "Посоветовали друзья/коллеги",
+      "text": "Із пошукових систем (Google, Bing)",
+      "feedback": ""
+    },
+    {
+      "is_correct": false,
+      "text": "Порадили друзі/колеги",
       "feedback": ""
     },
     {

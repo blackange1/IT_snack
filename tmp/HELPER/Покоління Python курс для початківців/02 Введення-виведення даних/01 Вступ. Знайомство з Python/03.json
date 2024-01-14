@@ -1,0 +1,21 @@
+{
+  "CLASS_NAME": "Choice",
+  "text_html": "Python є",
+  "is_always_correct": false,
+  "preserve_order": false,
+  "is_html_enabled": false,
+  "is_options_feedback": false,
+  "sample_size": 2,
+  "answers": [
+    {
+      "is_correct": true,
+      "text": "інтерпретована мова"
+    },
+    {
+      "is_correct": false,
+      "text": "компільована мова"
+    }
+  ]
+}
+
+

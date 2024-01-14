@@ -1,0 +1,31 @@
+{
+  "CLASS_NAME": "ChoiceMulti",
+  "text_html": "Переваги мови Python",
+  "is_always_correct": false,
+  "preserve_order": false,
+  "is_html_enabled": false,
+  "is_options_feedback": false,
+  "sample_size": 5,
+  "answers": [
+    {
+      "is_correct": true,
+      "text": "платформонезалежність"
+    },
+    {
+      "is_correct": true,
+      "text": "вбудовуваність"
+    },
+    {
+      "is_correct": true,
+      "text": "простота"
+    },
+    {
+      "is_correct": true,
+      "text": "наявність великої бібліотеки класів"
+    },
+    {
+      "is_correct": true,
+      "text": "динамічна типізація (для простих програм)"
+    }
+  ]
+}

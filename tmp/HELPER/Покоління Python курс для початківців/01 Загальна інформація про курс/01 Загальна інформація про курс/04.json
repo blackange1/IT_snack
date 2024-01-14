@@ -1,32 +1,39 @@
 {
   "CLASS_NAME": "Choice",
-  "text_html": "Скільки років? А?",
-  "is_multiple_choice": false,
-  "is_always_correct": false,
+  "text_html": "Вкажи свій вік",
+  "is_always_correct": true,
   "preserve_order": false,
   "is_html_enabled": false,
   "is_options_feedback": false,
-  "sample_size": 4,
+  "sample_size": 7,
   "answers": [
     {
       "is_correct": false,
-      "text": "Младше 15",
-      "feedback": ""
+      "text": "Молодше 15"
     },
     {
       "is_correct": false,
-      "text": "15-20 лет",
-      "feedback": ""
+      "text": "15-20 років"
     },
     {
       "is_correct": false,
-      "text": "21-25 лет",
-      "feedback": ""
+      "text": "21-25 років"
     },
     {
-      "is_correct": true,
-      "text": "26-35 лет",
-      "feedback": ""
+      "is_correct": false,
+      "text": "26-35 років"
+    },
+    {
+      "is_correct": false,
+      "text": "36-45 років"
+    },
+    {
+      "is_correct": false,
+      "text": "46-55 років"
+    },
+    {
+      "is_correct": false,
+      "text": "Старше 55 років"
     }
   ]
 }

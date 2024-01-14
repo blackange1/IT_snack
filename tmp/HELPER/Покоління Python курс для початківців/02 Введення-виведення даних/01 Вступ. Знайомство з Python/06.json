@@ -1,0 +1,59 @@
+{
+  "CLASS_NAME": "ChoiceMulti",
+  "text_html": "Які завдання можна вирішити зручно/ефективно за допомогою мови Python?",
+  "is_always_correct": false,
+  "preserve_order": false,
+  "is_html_enabled": false,
+  "is_options_feedback": false,
+  "sample_size": 8,
+  "answers": [
+    {
+      "is_correct": true,
+      "text": "створення системних утиліт"
+    },
+    {
+      "is_correct": true,
+      "text": "створення додатків для аналізу даних"
+    },
+    {
+      "is_correct": false,
+      "text": "написання драйверів низького рівня"
+    },
+    {
+      "is_correct": true,
+      "text": "створення графічних графічних додатків"
+    },
+    {
+      "is_correct": false,
+      "text": "впровадження операційної системи"
+    },
+    {
+      "is_correct": true,
+      "text": "створення веб-додатків"
+    },
+    {
+      "is_correct": true,
+      "text": "створення додатків баз даних"
+    },
+    {
+      "is_correct": false,
+      "text": "висока продуктивність розробки сервера"
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

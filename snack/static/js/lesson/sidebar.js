@@ -1,6 +1,6 @@
-import menuSteps from './lesson-menu.js'
+import menuSteps from './menu.js'
 const print = console.log
-const $lessonSidebar = document.querySelector('.lesson-sidebar')
+// const $lessonSidebar = document.querySelector('.lesson-sidebar')
 
 
 const sidebar = {

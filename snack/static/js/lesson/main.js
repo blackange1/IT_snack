@@ -1,5 +1,5 @@
-import menuSteps from './lesson-menu.js'
-import sidebar from './lesson-sidebar.js'
+import menuSteps from './menu.js'
+import sidebar from './sidebar.js'
 const print = console.log
 document.addEventListener("DOMContentLoaded", function () {
     print('main')

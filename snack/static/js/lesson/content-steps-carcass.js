@@ -1,6 +1,3 @@
-import getCookie from '../tools.js'
-import colors from '../vars.js'
-
 let print = console.log
 
 
@@ -58,11 +55,9 @@ const stepsContent = {
             // const $attemptMessage = $form.querySelector('.attempt__message')
             if (isMessage) {
                 // додати привітальні фрази
-                const message = (result === '1') ? '<i class="fa fa-check"></i> Відмінно!' : '<i class="fa fa-crosshairs"></i> Хибно!'
-                $form.querySelector('.attempt__message').innerHTML = message
+                $form.querySelector('.attempt__message').innerHTML = (result === '1') ? '<i class="fa fa-check"></i> Відмінно!' : '<i class="fa fa-crosshairs"></i> Хибно!'
             }
-            const titleButton = (result === '1') ? "Розв’язати знову" : "Спробувати ще раз"
-            $btnCheckedAgain.innerHTML = titleButton
+            $btnCheckedAgain.innerHTML = (result === '1') ? "Розв’язати знову" : "Спробувати ще раз"
         } else {
             $form.querySelector('.attempt__message').innerHTML = ''
         }
@@ -93,7 +88,7 @@ const stepsContent = {
     //     }
     // },
     // wrongAnswer() {},
-    getTextPoints(num, bonusText = false) {
+    getTextPoints(num) {
         // const text = (bonusText) ? " за розв'язок" : ''
         const nn = num % 100
         if (nn >= 11 && nn <= 19) {

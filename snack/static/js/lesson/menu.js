@@ -1,6 +1,6 @@
 import getCookie from '../tools.js'
 import colors from '../vars.js'
-import stepsContent from './lesson-content-steps.js'
+import stepsContent from './content-steps.js'
 
 let print = console.log
 const menuSteps = {

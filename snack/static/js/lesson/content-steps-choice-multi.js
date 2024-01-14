@@ -1,6 +1,6 @@
 import getCookie from '../tools.js'
 import colors from '../vars.js'
-import stepsContent from './lesson-content-steps-choice.js'
+import stepsContent from './content-steps-choice.js'
 
 let print = console.log
 
@@ -10,10 +10,6 @@ stepsContent.updateChoiceMulti = function (step, id) {
     const wrapperLabel = $form.querySelector('.wrapper_label')
     wrapperLabel.innerHTML = ''
     for (const answer of step['answers']) {
-        // const label = this.createElement(
-        //     'label', 'custom-radio__label', `
-        //         <input type="radio" name="answer${step.id}" id="answer${answer.id}" data-id="${answer.id}">
-        //         <span class="custom-radio__text">${answer.text}</span>`, true)
 
         const label = this.createElement('label', 'container', `
                 <input type="checkbox" name="answer${step.id}"  id="answer${answer.id}" data-id="${answer.id}">
@@ -21,7 +17,6 @@ stepsContent.updateChoiceMulti = function (step, id) {
             wrapperLabel.appendChild(label)
         wrapperLabel.appendChild(label)
     }
-    // $form.querySelector('.task__points').textContent = this.getTextPoints(step['points']) + ' за розв’язок.'
     const btnNextStep = $form.querySelector('.button-next-step')
     if (!btnNextStep.classList.contains('hide')) {
         btnNextStep.classList.add('hide')
@@ -155,7 +150,6 @@ stepsContent.renderChoiceMulti = function (step, id) {
         let listAnswerId = []
         let selectedIndexes
         let selected = []
-        // if (isMultipleChoice) {
         const listCheckboxAnswer = mainForm.querySelectorAll('input[type="checkbox"]')
         selectedIndexes = []
         let i = 0

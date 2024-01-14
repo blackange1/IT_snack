@@ -1,6 +1,6 @@
 import getCookie from '../tools.js'
 import colors from '../vars.js'
-import stepsContent from './lesson-content-steps-choice-multi.js'
+import stepsContent from './content-steps-choice-multi.js'
 
 let print = console.log
 // carcass => choice => choice-multi

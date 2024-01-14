@@ -1,6 +1,6 @@
 import getCookie from '../tools.js'
 import colors from '../vars.js'
-import stepsContent from './lesson-content-steps-carcass.js'
+import stepsContent from './content-steps-carcass.js'
 
 let print = console.log
 

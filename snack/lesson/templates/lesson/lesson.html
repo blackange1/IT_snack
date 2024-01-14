@@ -20,76 +20,6 @@
 
         <div class="lesson-sidebar__content">
 
-            <!--            <div class="lesson-sidebar__module-header">-->
-            <!--                <div class="line-progress-bar">&nbsp;</div>-->
-            <!--                <div class="line-progress-bar-done" style="height: 33%;">-->
-            <!--                    &nbsp;-->
-            <!--                </div>-->
-            <!--                <div class="sidebar-module-header__title" style="width: 100%;">-->
-            <!--                    1&nbsp;&nbsp;Про курс-->
-            <!--                </div>-->
-            <!--            </div>-->
-
-            <!--            <a href="#" class="lesson-sidebar__lessons-inner">-->
-            <!--                <div class="lesson-sidebar__lesson-header">-->
-            <!--                    <div class="line-progress-bar">&nbsp;</div>-->
-            <!--                    <div class="line-progress-bar-done" style="height: 67%;">-->
-            <!--                        &nbsp;-->
-            <!--                    </div>-->
-            <!--                    <div class="sidebar-lesson-header__title" style="width: 100%;">-->
-            <!--                        1.1&nbsp;&nbsp;Текст-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </a>-->
-
-            <!--            <a href="#" class="lesson-sidebar__lessons-inner">-->
-            <!--                <div class="lesson-sidebar__lesson-header">-->
-            <!--                    <div class="line-progress-bar">&nbsp;</div>-->
-            <!--                    <div class="line-progress-bar-done" style="height: 27%;">-->
-            <!--                        &nbsp;-->
-            <!--                    </div>-->
-            <!--                    <div class="sidebar-lesson-header__title" style="width: 100%;">-->
-            <!--                        1.2&nbsp;&nbsp;Ввідний урок-->
-            <!--                    </div>-->
-
-            <!--                </div>-->
-            <!--            </a>-->
-
-            <!--            <div class="lesson-sidebar__module-header">-->
-            <!--                <div class="line-progress-bar">&nbsp;</div>-->
-            <!--                <div class="line-progress-bar-done" style="height: 33%;">-->
-            <!--                    &nbsp;-->
-            <!--                </div>-->
-            <!--                <div class="sidebar-module-header__title" style="width: 100%;">-->
-            <!--                    2&nbsp;&nbsp;Текстові задачі-->
-            <!--                </div>-->
-            <!--            </div>-->
-
-            <!--            <a href="#" class="lesson-sidebar__lessons-inner">-->
-            <!--                <div class="lesson-sidebar__lesson-header">-->
-            <!--                    <div class="line-progress-bar">&nbsp;</div>-->
-            <!--                    <div class="line-progress-bar-done" style="height: 67%;">-->
-            <!--                        &nbsp;-->
-            <!--                    </div>-->
-            <!--                    <div class="sidebar-lesson-header__title">-->
-            <!--                        2.1&nbsp;&nbsp;Задачка на програмування-->
-            <!--                    </div>-->
-
-            <!--                </div>-->
-            <!--            </a>-->
-
-            <!--            <a href="#" class="lesson-sidebar__lessons-inner">-->
-            <!--                <div class="lesson-sidebar__lesson-header">-->
-            <!--                    <div class="line-progress-bar">&nbsp;</div>-->
-            <!--                    <div class="line-progress-bar-done" style="height: 27%;">-->
-            <!--                        &nbsp;-->
-            <!--                    </div>-->
-            <!--                    <div class="sidebar-lesson-header__title">-->
-            <!--                        2.2&nbsp;&nbsp;Не на програмування-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </a>-->
-
         </div>
         <div class="lesson-sidebar__footer">
             <div class="lesson-controls">
@@ -119,9 +49,7 @@
 </div>
 <div class="tabs">
     <div class="tabs__body">
-        <!-- <div class="tabs__item">Розв'язки</div>
-        <div class="tabs__item test">Коментарі</div>
-        <div class="tabs__item">Теорія</div> -->
+
     </div>
 </div>
 
@@ -129,54 +57,8 @@
     <div class="empty-sidebar">empty-sidebar</div>
     <div class="empty-tabs">t</div>
     <article class="step-content step-wrapper">
-<!--        <div class="step-inner">-->
-<!--            5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано-->
-<!--            <hr>-->
 
-<!--            <p>lesson | {{ current_step.CLASS_NAME}}</p>-->
-<!--            <p>{{ current_step.text_html|safe }}</p>-->
-
-<!--            {% if current_step.CLASS_NAME == 'Choice' %}-->
-<!--            <ul>-->
-<!--                {% if current_step.is_multiple_choice %}-->
-<!--                {% for answer in current_step.answer_set.all %}-->
-<!--                <li><input type="checkbox" name="answer"> {{ answer.text }}</li>-->
-<!--                {% endfor %}-->
-<!--                {% else %}-->
-<!--                {% for answer in current_step.answer_set.all %}-->
-<!--                <li><input type="radio" name="answer"> {{ answer.text }}</li>-->
-<!--                {% endfor %}-->
-<!--                {% endif %}-->
-<!--            </ul>-->
-<!--            {% endif %}-->
-<!--        </div>-->
     </article>
 
-    <!--    <div class="container">-->
-    <!--        <div class="row">-->
-    <!--            <div class="col-4" id="lessons_menu">-->
-    <!--                менюха-->
-    <!--            </div>-->
-    <!--            <div class="col-8">-->
-    <!--                <p>lesson | {{ current_step.CLASS_NAME}}</p>-->
-    <!--                <p></p>-->
-    <!--                <p>{{ current_step.text_html|safe }}</p>-->
-
-    <!--                {% if current_step.CLASS_NAME == 'Choice' %}-->
-    <!--                <ul>-->
-    <!--                    {% if current_step.is_multiple_choice %}-->
-    <!--                    {% for answer in current_step.answer_set.all %}-->
-    <!--                    <li><input type="checkbox" name="answer"> {{ answer.text }}</li>-->
-    <!--                    {% endfor %}-->
-    <!--                    {% else %}-->
-    <!--                    {% for answer in current_step.answer_set.all %}-->
-    <!--                    <li><input type="radio" name="answer"> {{ answer.text }}</li>-->
-    <!--                    {% endfor %}-->
-    <!--                    {% endif %}-->
-    <!--                </ul>-->
-    <!--                {% endif %}-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
 </main>
 {% endblock %}

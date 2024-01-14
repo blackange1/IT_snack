@@ -5,7 +5,7 @@ from django.db import models
 # add course | test data
 from course.models import Course, Module
 from lesson.models import Lesson
-# from step.models import Text, Choice, AnswerChoice
+from step.models import Text, Choice, AnswerChoice, ChoiceMulti, AnswerChoiceMulti
 from pathlib import Path
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -20,7 +20,7 @@ TYPE_STEP = [
     'Code',
 ]
 
-if False:
+if 1:
     with open(CURRENT_FILE_PATH, 'r', encoding='utf-8') as file:
         print('file', file)
         json_content = file.read()
@@ -73,8 +73,6 @@ if False:
                                 order=step.get('order', 0),
                                 text_html=step.get('text_html', 'text_html'),
                                 lesson=obj_lesson,
-
-                                # is_multiple_choice=step.get('is_multiple_choice', False),
                                 is_always_correct=step.get('is_always_correct', False),
                                 preserve_order=step.get('preserve_order', False),
                                 is_html_enabled=step.get('is_html_enabled', False),
@@ -83,8 +81,28 @@ if False:
                             )
                             obj_choice.save()
                             for answer in step.get('answers', []):
-                                obj_answer = Answer(
+                                obj_answer = AnswerChoice(
                                     choice=obj_choice,
+                                    is_correct=answer.get('is_correct', False),
+                                    text=answer.get('text', 'text'),
+                                    feedback=answer.get('feedback', ''),
+                                )
+                                obj_answer.save()
+                        elif type_step == 'ChoiceMulti':
+                            obj_choice_multi = ChoiceMulti(
+                                order=step.get('order', 0),
+                                text_html=step.get('text_html', 'text_html'),
+                                lesson=obj_lesson,
+                                is_always_correct=step.get('is_always_correct', False),
+                                preserve_order=step.get('preserve_order', False),
+                                is_html_enabled=step.get('is_html_enabled', False),
+                                is_options_feedback=step.get('is_options_feedback', False),
+                                sample_size=step.get('sample_size', 0),
+                            )
+                            obj_choice_multi.save()
+                            for answer in step.get('answers', []):
+                                obj_answer = AnswerChoiceMulti(
+                                    choice_multi=obj_choice_multi,
                                     is_correct=answer.get('is_correct', False),
                                     text=answer.get('text', 'text'),
                                     feedback=answer.get('feedback', ''),

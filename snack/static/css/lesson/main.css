@@ -1,6 +1,11 @@
 @import url('../var.css');
+/*https://fonts.google.com/specimen/Montserrat+Alternates?query=ua&subset=cyrillic*/
 
+/*@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,300;0,600;1,600&display=swap');*/
+/*@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,300;0,600;1,600&family=Montserrat:wght@300&display=swap');*/
 body {
+    /*font-family: 'Montserrat Alternates', sans-serif;*/
+    /*font-family: 'Montserrat Alternates', sans-serif;*/
     color: white;
     /* display: flex;
     flex-direction: column;
@@ -49,6 +54,10 @@ article {
 .step-wrapper {
     max-width: var(--width-content);
     margin: 0 auto;
+}
+
+.step-content {
+    line-height: 1.5;
 }
 
 .step-inner {

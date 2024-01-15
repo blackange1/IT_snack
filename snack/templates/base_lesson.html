@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block link %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/lesson/main.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/lesson/menu.css' %}">
@@ -20,9 +22,14 @@
 
 {% block script %}
 <!--<script src="{% static 'js/lesson/menu.js' %}"></script>-->
+
+
 <script src="{% static 'js/lesson/lesson-editor-code.js' %}"></script>
 <script src="{% static 'js/lesson/lesson-task-pull.js' %}"></script>
 <script src="{% static 'js/lesson/lesson-tabs.js' %}"></script>
 <script type="module" src="{% static 'js/lesson/main.js' %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+<script>hljs.highlightAll();</script>
 <!--<script src="{% static 'js/lesson/sidebar.js' %}"></script>-->
 {% endblock %}

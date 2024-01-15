@@ -1,1 +1,23 @@
-{"can_save": true, "name": "JavaScript", "modules": []}
+{
+  "can_save": true,
+  "name": "JavaScript",
+  "modules": [
+    {
+      "name": "test module",
+      "order": 1,
+      "lessons": [
+        {
+          "name": "test lesson",
+          "order": 1,
+          "steps": [
+            {
+              "CLASS_NAME": "Text",
+              "order": 1,
+              "text_html": "<h2>Тема уроку: функції з параметрами</h2>\n<ol>\n<li>Функції з параметрами</li>\n<li>Область видимості параметричної змінної</li>\n<li>Параметри за замовчуванням</li>\n<li>Розв'язання задач</li>\n</ol>\n<p><strong>Аннотація</strong>. Створення функцій користувача з параметрами.</p>\n<h3 align=\"center\"><b>Опції з параметрами</b></h3>\n\n<p>У попередньому уроці ми визначили функцію draw_box(), яка виводить зірковий прямокутник з розмірами 5 × 7:</p>\n<pre><code class=\"language-python\">def draw_box():\n    for i in range(5):\n        print('*' * 7)\n</code></pre>\n\n<h1>JS</h1>\n<pre><code class=\"language-javascript\">function draw_box() {\n    return 2 * 2    \n}\n</code></pre>"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

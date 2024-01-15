@@ -87,8 +87,27 @@ class Generator(object):
                                 text_html = file.read()
                         elif step_expansion == 'md':
                             with open(step_path, 'r', encoding='utf-8') as file:
-                                text = file.read()
-                                text_html = markdown.markdown(text)
+                                # text = file.read()
+                                text = []
+                                first_line = False
+                                language = None
+
+                                list_language = ["python", "javascript", "text"]
+                                check_language = [f"```{item}\n" for item in list_language]
+                                for line in file.readlines():
+                                    print(line, end="")
+                                    if line in check_language:
+                                        language = line[3:-1]
+                                        first_line = True
+                                        continue
+                                    if first_line:
+                                        line = f'<pre><code class="language-{language}">{line}'
+                                        first_line = False
+                                    if language and line in ("```\n", "```"):
+                                        line = f'</code></pre>\n'
+                                        language = None
+                                    text.append(line)
+                                text_html = markdown.markdown("".join(text))
                             # with open(step_path, 'w', encoding='utf-8') as file:
                             #     file.write(text_html)
                         step = {

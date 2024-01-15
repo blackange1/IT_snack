@@ -28,6 +28,7 @@ stepsContent.renderContent = function (type, id) {
                         this.renderChoiceMulti(step, id)
                         break
                 }
+                hljs.highlightAll()
                 print('fetch_step', step)
                 // menuSteps.renderMenuStep(lessons)
             })

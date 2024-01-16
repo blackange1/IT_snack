@@ -116,7 +116,7 @@ class Generator(object):
                             'text_html': text_html
                         }
                     elif step_expansion == 'json':
-                        with open(step_path, 'r') as file:
+                        with open(step_path, 'r', encoding='utf-8') as file:
                             json_content = file.read()
                             data_dict = json.loads(json_content)
                             data_dict.update({'order': step_order})

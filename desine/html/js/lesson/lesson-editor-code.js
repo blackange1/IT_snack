@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="code__wraper">
                 <ul class="code__number" data-row="10"></ul>
 
+<div class="wrapper__usercode">
                 <div class="usercode">
 
 <pre><code class="language-python hljs" data-highlighted="">class Car(object):
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
         print(f'name: {self.name} year:{self.year}')
     </code>
 </pre>
-
+<!--<div class="wrapper_textarea">-->
 <textarea name="code" class="usercode_main">class Car(object):
     def __init__(self, name, year):
         self.name = name
@@ -27,7 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
     def show_info(self):
         print(f'name: {self.name} year:{self.year}')</textarea>
                 </div>
-
+<!--</div>-->
+            </div>
+            
             </div>
             <div class="code__check">
                 <button type="button" class="button button-primary">Надіслати</button>

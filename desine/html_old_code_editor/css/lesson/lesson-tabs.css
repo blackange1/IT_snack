@@ -1,0 +1,37 @@
+/* TABS */
+.tabs {
+    top: var(--height-menu);
+    left: var(--width-sidebar);
+    position: fixed;
+}
+
+.tabs__body {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+
+.tabs__item {
+    position: relative;
+    margin-top: -10px;
+    display: inline-block;
+    padding: 15px 5px;
+    background-color: var(--bg-tabs);
+    border: var(--width-line) solid var(--color-line-grey);
+    border-right-width: 0;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    cursor: pointer;
+}
+
+.tabs__item.active {
+    background-color: var(--color-progress-bar-done);
+}
+
+.test {
+    z-index: 1000;
+}
+
+.empty-tabs {
+    width: var(--width-tabs);
+}

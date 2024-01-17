@@ -1,0 +1,56 @@
+@import url('../var.css');
+
+body {
+    color: white;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-between; */
+    background: var(--bg-black);
+    /* font-size: var(--font-size-main); */
+
+    /* font-family: 'Arial'; */
+}
+
+a,
+p {
+    color: white;
+}
+
+p {
+    line-height: 1.25;
+}
+
+.conteiner {
+    /* margin-top: 74px; */
+    height: 100vh;
+}
+
+
+main {
+    display: flex;
+    overflow-x: hidden;
+    padding-top: var(--height-menu)
+}
+
+.lesson-sidebar,
+.empty-sidebar {
+    width: var(--width-sidebar);
+    left: 0;
+
+}
+
+/* step-wrapper */
+article {
+    width: calc(100% - var(--width-sidebar) - var(--width-tabs));
+    background-color: var(--bg-black);
+}
+
+
+.step-wrapper {
+    max-width: var(--width-content);
+    margin: 0 auto;
+}
+
+.step-inner {
+    padding: var(--padding);
+}

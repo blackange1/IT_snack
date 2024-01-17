@@ -34,28 +34,6 @@
 
 .code__number .number__item {}
 
-.usercode {
-    width: 100%;
-    resize: none;
-    background-color: var(--bg-black);
-    border: 2px solid white;
-    border-radius: 0 15px 15px 0;
-    color: white;
-    padding: 10px;
-    font-family: 'Arial';
-    font-size: 18px;
-}
-
-.usercode:focus {
-    background-color: var(--bg-grey);
-}
-
-.code__check {
-    display: flex;
-    justify-content: space-between;
-    /* padding: 20px 0; */
-    margin: 20px 10px;
-}
 
 .button {
     padding: 10px 20px;
@@ -72,4 +50,57 @@
 .button-secondary {
     background-color: var(--color-progress-bar-done);
     color: white;
+}
+
+/* test */
+
+.usercode {
+/*    width: 100%;*/
+    width: 600px;
+/*    resize: none;*/
+    /*background-color: var(--bg-black);*/
+    border: 2px solid white;
+    border-radius: 0 15px 15px 0;
+    color: white;
+    padding: 10px;
+    font-family: 'Arial';
+    font-size: 18px;
+}
+
+.usercode:focus {
+    /*background-color: var(--bg-grey);*/
+}
+
+.code__check {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 20px 0; */
+    margin: 20px 10px;
+}
+
+textarea.usercode_main {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 101%;
+    opacity: .9;
+    padding: .5em;
+    font-size: 18px;
+    box-sizing: border-box;
+    caret-color: green;
+    color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0);
+
+}
+.usercode code {
+    border-radius: 0 15px 15px 0;    
+} 
+
+pre {
+    margin: 0;
+}
+
+.usercode {
+    position: relative;
+    padding: 0;
 }

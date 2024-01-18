@@ -2,34 +2,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const print = console.log
 
     class CodeEditer {
-        constructor(elem, numberItem = 10) {
+        constructor(elem, numberItem = 7) {
             elem.innerHTML = `
             <div class="code__wraper">
-                <ul class="code__number" data-row="10"></ul>
+                <ul class="code__number" data-row="10">
+                </ul>
 
-<div class="wrapper__usercode">
-                <div class="usercode">
+                <div class="wrapper__usercode">
+                    <div class="usercode">
 
-<pre><code class="language-python hljs" data-highlighted="">class Car(object):
-    def __init__(self, name, year):
-        self.name = name
-        self.year = year
+<pre><code class="language-python hljs" data-highlighted=""></code></pre>
 
-    def show_info(self):
-        print(f'name: {self.name} year:{self.year}')
-    </code>
-</pre>
-<!--<div class="wrapper_textarea">-->
-<textarea name="code" class="usercode_main">class Car(object):
+<textarea name="code" class="usercode_main">class Car(object):111111111111111111111111111111111111111        2222222
     def __init__(self, name, year):
         self.name = name
         self.year = year
 
     def show_info(self):
         print(f'name: {self.name} year:{self.year}')</textarea>
+                    </div>
+
                 </div>
-<!--</div>-->
-            </div>
             
             </div>
             <div class="code__check">
@@ -53,10 +46,10 @@ document.addEventListener("DOMContentLoaded", function () {
             this.$textarea.onclick = () => {
                 print("$textarea.onclick")
             }
-            this.$textarea.addEventListener('input', () => {
-                print("$textarea.input")
-                this.inputCode()
-            })
+            // this.$textarea.addEventListener('input', () => {
+            //     print("$textarea.input")
+            //     this.inputCode()
+            // })
             this.$textarea.addEventListener('keydown', (e) => {
                 const keyCode = e.keyCode
                 if (e.key == 'Tab') {
@@ -67,21 +60,27 @@ document.addEventListener("DOMContentLoaded", function () {
                     print("e.keyCode", e.keyCode)
                 }
             })
+            this.numberItem = numberItem + 1 // 7
+            this.preWrap = {} // {1: 1, 3: 2} 1*23**
 
+            this.inputCode()
             // oldProps
-            // this.$codeEditorNumber = elem.querySelector('.code__number')
+            this.$codeEditorNumber = elem.querySelector('.code__number')
             // this.$usercode = elem.querySelector('.usercode')
 
-            // for (let i = 1; i <= numberItem; i++) {
-            //     this.appendNumberItem(i)
-            // }
+
+            for (let i = 1; i <= this.numberItem; i++) {
+                print('i', i)
+                this.appendNumberItem(i)
+            }
             // this.minRow = +this.$codeEditorNumber.dataset.row
 
-            // this.addEventListenerInput()
+            this.addEventListenerInput()
         }
 
         inputCode() {
-            print('inputCode', this.$textarea.value)
+            // print('inputCode', this.$textarea.value)
+            // this.$textarea.value = this.$textarea.value
             this.$code.innerHTML = hljs.highlight(this.$textarea.value, {language: 'python'}).value
             // const html = hljs.highlight('<h1>Hello World!</h1>', {language: 'xml'}).value
         }
@@ -91,39 +90,100 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // oldMethod
-        // appendNumberItem(n) {
-        //     const numberItem = document.createElement('li')
-        //     numberItem.textContent = n
-        //     this.$codeEditorNumber.appendChild(numberItem)
-        // }
-        // addEventListenerInput() {
-        //     const obj = this
-        //     this.$usercode.addEventListener('input', function () {
-        //         const code = this.value
-        //         let row = code.split('\n').length
+        appendNumberItem(n) {
+            const numberItem = document.createElement('li')
+            numberItem.textContent = n
+            this.$codeEditorNumber.appendChild(numberItem)
+        }
+        addEventListenerInput() {
+            this.$textarea.addEventListener('input', () => {
+                this.inputCode()
 
-        //         if (obj.minRow > row) {
-        //             row = obj.minRow
-        //         }
+                // const obj = this
+                const code = this.$textarea.value
 
-        //         const dataRow = +obj.$codeEditorNumber.dataset.row
-        //         if (dataRow < row) {
-        //             obj.$codeEditorNumber.dataset.row = row
+                let row = code.split('\n')
+                // TEST
+                const maxCountCharsOfLine = 60
+                if (row[0].length > maxCountCharsOfLine) {
+                    print(2222)
+                    const words = []
+                    let start = 0
+                    let preparationClose = false
+                    const string = row[0]
+                    for (const index in string) {
+                        // buffer if 0] == " "
+                        const ch = string[index]
+                        if (ch == " ") {
+                            preparationClose = true
+                        } else {
+                            if (preparationClose) {
+                                words.push(string.slice(start, index))
+                                start = index
+                                preparationClose = false
+                            }
+                        }
+                    }
+                    console.clear()
+                    words.push(string.slice(start))
+                    print(words)
 
-        //             for (let i = dataRow + 1; i <= row; i++) {
-        //                 obj.appendNumberItem(i)
-        //             }
-        //         } else {
-        //             if (dataRow > row) {
-        //                 obj.$codeEditorNumber.dataset.row = row
-        //                 for (let i = dataRow; i > row; i--) {
-        //                     print('i', i)
-        //                     obj.$codeEditorNumber.lastElementChild.remove()
-        //                 }
-        //             }
-        //         }
-        //     })
-        // }
+                    const paragraphs = []
+                    let line = ""
+                    // let lineLength = 0
+                    for (const index in words) {
+                        const word = words[index]
+                        const newLile = line + word
+                        if (newLile.length > 60) {
+                            print('newLile.slice(60)', [newLile.slice(61)]) 
+                            // count splice
+                            // if (newLile.split(60)) {
+
+                            // }
+                            paragraphs.push(line)
+                            line = word
+                        } else {
+                            line = newLile
+                        }
+                    }
+                    paragraphs.push(line)
+                    print(paragraphs)
+                    // обхід слів, розподіл на абзаци
+                }
+                // End TEST
+                const rewLength = row.length
+                print('row[0]', row[0], row[0].length)
+                print('rewLength', rewLength)
+
+                this.$codeEditorNumber.innerHTML = ''
+                for (let i = 1; i <= rewLength; i++) {
+                    // print('i', i)
+                    this.appendNumberItem(i)
+                }
+
+                // if (obj.minRow > row) {
+                //     row = obj.minRow
+                // }
+
+                // const dataRow = +obj.$codeEditorNumber.dataset.row
+                // if (dataRow < row) {
+                //     obj.$codeEditorNumber.dataset.row = row
+
+                //     for (let i = dataRow + 1; i <= row; i++) {
+                //         obj.appendNumberItem(i)
+                //     }
+                // } else {
+                //     if (dataRow > row) {
+                //         obj.$codeEditorNumber.dataset.row = row
+                //         for (let i = dataRow; i > row; i--) {
+                //             print('i', i)
+                //             obj.$codeEditorNumber.lastElementChild.remove()
+                //         }
+                //     }
+                // }
+            }
+            )
+        }
     }
 
     const codeEditer = new CodeEditer(document.querySelector('.code-editor'))

@@ -21,6 +21,7 @@
 }
 
 .code__number {
+    font-family: monospace;
     list-style-type: none;
     border: 2px solid white;
     border-right-width: 0;
@@ -34,6 +35,7 @@
 
 
 .code__number .number__item {
+
 }
 
 
@@ -54,26 +56,6 @@
     color: white;
 }
 
-/* test */
-
-.usercode {
-    /*    width: 100%;*/
-    width: 600px;
-    /*    resize: none;*/
-    /*background-color: var(--bg-black);*/
-    border: 2px solid white;
-    border-radius: 0 15px 15px 0;
-    color: white;
-    /*padding: 10px;*/
-    font-family: 'Arial';
-    font-size: 18px;
-
-}
-
-.usercode:focus {
-    /*background-color: var(--bg-grey);*/
-}
-
 .code__check {
     display: flex;
     justify-content: space-between;
@@ -83,41 +65,27 @@
     margin-top: 260px;
 }
 
-/*.wrapper_textarea {*/
-/*    position: absolute;*/
-/*    !*top: 0;*!*/
-/*    height: 100%;*/
-/*    width: 100%;*/
-/*    !*padding: .5em;*!*/
-/*}*/
+/* test */
 
-textarea.usercode_main {
-    position: absolute;
-    top: 0;
-    /*height: calc(100% - 1em);*/
-    height: 100%;
-    width: 100%;
-    /*width: calc(100% - 1em);*/
-    opacity: .9;
+.usercode {
+    width: 600px;
+    /*background-color: var(--bg-black);*/
+    font-family: 'Arial';
     font-size: 18px;
-    box-sizing: border-box;
-    caret-color: green;
-    color: rgba(200, 200, 255, 0.7);
-    background-color: rgba(0, 0, 0, 0);
-    padding: 0;
-    resize: none;
-    /*margin: 0 .5em;*/
-    overflow: hidden;
+    height: 100%;
+
 }
 
-.usercode code {
+.usercode:focus {
+    /*background-color: var(--bg-grey);*/
+}
+
+.wrapper__usercode {
+    padding: .5em;
+    border: 2px solid white;
     border-radius: 0 15px 15px 0;
-    white-space: pre-wrap;
-    padding: 0;
-}
 
-pre {
-    margin: 0;
+    background-color: #282c34;
 }
 
 .usercode {
@@ -125,6 +93,37 @@ pre {
     padding: 0;
     /*padding: .5em;*/
 }
-.wrapper__usercode {
-    padding: .5em;
+pre {
+    margin: 0;
+}
+
+.usercode code.hljs {
+    /*border-radius: 0 15px 15px 0;*/
+    white-space: pre-wrap;
+    padding: 0;
+
+    background-color: none;
+    word-wrap: break-word;
+}
+
+textarea.usercode_main {
+    position: absolute;
+    /*top: 0;*/
+    height: 100%;
+    width: 100%;
+    opacity: .9;
+    font-size: 18px;
+    box-sizing: border-box;
+    caret-color: green;
+    color: rgba(200, 200, 255, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0;
+    resize: none;
+    overflow: hidden;
+    border-width: 0
+}
+
+textarea.usercode_main:focus {
+    border: none;
+    outline: none;
 }

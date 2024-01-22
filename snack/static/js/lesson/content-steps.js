@@ -1,9 +1,10 @@
 import getCookie from '../tools.js'
 import colors from '../vars.js'
-import stepsContent from './content-steps-choice-multi.js'
+// import stepsContent from './content-steps-choice-multi.js'
+import stepsContent from './content-steps-code.js'
 
 let print = console.log
-// carcass => choice => choice-multi
+// carcass => choice => choice-multi => code
 
 stepsContent.renderContent = function (type, id) {
     print("type, id =>", type, id)
@@ -26,6 +27,9 @@ stepsContent.renderContent = function (type, id) {
                         break
                     case 'choice_multi':
                         this.renderChoiceMulti(step, id)
+                        break
+                    case 'code':
+                        this.renderCode(step, id)
                         break
                 }
                 hljs.highlightAll()

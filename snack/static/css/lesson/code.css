@@ -47,22 +47,22 @@ code,
 
 }
 
-.button {
-    padding: 10px 20px;
-    border-width: 0;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-}
+/*.button {*/
+/*    padding: 10px 20px;*/
+/*    border-width: 0;*/
+/*    font-weight: bold;*/
+/*    cursor: pointer;*/
+/*    border-radius: 5px;*/
+/*}*/
 
-.button-primary {
-    background-color: var(--color-line-orange);
-}
+/*.button-primary {*/
+/*    background-color: var(--color-line-orange);*/
+/*}*/
 
-.button-secondary {
-    background-color: var(--color-progress-bar-done);
-    color: white;
-}
+/*.button-secondary {*/
+/*    background-color: var(--color-progress-bar-done);*/
+/*    color: white;*/
+/*}*/
 
 .code__check {
     display: flex;

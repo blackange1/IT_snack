@@ -37,7 +37,8 @@
     padding: 5px 0;
 }
 
-.custom-radio__text {}
+.custom-radio__text {
+}
 
 /* select checkbox */
 
@@ -74,12 +75,12 @@
 }
 
 /* On mouse-over, add a grey background color */
-.container:hover input~.checkmark {
+.container:hover input ~ .checkmark {
     background-color: #ccc;
 }
 
 /* When the checkbox is checked, add a blue background */
-.container input:checked~.checkmark {
+.container input:checked ~ .checkmark {
     background-color: var(--color-progress-bar-done);
 }
 
@@ -91,7 +92,7 @@
 }
 
 /* Show the checkmark when checked */
-.container input:checked~.checkmark:after {
+.container input:checked ~ .checkmark:after {
     display: block;
 }
 
@@ -109,9 +110,13 @@
 }
 
 /* ORDER */
-.task_title {}
+.task_title {
 
-.order__list {}
+}
+
+.order__list {
+    user-select: none;
+}
 
 .order__item {
     display: flex;
@@ -144,4 +149,5 @@
     width: 100%;
 }
 
-.order__control {}
+.order__control {
+}

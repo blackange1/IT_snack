@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // constructor(elem, numberItem = 7) {
         constructor(elem) {
             // this.maxCountCharsOfLine = 55 => 600px
-            this.maxCountCharsOfLine = 73
+            this.maxCountCharsOfLine = 60
             this.countParagraphs = 0  // 3
             this.spaceParagraphs = {} // {2: 3}  12***3
 
@@ -105,29 +105,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 //     print("e.keyCode", e.keyCode)
                 // }
             })
-            // this.numberItem = numberItem + 1 // 7
-            // this.preWrap = {} // {1: 1, 3: 2} 1*23**
 
-            // oldProps
             this.$codeEditorNumber = elem.querySelector('.code__number')
-            // this.$usercode = elem.querySelector('.usercode')
-
-
-            // for (let i = 1; i <= this.numberItem; i++) {
-            //     // print('i', i)
-            //     this.appendNumberItem(i)
-            // }
-            // this.minRow = +this.$codeEditorNumber.dataset.row
             this.inputCode()
 
             this.addEventListenerInput()
         }
 
-
-        // newMethod
-
-
-        // oldMethod
         appendNumberItem(n) {
             const numberItem = document.createElement('li')
             numberItem.innerHTML = n
@@ -149,7 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 let start = 0
                 let preparationClose = false
                 for (const index in string) {
-                    // buffer if 0] == " "
                     const ch = string[index]
                     if (ch === " ") {
                         preparationClose = true
@@ -161,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     }
                 }
-                console.clear()
+                // console.clear()
                 words.push(string.slice(start))
                 print(words)
 
@@ -181,14 +164,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         // print('newLine.slice(this.maxCountCharsOfLine)', [newLine.slice(this.maxCountCharsOfLine)])
 
                         if (line.slice(this.maxCountCharsOfLine).length) {
-                            // print('***line', [line])
-                            // print('*', [line.slice(0, this.maxCountCharsOfLine)])
-                            // print('*', [line.slice(this.maxCountCharsOfLine)])
+                            print('***line', [line])
+                            print('*', [line.slice(0, this.maxCountCharsOfLine)])
+                            print('*', [line.slice(this.maxCountCharsOfLine)])
                             // перевірка на пробіли
                             line = this.sliceSpace(line)
-
                             paragraphs.push(line.slice(0, this.maxCountCharsOfLine))
-
                             // print('line', [line])
                             // print('word', [word])
                             line = line.slice(this.maxCountCharsOfLine)
@@ -202,18 +183,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                     index++
                 }
-
-                if (line.slice(this.maxCountCharsOfLine).length) {
-                    // FIXED
-                    // line = this.sliceSpace(line)
-                    //
-                    // paragraphs.push(line.slice(0, this.maxCountCharsOfLine))
-                    //
-                    // // print('line', [line])
-                    // // print('word', [word])
-                    // line = line.slice(this.maxCountCharsOfLine)
-                } else {
-                    paragraphs.push(line)
+                while (true) {
+                    if (line.slice(this.maxCountCharsOfLine).length) {
+                        line = this.sliceSpace(line)
+                        paragraphs.push(line.slice(0, this.maxCountCharsOfLine))
+                        line = line.slice(this.maxCountCharsOfLine)
+                    } else {
+                        paragraphs.push(line)
+                        break
+                    }
                 }
                 print(paragraphs)
                 this.spaceParagraphs[i + 1] = paragraphs.length - 1
@@ -221,44 +199,32 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         inputCode() {
-            // print('inputCode', this.$textarea.value)
-            // this.$textarea.value = this.$textarea.value
             this.$code.innerHTML = hljs.highlight(this.$textarea.value, {language: 'python'}).value
-            // const html = hljs.highlight('<h1>Hello World!</h1>', {language: 'xml'}).value
-            // const obj = this
             const code = this.$textarea.value
-
             let row = code.split('\n')
-            // clear
             const oldCountParagraphs = this.countParagraphs
             const oldSpaceParagraphs = this.spaceParagraphs
             this.countParagraphs = 0
             this.spaceParagraphs = {}
 
-
             print("this.spaceParagraphs", this.spaceParagraphs)
             const rewLength = row.length
             print('row[0]', row[0], row[0].length)
             print('rewLength', rewLength)
-
-            this.$codeEditorNumber.innerHTML = ''
+            
             for (let i = 0; i < rewLength; i++) {
                 // print('i', i)
-
-                // this.appendNumberItem(i)
                 this.calculationLongString(row, i)
                 this.countParagraphs++
             }
-            print('this.countParagraphs', this.countParagraphs)
-            print('this.spaceParagraphs', this.spaceParagraphs)
-            print('oldCountParagraphs', oldCountParagraphs)
-            print('oldSpaceParagraphs', oldSpaceParagraphs)
-            // render number
-            // print('this.spaceParagraphs', this.spaceParagraphs)
+            print(this.countParagraphs, oldCountParagraphs)
+            print(this.spaceParagraphs, oldSpaceParagraphs)
+            print(JSON.stringify(this.spaceParagraphs) !== JSON.stringify(oldSpaceParagraphs))
+            print(this.countParagraphs !== oldCountParagraphs)
 
-
-            if (JSON.stringify(this.spaceParagraphs) !== JSON.stringify(oldSpaceParagraphs) || this.spaceParagraphs !== oldSpaceParagraphs) {
+            if (JSON.stringify(this.spaceParagraphs) !== JSON.stringify(oldSpaceParagraphs) || this.countParagraphs !== oldCountParagraphs) {
                 print('RENDER UL')
+                this.$codeEditorNumber.innerHTML = ''
                 for (let i = 1; i <= this.countParagraphs; i++) {
                     this.appendNumberItem(i)
                     if (this.spaceParagraphs.hasOwnProperty(i)) {
@@ -268,28 +234,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 }
             }
-
-            // if (obj.minRow > row) {
-            //     row = obj.minRow
-            // }
-
-            // const dataRow = +obj.$codeEditorNumber.dataset.row
-            // if (dataRow < row) {
-            //     obj.$codeEditorNumber.dataset.row = row
-
-            //     for (let i = dataRow + 1; i <= row; i++) {
-            //         obj.appendNumberItem(i)
-            //     }
-            // } else {
-            //     if (dataRow > row) {
-            //         obj.$codeEditorNumber.dataset.row = row
-            //         for (let i = dataRow; i > row; i--) {
-            //             print('i', i)
-            //             obj.$codeEditorNumber.lastElementChild.remove()
-            //         }
-            //     }
-            // }
-
         }
 
         addEventListenerInput() {
@@ -302,45 +246,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const codeEditor = new CodeEditor(document.querySelector('.code-editor'))
     print(codeEditor)
-
-
-    // const minRow = 10
-    // const $usercode = document.querySelector('.usercode')
-    // const $codeEditorNumber = document.querySelector('.code-editor__number')
-    // $0.scrollHeight
-    // $usercode.addEventListener('input', function () {
-    //     const code = this.value
-    //     let row = code.split('\n').length
-
-    //     if (minRow > row) {
-    //         row = minRow
-    //     }
-    //     // add li
-    //     const dataRow = +$codeEditorNumber.dataset.row
-    //     if (dataRow < row) {
-    //         $codeEditorNumber.dataset.row = row
-
-    //         for (let i = dataRow + 1; i <= row; i++) {
-    //             const numberItem = document.createElement('li')
-    //             numberItem.textContent = i
-    //             $codeEditorNumber.appendChild(numberItem)
-    //         }
-    //     } else {
-    //         if (dataRow > row) {
-    //             $codeEditorNumber.dataset.row = row
-    //             for (let i = dataRow; i > row; i--) {
-    //                 print('i', i)
-    //                 $codeEditorNumber.lastElementChild.remove()
-    //             }
-
-    //         }
-    //     }
-    // })
 });
-// 0       10        20        30        40        50        60        70
-// 1234567890123456789012345678901234567890123456789012345678901234567890
-// 22222222222     2222222 2                               44444444444444
-
-/*
-class Car(object):111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111213                             22222222222     2222222 2                               44444444444444
-*/

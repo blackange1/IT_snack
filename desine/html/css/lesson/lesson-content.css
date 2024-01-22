@@ -34,11 +34,9 @@
     user-select: none;
 }
 
-
 .code__number .number__item {
 
 }
-
 
 .button {
     padding: 10px 20px;
@@ -69,7 +67,7 @@
 /* test */
 
 .usercode {
-    width: 800px;
+    width: 600px;
     /*width: 100%;*/
     /*background-color: var(--bg-black);*/
     font-family: 'Arial';
@@ -140,6 +138,6 @@ textarea.usercode_main:focus {
 
 /*TEST DELETE*/
 
-/*.wrapper__usercode, .usercode {*/
-/*    width: 100%;*/
-/*}*/
+/*.wrapper__usercode, .usercode {
+    width: 100%;
+}*/

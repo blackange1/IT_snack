@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap');
+
+
+code,
+.usercode_main,
+.code__number{
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 400;
+}
+
 .code-sample::first-line {
     font-weight: bold;
 }
@@ -21,7 +31,7 @@
 }
 
 .code__number {
-    font-family: monospace;
+    /*font-family: monospace;*/
     list-style-type: none;
     border: 2px solid white;
     border-right-width: 0;
@@ -138,6 +148,7 @@ textarea.usercode_main:focus {
 
 /*TEST DELETE*/
 
-/*.wrapper__usercode, .usercode {
+.wrapper__usercode, .usercode {
     width: 100%;
-}*/
+}
+

@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
     class CodeEditor {
         // constructor(elem, numberItem = 7) {
         constructor(elem) {
-            // this.maxCountCharsOfLine = 55 => 600px
-            this.maxCountCharsOfLine = 60
+            // this.maxCountCharsOfLine = 60 => 600px
+            this.maxCountCharsOfLine = 55
             this.countParagraphs = 0  // 3
             this.spaceParagraphs = {} // {2: 3}  12***3
 
@@ -149,8 +149,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 print(words)
 
                 const paragraphs = []
-                let line = ""
-                let index = 0
+                // let line = ""
+                // let index = 0
+                let line = words[0]
+                let index = 1
                 while (index < words.length) {
                     const word = words[index]
                     let newLine = line + word

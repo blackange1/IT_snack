@@ -14,7 +14,7 @@
 .code-editor {
     /* display: flex; */
 }
-
+/*
 .code__wraper {
     display: flex;
 }
@@ -53,9 +53,9 @@
 .code__check {
     display: flex;
     justify-content: space-between;
-    /* padding: 20px 0; */
+
     margin: 20px 10px;
-}
+}*/
 
 .button {
     padding: 10px 20px;

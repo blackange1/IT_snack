@@ -1,0 +1,31 @@
+{
+  "CLASS_NAME": "ChoiceMulti",
+  "text_html": "Як називаються значення для виводу, вказані через кому в команді <code>print</code>?",
+  "is_always_correct": false,
+  "preserve_order": true,
+  "is_html_enabled": false,
+  "is_options_feedback": false,
+  "sample_size": 4,
+  "answers": [
+    {
+      "is_correct": false,
+      "text": "символами",
+      "feedback": ""
+    },
+    {
+      "is_correct": false,
+      "text": "рядками",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "аргументами",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "парамерами",
+      "feedback": ""
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "CLASS_NAME": "ChoiceMulti",
+  "text_html": "Робота яких фрагментів коду правильно визначає, парне чи ні число міститься у змінній <code>i</code>?",
+  "is_always_correct": false,
+  "preserve_order": true,
+  "is_html_enabled": false,
+  "is_options_feedback": false,
+  "sample_size": 6,
+  "answers": [
+    {
+      "is_correct": false,
+      "text": "1",
+    },
+    {
+      "is_correct": false,
+      "text": "2",
+    },
+    {
+      "is_correct": true,
+      "text": "3",
+    },
+    {
+      "is_correct": false,
+      "text": "4",
+    },
+    {
+      "is_correct": true,
+      "text": "5",
+    },
+    {
+      "is_correct": false,
+      "text": "6",
+    }
+  ]
+}

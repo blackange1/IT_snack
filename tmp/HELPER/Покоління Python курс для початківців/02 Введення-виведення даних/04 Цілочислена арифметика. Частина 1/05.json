@@ -1,0 +1,27 @@
+{
+  "CLASS_NAME": "Choice",
+  "text_html": "Що з'явиться на екрані після виконання наступної програми?",
+  "is_always_correct": false,
+  "preserve_order": true,
+  "is_html_enabled": false,
+  "is_options_feedback": false,
+  "sample_size": 4,
+  "answers": [
+    {
+      "is_correct": false,
+      "text": "a a"
+    },
+    {
+      "is_correct": true,
+      "text": "4 a"
+    },
+    {
+      "is_correct": false,
+      "text": "a 4"
+    },
+    {
+      "is_correct": false,
+      "text": "4 4"
+    }
+  ]
+}

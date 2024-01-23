@@ -1,0 +1,56 @@
+{
+  "CLASS_NAME": "ChoiceMulti",
+  "text_html": "Які значення може набувати рядкова змінна s, щоб у результаті виконання коду було виведено слово \"YES\"?",
+  "is_always_correct": false,
+  "preserve_order": true,
+  "is_html_enabled": false,
+  "is_options_feedback": false,
+  "sample_size": 4,
+  "answers": [
+    {
+      "is_correct": false,
+      "text": "s = 'bc2'",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "s = '23'",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "s = '123abc'",
+      "feedback": ""
+    },
+    {
+      "is_correct": false,
+      "text": "s = 'bca'",
+      "feedback": ""
+    },
+    {
+      "is_correct": false,
+      "text": "s = 'abcabc'",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "s = '3ab'",
+      "feedback": ""
+    },
+    {
+      "is_correct": false,
+      "text": "s = '321'",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "s = '1'",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "s = 'a'",
+      "feedback": ""
+    }
+  ]
+}

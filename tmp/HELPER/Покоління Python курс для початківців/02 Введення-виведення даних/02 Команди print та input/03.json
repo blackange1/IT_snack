@@ -1,0 +1,19 @@
+{
+  "CLASS_NAME": "Choice",
+  "text_html": "Команда <code>print</code> використовується для",
+  "is_always_correct": false,
+  "preserve_order": true,
+  "is_html_enabled": false,
+  "is_options_feedback": false,
+  "sample_size": 2,
+  "answers": [
+    {
+      "is_correct": true,
+      "text": "виводить дані на екран"
+    },
+    {
+      "is_correct": false,
+      "text": "зчитує дані з клавіатури"
+    }
+  ]
+}

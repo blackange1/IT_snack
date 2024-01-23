@@ -1,0 +1,19 @@
+{
+  "CLASS_NAME": "Choice",
+  "text_html": "Команда <code>input</code> використовується для",
+  "is_always_correct": false,
+  "preserve_order": true,
+  "is_html_enabled": false,
+  "is_options_feedback": false,
+  "sample_size": 2,
+  "answers": [
+    {
+      "is_correct": false,
+      "text": "виводить дані на екран"
+    },
+    {
+      "is_correct": true,
+      "text": "зчитує дані з клавіатури"
+    }
+  ]
+}

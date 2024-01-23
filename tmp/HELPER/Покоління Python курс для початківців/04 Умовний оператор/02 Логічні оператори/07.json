@@ -1,0 +1,27 @@
+{
+  "CLASS_NAME": "Choice",
+  "text_html": "Що буде виведено на екран після виконання наступної програми?",
+  "is_always_correct": false,
+  "preserve_order": true,
+  "is_html_enabled": false,
+  "is_options_feedback": false,
+  "sample_size": 4,
+  "answers": [
+    {
+      "is_correct": false,
+      "text": "число 81 виграло"
+    },
+    {
+      "is_correct": true,
+      "text": "число 34 виграло"
+    },
+    {
+      "is_correct": false,
+      "text": "число num1 виграло"
+    },
+    {
+      "is_correct": false,
+      "text": "число num2 виграло"
+    }
+  ]
+}

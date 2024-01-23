@@ -1,0 +1,51 @@
+{
+  "CLASS_NAME": "ChoiceMulti",
+  "text_html": "Виберіть рядок коду, який відповідає стандарту PEP 8.",
+  "is_always_correct": false,
+  "preserve_order": true,
+  "is_html_enabled": true,
+  "is_options_feedback": false,
+  "sample_size": 8,
+  "answers": [
+    {
+      "is_correct": true,
+      "text": "<code>print('Follow PEP8!')</code>",
+      "feedback": ""
+    },
+    {
+      "is_correct": false,
+      "text": "<code> print('Follow PEP8!')</code>",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "teacher2",
+      "feedback": "<code>print('Follow', 'PEP8!')</code>"
+    },
+    {
+      "is_correct": false,
+      "text": "<code>print('Follow','PEP8!')</code>",
+      "feedback": ""
+    },
+    {
+      "is_correct": false,
+      "text": "<code>print('Follow','PEP8!', sep = '**')</code>",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "<code>print('Follow', 'PEP8!', sep='**')</code>",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "name = input()",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "name=input()",
+      "feedback": ""
+    }
+  ]
+}

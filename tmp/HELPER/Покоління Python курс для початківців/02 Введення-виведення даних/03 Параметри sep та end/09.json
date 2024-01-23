@@ -1,0 +1,31 @@
+{
+  "CLASS_NAME": "ChoiceMulti",
+  "text_html": "Які із імен доступні для назви змінних в Python?",
+  "is_always_correct": false,
+  "preserve_order": true,
+  "is_html_enabled": false,
+  "is_options_feedback": false,
+  "sample_size": 4,
+  "answers": [
+    {
+      "is_correct": true,
+      "text": "teacher",
+      "feedback": ""
+    },
+    {
+      "is_correct": false,
+      "text": "2teacher",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "teacher2",
+      "feedback": ""
+    },
+    {
+      "is_correct": true,
+      "text": "teacher_2",
+      "feedback": ""
+    }
+  ]
+}

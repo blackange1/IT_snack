@@ -21,19 +21,6 @@ class CodeEditor {
                     </div>
                 </div>
             </div>
-            <div class="code__printer">
-                <label for="99" class="test_title">Test input:</label>
-                <div class="test__block">
-                    <textarea id="99" class="block__input" rows="3"></textarea>
-                    <div class="button button-secondary button-run-code">Запустити</div>
-                </div>
-                <div class="test__footer">
-                    <div class="footer__title">Test output:</div>
-                    <div class="footer__output">
-                        <pre><code class="hljs language-plaintext">def 2*   x</code></pre>
-                    </div>
-                </div>
-            </div>
             `
             const $wrappeUsercode = elem.querySelector('.wrapper__usercode')
             this.$code = $wrappeUsercode.querySelector('code.hljs')
@@ -329,17 +316,42 @@ stepsContent.renderCode = function (step, id) {
     //     taskPoints.classList.remove('hide')
     //     taskPoints.textContent = `${this.getTextPoints(step.points)} за розв’язок.`
     // }
-   
+    const $codePrinter = this.createElement("div", "code__printer hide")
+    $codePrinter.innerHTML = `
+        <label for="code_input_${id}" class="test_title">Test input:</label>
+            <div class="test__block">
+                <textarea id="code_input_${id}" class="block__input" rows="3"></textarea>
+                <!--<div class="button button-secondary button-run-code">Запустити</div>-->
+            </div>
+            <div class="test__footer">
+                <div class="footer__title">Test output:</div>
+                <div class="footer__output">
+<pre><code class="hljs language-plaintext">
+</code></pre>
+                </div>
+            </div>
+            `
+    fieldset.appendChild($codePrinter)
+
     // BUTTON
-    const codeCheck = this.createElement('div', 'code__check')
+    const $codeCheck = this.createElement('div', 'code__check')
+        // <div class="" > 55 < /div>
+    const $codeButtons = this.createElement('div', 'code_buttons')
+    const $taskPoints = this.createElement('div', 'task__points', "points")
     const btnSubmit = this.createElement('button', {'class': 'button button-primary', type: 'submit'}, 'Надіслати')
     const btnRunCode = this.createElement('div', {'class': 'button button-secondary button-run-code'}, 'Запустити')
-    codeCheck.appendChild(btnSubmit)
-    codeCheck.appendChild(btnRunCode)
+    $codeCheck.appendChild($taskPoints)
+    $codeButtons.appendChild(btnSubmit)
+    $codeButtons.appendChild(btnRunCode)
+    $codeCheck.appendChild($codeButtons)
 
-    fieldset.appendChild(codeCheck)
+    fieldset.appendChild($codeCheck)
 
     btnRunCode.onclick = () => {
+        if ($codePrinter.classList.contains('hide')) {
+            $codePrinter.classList.remove('hide')
+            $codePrinter.querySelector(".test__block").appendChild(btnRunCode)
+        }
         print(mainForm.querySelector('textarea').value)
         const code = mainForm.querySelector('textarea').value
         const input = mainForm.querySelector('.test__block textarea').value
@@ -371,7 +383,7 @@ stepsContent.renderCode = function (step, id) {
     // btnNextStep.onclick = () => {
     //     print('btnNextStep.onclick')
     // }
-    // taskCheck.appendChild(btnNextStep)
+    // $taskCheck.appendChild(btnNextStep)
 
     // const btnCheckedAgain = this.createElement('div',
     //     'button button-secondary button-checked-again hide', "btnCheckedAgain")

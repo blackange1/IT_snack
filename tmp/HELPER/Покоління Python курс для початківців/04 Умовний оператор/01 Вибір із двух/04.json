@@ -9,27 +9,27 @@
   "answers": [
     {
       "is_correct": false,
-      "text": "1",
+      "text": "1"
     },
     {
       "is_correct": false,
-      "text": "2",
+      "text": "2"
     },
     {
       "is_correct": true,
-      "text": "3",
+      "text": "3"
     },
     {
       "is_correct": false,
-      "text": "4",
+      "text": "4"
     },
     {
       "is_correct": true,
-      "text": "5",
+      "text": "5"
     },
     {
       "is_correct": false,
-      "text": "6",
+      "text": "6"
     }
   ]
 }

@@ -207,6 +207,7 @@ const menuSteps = {
             .then(lessons => {
                 print('lessons', lessons)
                 menuSteps.renderMenuStep(lessons)
+                stepsContent.$stepContent.innerHTML = ''
             })
     }
 }

@@ -97,7 +97,7 @@ stepsContent.renderChoice = function (step, id) {
         'button button-secondary button-checked-again hide', "btnCheckedAgain")
     btnCheckedAgain.onclick = () => {
         // розморозити
-        this.toggleFrozen(id)
+        this.toggleFrozen(mainForm)
         const csrftoken = getCookie('csrftoken')
         fetch(`/api/step-item/choice/${id}/`, {
             method: 'PATCH',
@@ -135,12 +135,12 @@ stepsContent.renderChoice = function (step, id) {
 
     if (!repeat_task) {
         if (step['student_solved']) {
-            this.toggleFrozen(id, '1', false)
+            this.toggleFrozen(mainForm, '1', false)
             btnNextStep.classList.remove('hide')
         } else {
-            this.toggleFrozen(id, '0', false)
+            this.toggleFrozen(mainForm, '0', false)
         }
-        // this.toggleFrozen(id, (step['student_solved']) ? '1' : '0')
+        // this.toggleFrozen(mainForm, (step['student_solved']) ? '1' : '0')
     }
     if (this.activeTheoryItem) {
         this.activeTheoryItem.classList.add('hide')
@@ -209,10 +209,10 @@ stepsContent.renderChoice = function (step, id) {
                         $path.style.fill = colors.blue
 
                         // заморозити
-                        this.toggleFrozen(id, '1')
+                        this.toggleFrozen(mainForm, '1')
                     }
                 } else {
-                    this.toggleFrozen(id, '0')
+                    this.toggleFrozen(mainForm, '0')
                 }
             })
         } else {

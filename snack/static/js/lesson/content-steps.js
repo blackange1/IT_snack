@@ -32,6 +32,7 @@ stepsContent.renderContent = function (type, id) {
                         this.renderCode(step, id)
                         break
                 }
+                //TODO: запускати лише в необхідних місцях
                 hljs.highlightAll()
                 print('fetch_step', step)
                 // menuSteps.renderMenuStep(lessons)

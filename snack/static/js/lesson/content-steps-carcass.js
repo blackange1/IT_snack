@@ -32,9 +32,9 @@ const stepsContent = {
         return elem
     },
     // https://learn.javascript.ru/decorators
-    renderText(step, type, id) {
+    renderText(step, id) {
         const stepInner = this.createElement('div', 'step-inner')
-        stepInner.setAttribute('id', type + id)
+        stepInner.setAttribute('id', 'text' + id)
         stepInner.innerHTML = `
             5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
             <hr>
@@ -46,8 +46,9 @@ const stepsContent = {
         }
         this.activeTheoryItem = stepInner
     },
-    toggleFrozen(id, result = '', isMessage = true) {
-        const $form = this.$stepContent.querySelector(`form[data-id="${id}"]`)
+    toggleFrozen(mainForm, result = '', isMessage = true) {
+        // const $form = this.$stepContent.querySelector(`form[data-id="${id}"]`)
+        const $form = mainForm
         const $btnCheckedAgain = $form.querySelector('.button-checked-again')
         $btnCheckedAgain.classList.toggle('hide')
         if (result) {

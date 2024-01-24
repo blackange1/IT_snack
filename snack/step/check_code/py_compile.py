@@ -1,4 +1,4 @@
-from chack_code import check_forbidden_libraries
+from step.check_code.chack_code import check_forbidden_libraries
 
 
 class ValidateCodePython(object):
@@ -17,7 +17,7 @@ class ValidateCodePython(object):
         def func(lst):
             for string in lst:
                 yield string
-            raise TimeoutError('EOFError: EOF when reading a line | очікує введення, а воно ен відбувається')
+            raise TimeoutError('EOFError: EOF when reading a line | очікує введення, а воно не відбувається')
 
         gen = func(self.input_data)
 
@@ -42,16 +42,7 @@ class ValidateCodePython(object):
                 print('ви використовуєте заборонені модулі')
             else:
                 exec(self.user_code, {'input': self.get_func_input(), 'print': self.get_func_print()})
-                print('self.user_output_data', self.user_output_data)
-                res_run_code = self.user_output_data
-                # print('self.output_data', self.output_data)
-                # str_output_data = '\n'.join(self.output_data)
-                # print('self.user_output_data', self.user_output_data)
-                # str_user_output_data = ''.join(self.user_output_data)
-                # # print('str_output_data =', str_output_data)
-                # # print('str_user_output_data=', str_user_output_data)
-                # if str_output_data == str_user_output_data:
-                #     res_check_code = True
+                res_run_code = ''.join(self.user_output_data)
         except SyntaxError as e:
             # 'add_note', 'args', 'end_lineno', 'end_offset', 'filename', 'lineno', 'msg', 'offset', 'print_file_and_line', 'text', 'with_traceback'
             print(e.args)
@@ -62,6 +53,7 @@ class ValidateCodePython(object):
             error_compilation = f"Exception: {e}"
         finally:
             return res_run_code, error_compilation
+
     def check_code(self):
         """
         :return: Повертає (res_check_code: bool, error_compilation: str)
@@ -118,9 +110,9 @@ print(int(a) + int(b) + int(input()))
 #     ]
 # )
 
-test = ValidateCodePython(
-    code,
-    '1 2\n3',
-    '6\n',
-)
-test.check_code()
+# test = ValidateCodePython(
+#     code,
+#     '1 2\n3',
+#     '6\n',
+# )
+# test.check_code()

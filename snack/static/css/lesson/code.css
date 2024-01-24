@@ -28,6 +28,11 @@ textarea.code__number {
     line-height: 1.5;
 }
 
+.fieldset__default {
+    padding: 0;
+    border-width: 0;
+}
+
 .code__wraper {
     display: flex;
 }
@@ -133,5 +138,65 @@ textarea.usercode_main:focus {
 .wrapper__usercode,
 .usercode {
     width: 100%;
+}
+
+/* CODE PRINTER */
+.code__printer {
+    border: 2px solid white;
+    border-top-width: 0;
+    border-radius: 0 0 15px 15px; 
+
+    margin-top: -15px; 
+    padding: 0.5em;
+    padding-top: 15px; 
+    /*padding-top: calc(0.5em + 15px);*/
+}
+.footer__title,
+.test_title {
+    margin-top: 10px;
+}
+.test_title {
+    display: block;
+}
+textarea.block__input {
+    font-size: 18px;
+    padding: 0.24em 0.5em;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    resize: none;
+    border-radius: 5px; 
+    /*overflow: hidden;*/
+    border: none;
+}
+textarea.block__input:focus {
+    /*color: red;*/
+    background-color: #eee;
+    border: none;
+    outline: none;
+}
+.test__footer {}
+
+.footer__output {
+    /*padding: 10px;*/
+}
+.footer__output code {
+    background-color: #2F0922;
+    border-radius: 10px;
+    color: white;
+    padding: .3em .5em;
+
+}
+
+.test__block{
+    display: flex;
+    align-items: flex-start;
+}
+
+
+.button-run-code{
+    display: inline-block;
+    font-size: .8rem;
+    margin-left: .5em;
 }
 

@@ -1,3 +1,4 @@
+import getCookie from '../tools.js'
 import stepsContent from "./content-steps-choice-multi.js";
 
 
@@ -20,12 +21,20 @@ class CodeEditor {
                     </div>
                 </div>
             </div>
-            <div class="code__check">
-                <button type="button" class="button button-primary">Надіслати</button>
-                <button type="button" class="button button-secondary">Запустити код</button>
+            <div class="code__printer">
+                <label for="99" class="test_title">Test input:</label>
+                <div class="test__block">
+                    <textarea id="99" class="block__input" rows="3"></textarea>
+                    <div class="button button-secondary button-run-code">Запустити</div>
+                </div>
+                <div class="test__footer">
+                    <div class="footer__title">Test output:</div>
+                    <div class="footer__output">
+                        <pre><code class="hljs language-plaintext">def 2*   x</code></pre>
+                    </div>
+                </div>
             </div>
             `
-
             const $wrappeUsercode = elem.querySelector('.wrapper__usercode')
             this.$code = $wrappeUsercode.querySelector('code.hljs')
             $wrappeUsercode.style.backgroundColor = window.getComputedStyle(this.$code, null).getPropertyValue('background-color')
@@ -235,7 +244,15 @@ class CodeEditor {
 
     // const codeEditor = new CodeEditor(document.querySelector('.code-editor'), 'class Car(object):\n    def __init__(self, name, year):\n        self.name = name\n        self.year = year\n\n    def show_info(self):\n        print(f\'name: {self.name} year:{self.year}\')')
     // print(codeEditor)
-
+    // window.addEventListener("resize", () => {
+    //     codeEditor.updateWidth()
+    //     // 100 - 9 == 0.09
+    //     // 600 - 55 == 0.0916
+    //     // 806 -
+    //     // 1000 - 92 == 0.092
+    //     // 1405 - 130 == 0.09253
+    //     // 1210 - 112 /111
+    // })
 
 stepsContent.renderCode = function (step, id) {
     const stepInner = this.createElement('div', {'class': 'step-inner', 'id': 'code' + id}, `
@@ -244,19 +261,38 @@ stepsContent.renderCode = function (step, id) {
 
     // CREATE FORM
     const mainForm = this.createElement('form', {'class': 'lesson-form', 'data-id': id})
-    // const codeEditor = new CodeEditor(mainForm, 'class Car(object):\n    def __init__(self, name, year):\n        self.name = name\n        self.year = year\n\n    def show_info(self):\n        print(f\'name: {self.name} year:{self.year}\')')    
 
     const isMultipleChoice = true
-    const fieldset = document.createElement('fieldset')
-    const legend = this.createElement('legend', 'task__title',
-        (isMultipleChoice) ? "Виберіть декілька відповідей" : "Виберіть один варіант зі списку")
+    const fieldset = this.createElement('fieldset', 'fieldset__default')
+    // const legend = this.createElement('legend', 'task__title',
+    //     (isMultipleChoice) ? "Виберіть декілька відповідей" : "Виберіть один варіант зі списку")
+
 
     mainForm.appendChild(fieldset)
-    fieldset.appendChild(legend)
-    fieldset.appendChild(this.createElement('div', 'attempt__message'))
-    // const answers = step['answers']
+    // fieldset.appendChild(legend)
+    // fieldset.appendChild(this.createElement('div', 'attempt__message'))
+
+    // const answers = step['code']
     // const repeat_task = step['repeat_task']
-    const repeat_task = false
+    // const repeat_task = false
+
+    // const taskCheck = this.createElement('div', 'task__check')
+    // const taskPoints = this.createElement('div', 'task__points hide')
+
+    // taskCheck.appendChild(taskPoints)
+
+    // fieldset.appendChild(taskCheck)
+
+    // const formFooter = this.createElement('div', 'form__footer hide')
+    
+    // fieldset.appendChild(formFooter)
+    mainForm.appendChild(fieldset)
+    stepInner.appendChild(mainForm)
+
+    this.$theory.appendChild(stepInner)
+
+    const codeEditor = new CodeEditor(fieldset, 'class Car(object):\n    def __init__(self, name, year):\n        self.name = name\n        self.year = year\n\n    def show_info(self):\n        print(f\'name: {self.name} year:{self.year}\')\ncar = Car(\'BMW\', 2000)\ncar.show_info()')
+    
     // const wrapperLabel = this.createElement('div', 'wrapper_label')
     // if (repeat_task) {
     //     for (const answer of answers) {
@@ -288,18 +324,48 @@ stepsContent.renderCode = function (step, id) {
     //     fieldset.appendChild(wrapperLabel)
     // }
 
-    const taskCheck = this.createElement('div', 'task__check')
-    const taskPoints = this.createElement('div', 'task__points hide')
+
     // if (!step['has_progress']) {
     //     taskPoints.classList.remove('hide')
     //     taskPoints.textContent = `${this.getTextPoints(step.points)} за розв’язок.`
     // }
-    taskCheck.appendChild(taskPoints)
+   
     // BUTTON
-    // const btnSubmit = this.createElement('button',
-    //     {'class': 'button button-primary', type: 'submit'}, 'Надіслати')
-    // taskCheck.appendChild(btnSubmit)
+    const codeCheck = this.createElement('div', 'code__check')
+    const btnSubmit = this.createElement('button', {'class': 'button button-primary', type: 'submit'}, 'Надіслати')
+    const btnRunCode = this.createElement('div', {'class': 'button button-secondary button-run-code'}, 'Запустити')
+    codeCheck.appendChild(btnSubmit)
+    codeCheck.appendChild(btnRunCode)
 
+    fieldset.appendChild(codeCheck)
+
+    btnRunCode.onclick = () => {
+        print(mainForm.querySelector('textarea').value)
+        const code = mainForm.querySelector('textarea').value
+        const input = mainForm.querySelector('.test__block textarea').value
+        print('input', input)
+        const csrftoken = getCookie('csrftoken')
+        fetch(`/api/step-item/code/${id}/`, {
+            method: 'POST',
+            body: JSON.stringify({
+                run_code: true,
+                code: code,
+                input: input
+            }),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                "X-CSRFToken": csrftoken
+            },
+        }).then(response => response.json()
+        ).then(data => {
+            print('data POST: ', data)
+            const $footerOutput = mainForm.querySelector('.footer__output pre code')
+            $footerOutput.textContent = data["print"]
+            print('$footerOutput', $footerOutput)
+            // this.updateChoiceMulti(data, id)
+        })
+    }
     // const btnNextStep = this.createElement('div',
     //     'button button-primary button-next-step hide', 'Наступний крок')
     // btnNextStep.onclick = () => {
@@ -332,26 +398,12 @@ stepsContent.renderCode = function (step, id) {
     // taskCheck.appendChild(btnCheckedAgain)
     // END BUTTON
 
-    fieldset.appendChild(taskCheck)
-
-    const formFooter = this.createElement('div', 'form__footer hide')
-
     // if (step['has_progress']) {
     //     formFooter.classList.remove('hide')
     //     formFooter.innerHTML = `
     //             <a href="#">Розв'язки</a> Ви отримали <span class="student_points">${this.getTextPoints(step['student_points'])}</span> з ${step['points']}
     //     `
     // }
-    fieldset.appendChild(formFooter)
-    mainForm.appendChild(fieldset)
-    stepInner.appendChild(mainForm)
-
-    this.$theory.appendChild(stepInner)
-
-
-    const codeEditor = new CodeEditor(mainForm, 'class Car(object):\n    def __init__(self, name, year):\n        self.name = name\n        self.year = year\n\n    def show_info(self):\n        print(f\'name: {self.name} year:{self.year}\')')
-
-
 
     // if (!repeat_task) {
     //     if (step['student_solved']) {
@@ -370,8 +422,11 @@ stepsContent.renderCode = function (step, id) {
     this.activeTheoryItem = stepInner
 
     // mainForm.onsubmit = async (event) => {
-    // mainForm.onsubmit = (event) => {
-    //     event.preventDefault();
+    mainForm.onsubmit = (event) => {
+        event.preventDefault();
+        print(mainForm.querySelector('textarea').value)
+
+
     //     let listAnswerId = []
     //     let selectedIndexes
     //     let selected = []
@@ -441,7 +496,7 @@ stepsContent.renderCode = function (step, id) {
     //         alert('Ти не вибрав жодного елемента')
     //         // звертатися залежно від статі
     //     }
-    // }
+    }
 }
 
 export default stepsContent

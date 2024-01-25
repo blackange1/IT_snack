@@ -234,36 +234,27 @@ class Code(Step):
     class Meta:
         verbose_name_plural = step_verbose_name.get_verbose_name("Code")
 
-    def run_code(self, user_code, data_input):
+    @staticmethod
+    def run_code(user_code, data_input):
         test = ValidateCodePython(user_code, data_input)
         res, error = test.run_code()
         print('res, error', (res, error))
         if not error:
             return res
         return 'error'
+
     def check_code(self, user_code):
         print('ValidateCodePython', ValidateCodePython)
-        code = r"""
-a, b = input().split()
-print(int(a) + int(b) + int(input()))
-        """
 
-        test = ValidateCodePython(
-            code,
-            '1 2\n3',
-            '6\n',
-        )
-        res, error = test.check_code()
+        tests = []
+        for testcase in self.testcase_set.all():
+            print(testcase)
+            test = ValidateCodePython(user_code, testcase.input, testcase.output)
+            res, error = test.check_code()
+            print('res, error', res, error)
+            tests.append(res)
 
-        print('res, error', res, error)
-        print('user_code', user_code)
-
-        print('#' * 10)
-        code = r"print(20 + 5, end='*')"
-        test = ValidateCodePython(user_code, '669\n777')
-        print(test.run_code())
-
-        return 5
+        return tests
 
 
 class TestCase(Order):

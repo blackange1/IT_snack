@@ -16,7 +16,14 @@ class StepCode(APIView):
     def get(self, request, step_id):
         return Response({
             "status": "ok",
-            "text_html": "text_html",
+            "text_html": "Побудувати пірамідку",
+            "points": 5,
+            "has_progress": False,
+            "student_points": 0,
+            "test_input": [["2", "*\n**\n"], ["3", "*\n**\n***\n"]],
+            "user_code": """n = int(input())
+for i in range(1, n + 1):
+   print(' ' * (n - i) + '*' * (2 * i - 1))"""
         })
 
     def post(self, request, step_id):
@@ -28,13 +35,32 @@ class StepCode(APIView):
         print('user_input', user_input)
         # print('code', code.check_code(user_code))
         if data.get('run_code', False):
-            res = code.run_code(user_code, user_input)
-            print('run_code')
+            user_print = code.run_code(user_code, user_input)
+            print('run_code', user_print)
             return Response({
                 "status": "ok",
-                "print": res
+                "print": user_print
             })
+
+        check_code = code.check_code(user_code)
+        print('result check_code', check_code)
         return Response({
             "status": "ok",
-            "text_html": "text_html",
+            "text_html": "Побудувати пірамідку",
+            "points": 5,
+            "has_progress": False,
+            "student_points": 0,
+            "check_code": check_code,
+            #"test_input": ["2", "*\n**\n", "3", "*\n**\n***\n"],
+            "user_code": """class Car(object):
+    def __init__(self, name, year):
+        self.name = name
+        self.year = year
+
+    def show_info(self):
+        print(f'name: {self.name} year:{self.year}')
+        
+        
+car = Car('BMW', 2024)
+car.show_info()"""
         })

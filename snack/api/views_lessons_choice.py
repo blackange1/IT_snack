@@ -33,7 +33,7 @@ class StepChoice(APIView):
                 progress_choice_item = progress.progresschoiceitem_set.order_by('-id').first()
                 if progress_choice_item:
                     data.update({
-                        'points': choice.points,
+                        # 'points': choice.points,
                         'student_solved': progress_choice_item.solved,
                         # 'index': progress_choice_item.index,
                         'repeat_task': repeat_task,
@@ -57,7 +57,7 @@ class StepChoice(APIView):
             })
 
         data.update({
-            'points': choice.points,
+            # 'points': choice.points,
             'answers': answers,
             'repeat_task': repeat_task,
             'has_progress': has_progress,

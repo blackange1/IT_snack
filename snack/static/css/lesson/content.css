@@ -64,6 +64,11 @@
     cursor: pointer;
     border-radius: 5px;
 }
+button.button-primary{
+    font-family: 'Arial';
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
 
 .button-primary {
     background-color: var(--color-line-orange);

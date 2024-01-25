@@ -72,12 +72,12 @@ stepsContent.renderChoiceMulti = function (step, id) {
     }
 
     const taskCheck = this.createElement('div', 'task__check')
-    const taskPoints = this.createElement('div', 'task__points hide')
-    if (!step['has_progress']) {
-        taskPoints.classList.remove('hide')
-        taskPoints.textContent = `${this.getTextPoints(step.points)} за розв’язок.`
-    }
-    taskCheck.appendChild(taskPoints)
+    // const taskPoints = this.createElement('div', 'task__points hide')
+    // if (!step['has_progress']) {
+    //     taskPoints.classList.remove('hide')
+    //     taskPoints.textContent = `${this.getTextPoints(step.points)} за розв’язок.`
+    // }
+    // taskCheck.appendChild(taskPoints)
     // BUTTON
     const btnSubmit = this.createElement('button',
         {'class': 'button button-primary', type: 'submit'}, 'Надіслати')
@@ -117,14 +117,17 @@ stepsContent.renderChoiceMulti = function (step, id) {
 
     fieldset.appendChild(taskCheck)
 
-    const formFooter = this.createElement('div', 'form__footer hide')
+    const formFooter = this.createElement('div', 'form__footer')
 
     if (step['has_progress']) {
-        formFooter.classList.remove('hide')
+        // formFooter.classList.remove('hide')
         formFooter.innerHTML = `
                 <a href="#">Розв'язки</a> Ви отримали <span class="student_points">${this.getTextPoints(step['student_points'])}</span> з ${step['points']}
         `
+    } else {
+        formFooter.innerHTML = `${this.getTextPoints(step.points)} за розв’язок.`
     }
+
     fieldset.appendChild(formFooter)
     mainForm.appendChild(fieldset)
     stepInner.appendChild(mainForm)
@@ -185,9 +188,9 @@ stepsContent.renderChoiceMulti = function (step, id) {
                     formFooter.classList.remove('hide')
                 }
 
-                if (!taskPoints.classList.contains('hide')) {
-                    taskPoints.classList.add('hide')
-                }
+                // if (!taskPoints.classList.contains('hide')) {
+                //     taskPoints.classList.add('hide')
+                // }
                 // mainForm.querySelector('.task__points').textContent = ''
 
                 if (!step['has_progress']) {

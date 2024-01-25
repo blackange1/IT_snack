@@ -72,7 +72,8 @@ textarea.code__number {
 /*}*/
 
 .code__check {
-
+    display: flex;
+    justify-content: space-between;
     /* padding: 20px 0; */
     margin: 20px 10px;
     /* delete */
@@ -80,8 +81,7 @@ textarea.code__number {
 }
 
 .code_buttons {
-    display: flex;
-    justify-content: space-between;
+
 }
 /* test */
 

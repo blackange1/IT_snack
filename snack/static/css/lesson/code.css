@@ -183,6 +183,7 @@ textarea.block__input:focus {
 .footer__output {
     /*padding: 10px;*/
 }
+.test__info code,
 .footer__output code {
     background-color: #2F0922;
     border-radius: 10px;

@@ -245,7 +245,9 @@ stepsContent.renderCode = function (step, id) {
     const stepInner = this.createElement('div', {'class': 'step-inner', 'id': 'code' + id}, `
         5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
         <hr>${step['text_html']}`, true)
-
+    const testInfo = this.createElement('div', "test__info hide",
+        `<pre><code class="hljs language-plaintext">test-info</code></pre>`, true)
+    stepInner.appendChild(testInfo)
     // CREATE FORM
     const mainForm = this.createElement('form', {'class': 'lesson-form', 'data-id': id})
 
@@ -383,8 +385,14 @@ stepsContent.renderCode = function (step, id) {
         }).then(response => response.json()
         ).then(data => {
             print('data POST: ', data)
+            // TODO:
+            if (testInfo.classList.contains("hide")) {
+                testInfo.classList.remove("hide")
+            }
+
             const $footerOutput = mainForm.querySelector('.footer__output pre code')
-            $footerOutput.textContent = data["print"]
+            const codePrint = data["print"] !== "" ? data["print"] : "¯\\_(ツ)_/¯"
+            $footerOutput.textContent = codePrint
             print('$footerOutput', $footerOutput)
             // this.updateChoiceMulti(data, id)
         })

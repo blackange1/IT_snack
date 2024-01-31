@@ -258,6 +258,7 @@ class Code(Step):
 
 
 class TestCase(Order):
+    # TODO: rename choice
     choice = models.ForeignKey(Code, on_delete=models.CASCADE)
     input = models.TextField(blank=True, null=True)
     output = models.TextField(blank=True, null=True)

@@ -33,12 +33,12 @@ class StepChoiceMulti(APIView):
                 progress_choice_multi_item = progress.progresschoicemultiitem_set.order_by('-id').first()
                 if progress_choice_multi_item:
                     data.update({
-                        'points': choice.points,
+                        # 'points': choice.points,
+                        'repeat_task': repeat_task,
+                        'solved': progress.solved,
                         'student_solved': progress_choice_multi_item.solved,
                         # 'index': progress_choice_item.index,
-                        'repeat_task': repeat_task,
                         'answers_json': progress_choice_multi_item.answers_json,
-                        'solved': progress.solved,
                         'has_progress': True,
                         'student_points': student_points,
                     })
@@ -63,7 +63,7 @@ class StepChoiceMulti(APIView):
             # 'has_progress': has_progress,
             # 'student_points': student_points,
 
-            'points': choice.points,
+            # 'points': choice.points,
             'answers': answers,
             'repeat_task': repeat_task,
             'has_progress': has_progress,

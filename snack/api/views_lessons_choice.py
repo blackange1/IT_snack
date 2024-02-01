@@ -118,7 +118,7 @@ class StepChoice(APIView):
         data = {
             'is_html_enabled': choice.is_html_enabled,
             'is_options_feedback': choice.is_options_feedback,
-            'points': choice.points,
+            # 'points': choice.points,
         }
 
         answers = []

@@ -14,17 +14,23 @@ LIMIT_RECORD = 5
 
 class StepCode(APIView):
     def get(self, request, step_id):
-        return Response({
+        code = get_object_or_404(Code, pk=step_id)
+        data = {
+            # 'id': code.id,
+            'text_html': code.text_html,
+            # 'points': code.points,
+        }
+
+        data.update({
             "status": "ok",
-            "text_html": "Побудувати пірамідку",
             "points": 5,
             "has_progress": False,
             "student_points": 0,
-            "test_input": [["2", "*\n**\n"], ["3", "*\n**\n***\n"]],
-            "user_code": """n = int(input())
-for i in range(1, n + 1):
-   print(' ' * (n - i) + '*' * (2 * i - 1))"""
+            "code_examples": [["2", "*\n**\n"], ["3", "*\n**\n***\n"]],
+            "user_code": "print(int(input()) + int(input()))"
+            # "user_code": "# write code\n\n\n\n\n\n\n\n\n"
         })
+        return Response(data)
 
     def post(self, request, step_id):
         data = request.data

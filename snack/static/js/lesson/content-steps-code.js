@@ -245,6 +245,19 @@ stepsContent.renderCode = function (step, id) {
     const stepInner = this.createElement('div', {'class': 'step-inner', 'id': 'code' + id}, `
         5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
         <hr>${step['text_html']}`, true)
+
+    const codeExemple = this.createElement('div', 'code__exemple')
+    for (const exemple of step["code_examples"]) {
+        const itemExemple = this.createElement('div', 'code__exemple', `
+            <span>input:</span>
+            <pre><code class="hljs language-plaintext">${exemple[0]}</code></pre>
+            <span>output:</span>
+            <pre><code class="hljs language-plaintext">${exemple[1]}</code></pre>
+        `, true)
+        codeExemple.appendChild(itemExemple)
+    }
+    stepInner.appendChild(codeExemple)
+
     const testInfo = this.createElement('div', "test__info hide",
         `<pre><code class="hljs language-plaintext">test-info</code></pre>`, true)
     stepInner.appendChild(testInfo)
@@ -313,9 +326,9 @@ stepsContent.renderCode = function (step, id) {
     //     taskPoints.textContent = `${this.getTextPoints(step.points)} за розв’язок.`
     // }
     let firstInput = ''
-    if (step.hasOwnProperty('test_input')) {
-        if (step['test_input'].length > 0) {
-            firstInput = step['test_input'][0][0]
+    if (step.hasOwnProperty('code_examples')) {
+        if (step['code_examples'].length > 0) {
+            firstInput = step['code_examples'][0][0]
         }
     }
 

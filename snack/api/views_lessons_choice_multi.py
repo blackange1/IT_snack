@@ -16,7 +16,7 @@ class StepChoiceMulti(APIView):
     def get(self, request, step_id):
         choice = get_object_or_404(ChoiceMulti, pk=step_id)
         data = {
-            'id': choice.id,
+            # 'id': choice.id,
             'text_html': choice.text_html,
             'is_html_enabled': choice.is_html_enabled,
             'is_options_feedback': choice.is_options_feedback,
@@ -33,7 +33,6 @@ class StepChoiceMulti(APIView):
                 progress_choice_multi_item = progress.progresschoicemultiitem_set.order_by('-id').first()
                 if progress_choice_multi_item:
                     data.update({
-                        # 'points': choice.points,
                         'repeat_task': repeat_task,
                         'solved': progress.solved,
                         'student_solved': progress_choice_multi_item.solved,
@@ -49,6 +48,7 @@ class StepChoiceMulti(APIView):
         else:
             answer_choice_set = choice.answerchoicemulti_set.order_by("?")
 
+        # TODO: обмежети розмір відповідей
         # # for answer in answerchoice_set[:choice.sample_size]:
         for answer in answer_choice_set:
             answers.append({
@@ -57,13 +57,6 @@ class StepChoiceMulti(APIView):
             })
 
         data.update({
-            # 'points': choice.points,
-            # 'answers': answers,
-            # 'repeat_task': repeat_task,
-            # 'has_progress': has_progress,
-            # 'student_points': student_points,
-
-            # 'points': choice.points,
             'answers': answers,
             'repeat_task': repeat_task,
             'has_progress': has_progress,

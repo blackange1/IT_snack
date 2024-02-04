@@ -1,4 +1,5 @@
 import getCookie from '../tools.js'
+import colors from '../vars.js'
 import stepsContent from "./content-steps-choice-multi.js";
 
 
@@ -218,6 +219,44 @@ class CodeEditor {
         )
     }
 
+    clearCode(defaultCode) {
+        this.$textarea.value = defaultCode
+        this.$code.innerHTML = hljs.highlight(defaultCode, {language: 'python'}).value
+        const code = this.$textarea.value
+        let row = code.split('\n')
+        const oldCountParagraphs = this.countParagraphs
+        const oldSpaceParagraphs = this.spaceParagraphs
+        this.countParagraphs = 0
+        this.spaceParagraphs = {}
+
+        // print("this.spaceParagraphs", this.spaceParagraphs)
+        const rewLength = row.length
+        // print('rewLength', rewLength)
+
+        for (let i = 0; i < rewLength; i++) {
+            // print('i', i)
+            this.calculationLongString(row, i)
+            this.countParagraphs++
+        }
+        print(this.countParagraphs, oldCountParagraphs)
+        print(this.spaceParagraphs, oldSpaceParagraphs)
+        print(JSON.stringify(this.spaceParagraphs) !== JSON.stringify(oldSpaceParagraphs))
+        print(this.countParagraphs !== oldCountParagraphs)
+
+        if (JSON.stringify(this.spaceParagraphs) !== JSON.stringify(oldSpaceParagraphs) || this.countParagraphs !== oldCountParagraphs) {
+            print('RENDER UL')
+            this.$codeEditorNumber.innerHTML = ''
+            for (let i = 1; i <= this.countParagraphs; i++) {
+                this.appendNumberItem(i)
+                if (this.spaceParagraphs.hasOwnProperty(i)) {
+                    for (let j = 0; j < this.spaceParagraphs[i]; j++) {
+                        this.appendNumberItem('<span class="not_color">*</span>')
+                    }
+                }
+            }
+        }
+    }
+
     updateWidth() {
         const $code = this.$code
         // print($code.parentElement.parentElement)
@@ -269,8 +308,7 @@ stepsContent.renderCode = function (step, id) {
     mainForm.appendChild(fieldset)
     print(step["user_code"])
     // const answers = step['code']
-    // const repeat_task = step['repeat_task']
-    // const repeat_task = false
+    const repeatTask = step['repeat_task']
 
     // const taskCheck = this.createElement('div', 'task__check')
     // const taskPoints = this.createElement('div', 'task__points hide')
@@ -279,46 +317,33 @@ stepsContent.renderCode = function (step, id) {
 
     // fieldset.appendChild(taskCheck)
 
-    // const formFooter = this.createElement('div', 'form__footer hide')
+    const formFooter = this.createElement('div', 'form__footer')
 
-    // fieldset.appendChild(formFooter)
+    if (step['has_progress']) {
+        // formFooter.classList.remove('hide')
+        formFooter.innerHTML = `
+                <a href="#">Розв'язки</a> Ви отримали <span class="student_points">${this.getTextPoints(step['student_points'])}</span> з ${step['points']}
+        `
+    } else {
+        formFooter.innerHTML = `${this.getTextPoints(step.points)} за розв’язок.`
+    }
+
     mainForm.appendChild(fieldset)
     stepInner.appendChild(mainForm)
 
     this.$theory.appendChild(stepInner)
 
     const codeEditor = new CodeEditor(fieldset, step["user_code"])
+    fieldset.insertBefore(
+        this.createElement('div', 'attempt__message'),
+        fieldset.firstChild)
 
     // const wrapperLabel = this.createElement('div', 'wrapper_label')
-    // if (repeat_task) {
-    //     for (const answer of answers) {
-    //         const label = this.createElement('label', 'container', `
-    //             <input type="checkbox" name="answer${step.id}"  id="answer${answer.id}" data-id="${answer.id}">
-    //             <span class="checkmark"></span>${answer.text}`, true)
-    //         wrapperLabel.appendChild(label)
-    //     }
-    //     fieldset.appendChild(wrapperLabel)
-    // } else {
-    //     // FIXED
-    //     const wrapperLabel = this.createElement('div', 'wrapper_label')
-    //     let j = 0
-    //     print("", step['answers_json'])
-    //     const index = step['answers_json'][1]
-    //     for (const answer of step["answers_json"][0]) {
-    //         const label = this.createElement('label', 'container')
-    //         const input = this.createElement('input', {type: 'checkbox'})
-    //         const span = this.createElement('span', 'checkmark')
-    //         label.appendChild(input)
-    //         label.appendChild(span)
-    //         label.appendChild(this.createElement('span', '', answer))
-    //         if (index.includes(j)) {
-    //             input.checked = true
-    //         }
-    //         j++
-    //         wrapperLabel.appendChild(label)
-    //     }
-    //     fieldset.appendChild(wrapperLabel)
-    // }
+    if (repeatTask) {
+
+    } else {
+        fieldset.toggleAttribute("disabled")
+    }
 
 
     // if (!step['has_progress']) {
@@ -332,13 +357,11 @@ stepsContent.renderCode = function (step, id) {
         }
     }
 
-
     const $codePrinter = this.createElement("div", "code__printer hide")
     $codePrinter.innerHTML = `
         <label for="code_input_${id}" class="test_title">Test input:</label>
             <div class="test__block">
                 <textarea id="code_input_${id}" class="block__input" rows="3">${firstInput}</textarea>
-                <!--<div class="button button-secondary button-run-code">Запустити</div>-->
             </div>
             <div class="test__footer">
                 <div class="footer__title">Test output:</div>
@@ -398,11 +421,6 @@ stepsContent.renderCode = function (step, id) {
         }).then(response => response.json()
         ).then(data => {
             print('data POST: ', data)
-            // TODO:
-            if (testInfo.classList.contains("hide")) {
-                testInfo.classList.remove("hide")
-            }
-
             const $footerOutput = mainForm.querySelector('.footer__output pre code')
             const codePrint = data["print"] !== "" ? data["print"] : "¯\\_(ツ)_/¯"
             $footerOutput.textContent = codePrint
@@ -417,47 +435,54 @@ stepsContent.renderCode = function (step, id) {
     // }
     // $taskCheck.appendChild(btnNextStep)
 
-    // const btnCheckedAgain = this.createElement('div',
-    //     'button button-secondary button-checked-again hide', "btnCheckedAgain")
-    // btnCheckedAgain.onclick = () => {
-    //     // розморозити
-    //     this.toggleFrozen(mainForm)
-    //     const csrftoken = getCookie('csrftoken')
-    //     fetch(`/api/step-item/choice_multi/${id}/`, {
-    //         method: 'PATCH',
-    //         body: JSON.stringify({
-    //             repeat_task: true,
-    //         }),
-    //         headers: {
-    //             'Accept': 'application/json, text/plain, */*',
-    //             'Content-Type': 'application/json',
-    //             "X-CSRFToken": csrftoken
-    //         },
-    //     }).then(response => response.json()
-    //     ).then(data => {
-    //         print('data PATCH: ', data)
-    //         this.updateChoiceMulti(data, id)
-    //     })
-    // }
+    btnCheckedAgain.onclick = () => {
+        // розморозити
+        this.toggleFrozen(mainForm, '', true, "code")
+        btnNextStep.classList.add('hide')
+        btnRunCode.classList.remove('hide')
+
+        codeEditor.clearCode('# write code\n\n\n\n\n\n\n\n\n')
+
+        // const csrftoken = getCookie('csrftoken')
+        // fetch(`/api/step-item/choice_multi/${id}/`, {
+        //     method: 'PATCH',
+        //     body: JSON.stringify({
+        //         repeat_task: true,
+        //     }),
+        //     headers: {
+        //         'Accept': 'application/json, text/plain, */*',
+        //         'Content-Type': 'application/json',
+        //         "X-CSRFToken": csrftoken
+        //     },
+        // }).then(response => response.json()
+        // ).then(data => {
+        //     print('data PATCH: ', data)
+        //     this.updateChoiceMulti(data, id)
+        // })
+    }
     // taskCheck.appendChild(btnCheckedAgain)
     // END BUTTON
 
-    // if (step['has_progress']) {
-    //     formFooter.classList.remove('hide')
-    //     formFooter.innerHTML = `
-    //             <a href="#">Розв'язки</a> Ви отримали <span class="student_points">${this.getTextPoints(step['student_points'])}</span> з ${step['points']}
-    //     `
-    // }
+    if (step['has_progress']) {
+        formFooter.innerHTML = `
+                <a href="#">Розв'язки</a> Ви отримали <span class="student_points">${this.getTextPoints(step['student_points'])}</span> з ${step['points']}
+        `
+    } else {
+        formFooter.innerHTML = `${this.getTextPoints(step.points)} за розв’язок.`
+    }
+    fieldset.appendChild(formFooter)
 
-    // if (!repeat_task) {
-    //     if (step['student_solved']) {
-    //         this.toggleFrozen(mainForm, '1', false)
-    //         // btnNextStep.classList.remove('hide')
-    //     } else {
-    //         this.toggleFrozen(mainForm, '0', false)
-    //     }
-    // this.toggleFrozen(mainForm, (step['student_solved']) ? '1' : '0')
-    // }
+    if (!repeatTask) {
+        if (step['student_solved']) {
+            this.toggleFrozen(mainForm, '1', false, "code")
+            btnNextStep.classList.remove('hide')
+        } else {
+            this.toggleFrozen(mainForm, '0', false, "code")
+        }
+        btnRunCode.classList.add('hide')
+        // fieldset.setAttribute("disabled", true)
+        fieldset.toggleAttribute("disabled")
+    }
 
     // changeActiveTheoryItem
     if (this.activeTheoryItem) {
@@ -486,6 +511,10 @@ stepsContent.renderCode = function (step, id) {
         }).then(response => response.json()
         ).then(data => {
             print('data POST:', data)
+            btnRunCode.classList.add('hide')
+            if (testInfo.classList.contains("hide")) {
+                testInfo.classList.remove("hide")
+            }
             // if (formFooter.classList.contains('hide')) {
             //     formFooter.classList.remove('hide')
             // }
@@ -495,27 +524,27 @@ stepsContent.renderCode = function (step, id) {
             // }
             // // mainForm.querySelector('.task__points').textContent = ''
             //
-            // if (!step['has_progress']) {
-            //     step['has_progress'] = true
-            //     mainForm.querySelector('.form__footer').innerHTML = `
-            //                 <a href="#">Розв'язки</a> Ви отримали <span class="student_points">${this.getTextPoints(data['student_points'])}</span> з ${step['points']}`
-            // }
-            // if (data['solved']) {
-            //     mainForm.querySelector('.form__footer .student_points').textContent = this.getTextPoints(data['student_points'])
-            //     btnNextStep.classList.remove('hide')
-            //     const $menuChoice = this.getMenuItem('choice_multi', id)
-            //     if ($menuChoice) {
-            //         // $menuChoice.dataset.points = data['student_points']
-            //         $menuChoice.dataset.solved = 'true'
-            //         const $path = $menuChoice.querySelector('path')
-            //         $path.style.fill = colors.blue
-            //
-            //         // заморозити
-            //         this.toggleFrozen(mainForm, '1')
-            //     }
-            // } else {
-            //     this.toggleFrozen(mainForm, '0')
-            // }
+            if (!step['has_progress']) {
+                step['has_progress'] = true
+                mainForm.querySelector('.form__footer').innerHTML = `
+                        <a href="#">Розв'язки</a> Ви отримали <span class="student_points">${this.getTextPoints(data['student_points'])}</span> з ${step['points']}`
+            }
+            if (data['solved']) {
+                mainForm.querySelector('.form__footer .student_points').textContent = this.getTextPoints(data['student_points'])
+                btnNextStep.classList.remove('hide')
+                const $menuCode = this.getMenuItem('code', id)
+                if ($menuCode) {
+                    // $menuCode.dataset.points = data['student_points']
+                    $menuCode.dataset.solved = 'true'
+                    const $path = $menuCode.querySelector('path')
+                    $path.style.fill = colors.blue
+
+                    // заморозити
+                    this.toggleFrozen(mainForm, '1', true, "code")
+                }
+            } else {
+                this.toggleFrozen(mainForm, '0', true, "code")
+            }
         })
 
 
@@ -525,5 +554,5 @@ stepsContent.renderCode = function (step, id) {
         //     }
     }
 }
-
+// print('***', end='')
 export default stepsContent

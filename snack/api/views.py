@@ -54,6 +54,8 @@ class StepMenu(APIView):
                     data_item.update({'solved': item.get_solved(user=user)})
                 elif item.TYPE == 'choice_multi':
                     data_item.update({'solved': item.get_solved(user=user)})
+                elif item.TYPE == 'code':
+                    data_item.update({'solved': item.get_solved(user=user)})
                 data.append(data_item)
 
         data.sort(key=lambda x: x.get('order'))

@@ -7,10 +7,11 @@
 
 }
 
+.form__code-wrong .code__number,
 .form__fieldset-wrong {
     background-color: #ff000011;
 }
-
+.form__code-true .code__number,
 .form__fieldset-true {
     background-color: #235;
 }

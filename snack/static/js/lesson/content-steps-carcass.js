@@ -46,7 +46,7 @@ const stepsContent = {
         }
         this.activeTheoryItem = stepInner
     },
-    toggleFrozen(mainForm, result = '', isMessage = true) {
+    toggleFrozen(mainForm, result = '', isMessage = true, type = '') {
         // const $form = this.$stepContent.querySelector(`form[data-id="${id}"]`)
         const $form = mainForm
         const $btnCheckedAgain = $form.querySelector('.button-checked-again')
@@ -65,7 +65,12 @@ const stepsContent = {
         // Розв’язати знову
         // Спробувати ще раз
         $form.classList.toggle('form-disabled')
-        const cssClass = (Boolean(+$form.dataset.result)) ? 'form__fieldset-true' : 'form__fieldset-wrong'
+        let cssClass = ''
+        if (type === 'code') {
+            cssClass = (Boolean(+$form.dataset.result)) ? 'form__code-true' : 'form__code-wrong'
+        } else {
+            cssClass = (Boolean(+$form.dataset.result)) ? 'form__fieldset-true' : 'form__fieldset-wrong'
+        }
         const $fieldset = $form.querySelector('fieldset')
         $fieldset.toggleAttribute("disabled")
         $fieldset.classList.toggle(cssClass)

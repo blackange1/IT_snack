@@ -39,9 +39,9 @@ stepsContent.renderChoiceMulti = function (step, id) {
     fieldset.appendChild(legend)
     fieldset.appendChild(this.createElement('div', 'attempt__message'))
     const answers = step['answers']
-    const repeat_task = step['repeat_task']
+    const repeatTask = step['repeat_task']
     const wrapperLabel = this.createElement('div', 'wrapper_label')
-    if (repeat_task) {
+    if (repeatTask) {
         for (const answer of answers) {
             const label = this.createElement('label', 'container', `
                 <input type="checkbox" name="answer${step.id}"  id="answer${answer.id}" data-id="${answer.id}">
@@ -50,7 +50,6 @@ stepsContent.renderChoiceMulti = function (step, id) {
         }
         fieldset.appendChild(wrapperLabel)
     } else {
-        // FIXED
         const wrapperLabel = this.createElement('div', 'wrapper_label')
         let j = 0
         print("", step['answers_json'])
@@ -133,14 +132,13 @@ stepsContent.renderChoiceMulti = function (step, id) {
     stepInner.appendChild(mainForm)
     this.$theory.appendChild(stepInner)
 
-    if (!repeat_task) {
+    if (!repeatTask) {
         if (step['student_solved']) {
             this.toggleFrozen(mainForm, '1', false)
             btnNextStep.classList.remove('hide')
         } else {
             this.toggleFrozen(mainForm, '0', false)
         }
-        // this.toggleFrozen(mainForm, (step['student_solved']) ? '1' : '0')
     }
     if (this.activeTheoryItem) {
         this.activeTheoryItem.classList.add('hide')

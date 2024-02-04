@@ -1,17 +1,6 @@
-import getCookie from '../tools.js'
+import getCookie, {printf} from '../tools.js'
 import colors from '../vars.js'
 import stepsContent from './content-steps-carcass.js'
-
-let print = console.log
-
-
-// stepsContent.deleteClass = function (element, cssClass) {
-//     if (element.classList.contains(cssClass)) {
-//         element.classList.remove(cssClass)
-//         return true
-//     }
-//     return false
-// }
 
 // https://learn.javascript.ru/decorators
 stepsContent.updateChoice = function (step, id) {
@@ -89,7 +78,7 @@ stepsContent.renderChoice = function (step, id) {
     const btnNextStep = this.createElement('div',
         'button button-primary button-next-step hide', 'Наступний крок')
     btnNextStep.onclick = () => {
-        print('btnNextStep.onclick')
+        printf('btnNextStep.onclick', 'blue')
     }
     taskCheck.appendChild(btnNextStep)
 
@@ -111,7 +100,8 @@ stepsContent.renderChoice = function (step, id) {
             },
         }).then(response => response.json()
         ).then(data => {
-            print('data PATCH: ', data)
+            printf(`=> PATCH /api/step-item/choice/${id}/`, 'green')
+            console.log('btnCheckedAgain.onclick.data:', data)
             this.updateChoice(data, id)
         })
     }
@@ -185,7 +175,8 @@ stepsContent.renderChoice = function (step, id) {
                 },
             }).then(response => response.json()
             ).then(data => {
-                print('data POST:', data)
+                printf(`=> POST: /api/step-item/choice/${id}`, 'green')
+                console.log('mainForm.onsubmit.data', data)
                 if (formFooter.classList.contains('hide')) {
                     formFooter.classList.remove('hide')
                 }

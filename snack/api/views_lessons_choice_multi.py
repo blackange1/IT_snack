@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from step.models import ChoiceMulti
-from progress.models import ProgressChoice, ProgressChoiceMulti, ProgressChoiceMultiItem
+from progress.models import ProgressChoiceMulti, ProgressChoiceMultiItem
 
 error = Response({
     'status': 'error'

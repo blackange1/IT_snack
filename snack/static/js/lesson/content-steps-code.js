@@ -1,9 +1,8 @@
-import getCookie from '../tools.js'
+import getCookie, {printf} from '../tools.js'
 import colors from '../vars.js'
 import stepsContent from "./content-steps-choice-multi.js";
 
 
-let print = console.log
 
 const coefficientProportionality = 0.09257
 
@@ -31,9 +30,9 @@ class CodeEditor {
 
         this.$textarea = elem.querySelector('textarea')
 
-        this.$textarea.onclick = () => {
-            print("$textarea.onclick")
-        }
+        // this.$textarea.onclick = () => {
+        //     console.log("$textarea.onclick")
+        // }
 
         this.$textarea.addEventListener('keydown', (e) => {
             if (e.key === 'Tab') {
@@ -76,7 +75,7 @@ class CodeEditor {
                 }
             }
             // if (35 <= e.keyCode && e.keyCode <= 40) {
-            //     print("e.keyCode", e.keyCode)
+            //     console.log("e.keyCode", e.keyCode)
             // }
         })
 
@@ -120,11 +119,9 @@ class CodeEditor {
             }
             // console.clear()
             words.push(string.slice(start))
-            print(words)
+            // console.log(words)
 
             const paragraphs = []
-            // let line = ""
-            // let index = 0
             let line = words[0]
             let index = 1
             while (index < words.length) {
@@ -135,20 +132,11 @@ class CodeEditor {
                 newLine = this.sliceSpace(newLine)
 
                 if (newLine.length > this.maxCountCharsOfLine) {
-                    // print('newLine', [newLine])
-                    // print('line', [line])
-                    // print('newLine.slice(this.maxCountCharsOfLine)', [newLine.slice(this.maxCountCharsOfLine)])
 
                     if (line.slice(this.maxCountCharsOfLine).length) {
-                        // print('***line', [line])
-                        // print('*', [line.slice(0, this.maxCountCharsOfLine)])
-                        // print('*', [line.slice(this.maxCountCharsOfLine)])
-
                         // перевірка на пробіли
                         line = this.sliceSpace(line)
                         paragraphs.push(line.slice(0, this.maxCountCharsOfLine))
-                        // print('line', [line])
-                        // print('word', [word])
                         line = line.slice(this.maxCountCharsOfLine)
                         continue
                     } else {
@@ -170,7 +158,7 @@ class CodeEditor {
                     break
                 }
             }
-            print(paragraphs)
+            // console.log(paragraphs)
             this.spaceParagraphs[i + 1] = paragraphs.length - 1
         }
     }
@@ -184,22 +172,19 @@ class CodeEditor {
         this.countParagraphs = 0
         this.spaceParagraphs = {}
 
-        // print("this.spaceParagraphs", this.spaceParagraphs)
         const rewLength = row.length
-        // print('rewLength', rewLength)
 
         for (let i = 0; i < rewLength; i++) {
-            // print('i', i)
             this.calculationLongString(row, i)
             this.countParagraphs++
         }
-        print(this.countParagraphs, oldCountParagraphs)
-        print(this.spaceParagraphs, oldSpaceParagraphs)
-        print(JSON.stringify(this.spaceParagraphs) !== JSON.stringify(oldSpaceParagraphs))
-        print(this.countParagraphs !== oldCountParagraphs)
+        // console.log(this.countParagraphs, oldCountParagraphs)
+        // console.log(this.spaceParagraphs, oldSpaceParagraphs)
+        // console.log(JSON.stringify(this.spaceParagraphs) !== JSON.stringify(oldSpaceParagraphs))
+        // console.log(this.countParagraphs !== oldCountParagraphs)
 
         if (JSON.stringify(this.spaceParagraphs) !== JSON.stringify(oldSpaceParagraphs) || this.countParagraphs !== oldCountParagraphs) {
-            print('RENDER UL')
+            // console.log('RENDER UL')
             this.$codeEditorNumber.innerHTML = ''
             for (let i = 1; i <= this.countParagraphs; i++) {
                 this.appendNumberItem(i)
@@ -229,22 +214,19 @@ class CodeEditor {
         this.countParagraphs = 0
         this.spaceParagraphs = {}
 
-        // print("this.spaceParagraphs", this.spaceParagraphs)
         const rewLength = row.length
-        // print('rewLength', rewLength)
 
         for (let i = 0; i < rewLength; i++) {
-            // print('i', i)
             this.calculationLongString(row, i)
             this.countParagraphs++
         }
-        print(this.countParagraphs, oldCountParagraphs)
-        print(this.spaceParagraphs, oldSpaceParagraphs)
-        print(JSON.stringify(this.spaceParagraphs) !== JSON.stringify(oldSpaceParagraphs))
-        print(this.countParagraphs !== oldCountParagraphs)
+        // console.log(this.countParagraphs, oldCountParagraphs)
+        // console.log(this.spaceParagraphs, oldSpaceParagraphs)
+        // console.log(JSON.stringify(this.spaceParagraphs) !== JSON.stringify(oldSpaceParagraphs))
+        // console.log(this.countParagraphs !== oldCountParagraphs)
 
         if (JSON.stringify(this.spaceParagraphs) !== JSON.stringify(oldSpaceParagraphs) || this.countParagraphs !== oldCountParagraphs) {
-            print('RENDER UL')
+            // console.log('RENDER UL')
             this.$codeEditorNumber.innerHTML = ''
             for (let i = 1; i <= this.countParagraphs; i++) {
                 this.appendNumberItem(i)
@@ -259,17 +241,16 @@ class CodeEditor {
 
     updateWidth() {
         const $code = this.$code
-        // print($code.parentElement.parentElement)
-        this.maxCountCharsOfLine = Math.floor($code.offsetWidth * 0.09257)
-        print($code.offsetWidth)
-        print(this.maxCountCharsOfLine)
-        print(Math.floor($code.offsetWidth * 0.09257))
+        this.maxCountCharsOfLine = Math.floor($code.offsetWidth * coefficientProportionality)
+        // console.log($code.offsetWidth)
+        // console.log(this.maxCountCharsOfLine)
+        // console.log(Math.floor($code.offsetWidth * coefficientProportionality))
         this.inputCode()
     }
 }
 
-// const codeEditor = new CodeEditor(document.querySelector('.code-editor'), 'class Car(object):\n    def __init__(self, name, year):\n        self.name = name\n        self.year = year\n\n    def show_info(self):\n        print(f\'name: {self.name} year:{self.year}\')')
-// print(codeEditor)
+// const codeEditor = new CodeEditor(document.querySelector('.code-editor'), 'class Car(object):\n    def __init__(self, name, year):\n        self.name = name\n        self.year = year\n\n    def show_info(self):\n        console.log(f\'name: {self.name} year:{self.year}\')')
+// console.log(codeEditor)
 // window.addEventListener("resize", () => {
 //     codeEditor.updateWidth()
 //     // 100 - 9 == 0.09
@@ -279,6 +260,24 @@ class CodeEditor {
 //     // 1405 - 130 == 0.09253
 //     // 1210 - 112 /111
 // })
+
+stepsContent.updateCode = function (step, id) {
+    // const $form = document.querySelector(`#choice_multi${id} form`)
+    // const wrapperLabel = $form.querySelector('.wrapper_label')
+    // wrapperLabel.innerHTML = ''
+    // for (const answer of step['answers']) {
+    //
+    //     const label = this.createElement('label', 'container', `
+    //             <input type="checkbox" name="answer${step.id}"  id="answer${answer.id}" data-id="${answer.id}">
+    //             <span class="checkmark"></span>${answer.text}`, true)
+    //     wrapperLabel.appendChild(label)
+    //     wrapperLabel.appendChild(label)
+    // }
+    // const btnNextStep = $form.querySelector('.button-next-step')
+    // if (!btnNextStep.classList.contains('hide')) {
+    //     btnNextStep.classList.add('hide')
+    // }
+}
 
 stepsContent.renderCode = function (step, id) {
     const stepInner = this.createElement('div', {'class': 'step-inner', 'id': 'code' + id}, `
@@ -297,25 +296,17 @@ stepsContent.renderCode = function (step, id) {
     }
     stepInner.appendChild(codeExemple)
 
-    const testInfo = this.createElement('div', "test__info hide",
+    const $testInfo = this.createElement('div', "test__info hide",
         `<pre><code class="hljs language-plaintext">test-info</code></pre>`, true)
-    stepInner.appendChild(testInfo)
+    stepInner.appendChild($testInfo)
+    const $testInfoCode = $testInfo.querySelector('code')
     // CREATE FORM
     const mainForm = this.createElement('form', {'class': 'lesson-form', 'data-id': id})
 
     const fieldset = this.createElement('fieldset', 'fieldset__default')
 
     mainForm.appendChild(fieldset)
-    print(step["user_code"])
-    // const answers = step['code']
     const repeatTask = step['repeat_task']
-
-    // const taskCheck = this.createElement('div', 'task__check')
-    // const taskPoints = this.createElement('div', 'task__points hide')
-
-    // taskCheck.appendChild(taskPoints)
-
-    // fieldset.appendChild(taskCheck)
 
     const formFooter = this.createElement('div', 'form__footer')
 
@@ -338,11 +329,10 @@ stepsContent.renderCode = function (step, id) {
         this.createElement('div', 'attempt__message'),
         fieldset.firstChild)
 
-    // const wrapperLabel = this.createElement('div', 'wrapper_label')
     if (repeatTask) {
 
     } else {
-        fieldset.toggleAttribute("disabled")
+        // fieldset.toggleAttribute("disabled")
     }
 
 
@@ -357,7 +347,7 @@ stepsContent.renderCode = function (step, id) {
         }
     }
 
-    const $codePrinter = this.createElement("div", "code__printer hide")
+    const $codePrinter = this.createElement("div", "code__console.loger hide")
     $codePrinter.innerHTML = `
         <label for="code_input_${id}" class="test_title">Test input:</label>
             <div class="test__block">
@@ -375,14 +365,11 @@ stepsContent.renderCode = function (step, id) {
 
     // BUTTON
     const $codeCheck = this.createElement('div', 'code__check')
-    // <div class="" > 55 < /div>
     const $codeButtons = this.createElement('div', 'code_buttons')
-    // const $taskPoints = this.createElement('div', 'task__points', "points")
     const btnSubmit = this.createElement('button', {'class': 'button button-primary', 'type': 'submit'}, 'Надіслати')
     const btnNextStep = this.createElement('div', 'button button-primary button-next-step hide', 'Наступний крок')
     const btnCheckedAgain = this.createElement('div', 'button button-secondary button-checked-again hide', "btnCheckedAgain")
     const btnRunCode = this.createElement('div', {'class': 'button button-secondary button-run-code'}, 'Запустити')
-    // $codeCheck.appendChild($taskPoints)
     $codeButtons.appendChild(btnSubmit)
     $codeButtons.appendChild(btnNextStep)
     $codeButtons.appendChild(btnCheckedAgain)
@@ -393,7 +380,7 @@ stepsContent.renderCode = function (step, id) {
     fieldset.appendChild($codeCheck)
 
     btnNextStep.onclick = () => {
-        print('btnNextStep.onclick')
+        console.log('btnNextStep.onclick')
     }
 
     btnRunCode.onclick = () => {
@@ -401,10 +388,10 @@ stepsContent.renderCode = function (step, id) {
             $codePrinter.classList.remove('hide')
             $codePrinter.querySelector(".test__block").appendChild(btnRunCode)
         }
-        print(mainForm.querySelector('textarea').value)
+        // console.log(mainForm.querySelector('textarea').value)
         const code = mainForm.querySelector('textarea').value
         const input = mainForm.querySelector('.test__block textarea').value
-        print('input', input)
+        // console.log('input', input)
         const csrftoken = getCookie('csrftoken')
         fetch(`/api/step-item/code/${id}/`, {
             method: 'POST',
@@ -420,20 +407,15 @@ stepsContent.renderCode = function (step, id) {
             },
         }).then(response => response.json()
         ).then(data => {
-            print('data POST: ', data)
+            printf(`=> POST:/api/step-item/code/${id}/`, "green")
+            console.log('btnRunCode.onclick', data)
             const $footerOutput = mainForm.querySelector('.footer__output pre code')
             const codePrint = data["print"] !== "" ? data["print"] : "¯\\_(ツ)_/¯"
             $footerOutput.textContent = codePrint
-            print('$footerOutput', $footerOutput)
-            // this.updateChoiceMulti(data, id)
+            // console.log('$footerOutput', $footerOutput)
+            // this.updateCode(data, id)
         })
     }
-    // const btnNextStep = this.createElement('div',
-    //     'button button-primary button-next-step hide', 'Наступний крок')
-    // btnNextStep.onclick = () => {
-    //     print('btnNextStep.onclick')
-    // }
-    // $taskCheck.appendChild(btnNextStep)
 
     btnCheckedAgain.onclick = () => {
         // розморозити
@@ -442,23 +424,25 @@ stepsContent.renderCode = function (step, id) {
         btnRunCode.classList.remove('hide')
 
         codeEditor.clearCode('# write code\n\n\n\n\n\n\n\n\n')
-
-        // const csrftoken = getCookie('csrftoken')
-        // fetch(`/api/step-item/choice_multi/${id}/`, {
-        //     method: 'PATCH',
-        //     body: JSON.stringify({
-        //         repeat_task: true,
-        //     }),
-        //     headers: {
-        //         'Accept': 'application/json, text/plain, */*',
-        //         'Content-Type': 'application/json',
-        //         "X-CSRFToken": csrftoken
-        //     },
-        // }).then(response => response.json()
-        // ).then(data => {
-        //     print('data PATCH: ', data)
-        //     this.updateChoiceMulti(data, id)
-        // })
+        const csrftoken = getCookie('csrftoken')
+        fetch(`/api/step-item/code/${id}/`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                repeat_task: true,
+            }),
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json',
+                "X-CSRFToken": csrftoken
+            },
+        }).then(response => response.json()
+        ).then(data => {
+            printf(`=> PATCH:/api/step-item/code/${id}/`, "green")
+            console.log("btnCheckedAgain.onclick.data", data)
+            if (!$testInfo.classList.contains('hide')) {
+                $testInfo.classList.add('hide')
+            }
+        })
     }
     // taskCheck.appendChild(btnCheckedAgain)
     // END BUTTON
@@ -481,7 +465,7 @@ stepsContent.renderCode = function (step, id) {
         }
         btnRunCode.classList.add('hide')
         // fieldset.setAttribute("disabled", true)
-        fieldset.toggleAttribute("disabled")
+        fieldset.toggleAttribute("disabled", true)
     }
 
     // changeActiveTheoryItem
@@ -493,7 +477,7 @@ stepsContent.renderCode = function (step, id) {
     // mainForm.onsubmit = async (event) => {
     mainForm.onsubmit = (event) => {
         event.preventDefault();
-        print(mainForm.querySelector('textarea').value)
+        // console.log(mainForm.querySelector('textarea').value)
         const csrftoken = getCookie('csrftoken')
         fetch(`/api/step-item/code/${id}/`, {
             method: 'POST',
@@ -510,11 +494,20 @@ stepsContent.renderCode = function (step, id) {
             },
         }).then(response => response.json()
         ).then(data => {
-            print('data POST:', data)
+            printf(`=> POST /api/step-item/code/${id}/`, "green")
+            console.log('mainForm.onsubmit', data)
             btnRunCode.classList.add('hide')
-            if (testInfo.classList.contains("hide")) {
-                testInfo.classList.remove("hide")
+            if ($testInfo.classList.contains("hide")) {
+                $testInfo.classList.remove("hide")
             }
+
+            const testInfo = data['test_info']
+            const textContent = []
+            for (let i = 0; i < testInfo.length; i++) {
+                textContent.push(`test ${i} ${testInfo[i]}`)
+            }
+            $testInfoCode.textContent = textContent.join('\n')
+
             // if (formFooter.classList.contains('hide')) {
             //     formFooter.classList.remove('hide')
             // }
@@ -525,7 +518,7 @@ stepsContent.renderCode = function (step, id) {
             // // mainForm.querySelector('.task__points').textContent = ''
             //
             if (!step['has_progress']) {
-                step['has_progress'] = true
+                // step['has_progress'] = true
                 mainForm.querySelector('.form__footer').innerHTML = `
                         <a href="#">Розв'язки</a> Ви отримали <span class="student_points">${this.getTextPoints(data['student_points'])}</span> з ${step['points']}`
             }
@@ -546,12 +539,6 @@ stepsContent.renderCode = function (step, id) {
                 this.toggleFrozen(mainForm, '0', true, "code")
             }
         })
-
-
-        //     } else {
-        //         alert('Ти не вибрав жодного елемента')
-        //         // звертатися залежно від статі
-        //     }
     }
 }
 // print('***', end='')

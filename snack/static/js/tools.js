@@ -1,4 +1,4 @@
-function getCookie(name) {
+export default function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         var cookies = document.cookie.split(';');
@@ -13,4 +13,6 @@ function getCookie(name) {
     return cookieValue;
 }
 
-export default getCookie
+export function printf(line, color='red') {
+    console.log(`%c${line}`, `color:${color}`);
+}

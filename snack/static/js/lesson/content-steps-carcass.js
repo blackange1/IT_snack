@@ -1,4 +1,4 @@
-let print = console.log
+import {printf} from "../tools.js";
 
 
 const stepsContent = {
@@ -77,23 +77,15 @@ const stepsContent = {
         $fieldset.querySelector('button[type="submit"]').classList.toggle('hide')
     },
     getMenuItem(type, stepId) {
+        printf(`stepsContent.getMenuItem(type: ${type}, stepId: ${stepId})`, "yellow")
         const menuTasks = stepsContent.$menuSteps.querySelectorAll(`a[data-type="${type}"]`)
-        print('a', menuTasks)
         for (const menuTask of menuTasks) {
             if (menuTask.dataset.id == stepId) {
                 return menuTask
             }
         }
     },
-    // getTemplateRes(isTrue) {
-    //     if (isTrue) {
-    //         // додати молодець, так тримати
-    //         return 'V Відмінно!'
-    //     } else {
-    //         return 'X Хибно!'
-    //     }
-    // },
-    // wrongAnswer() {},
+
     getTextPoints(num) {
         // const text = (bonusText) ? " за розв'язок" : ''
         const nn = num % 100

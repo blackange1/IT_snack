@@ -1,8 +1,6 @@
-import getCookie from '../tools.js'
+import getCookie, {printf} from '../tools.js'
 import colors from '../vars.js'
 import stepsContent from './content-steps-choice.js'
-
-let print = console.log
 
 // https://learn.javascript.ru/decorators
 stepsContent.updateChoiceMulti = function (step, id) {
@@ -52,7 +50,6 @@ stepsContent.renderChoiceMulti = function (step, id) {
     } else {
         const wrapperLabel = this.createElement('div', 'wrapper_label')
         let j = 0
-        print("", step['answers_json'])
         const index = step['answers_json'][1]
         for (const answer of step["answers_json"][0]) {
             const label = this.createElement('label', 'container')
@@ -85,7 +82,7 @@ stepsContent.renderChoiceMulti = function (step, id) {
     const btnNextStep = this.createElement('div',
         'button button-primary button-next-step hide', 'Наступний крок')
     btnNextStep.onclick = () => {
-        print('btnNextStep.onclick')
+        printf('btnNextStep.onclick')
     }
     taskCheck.appendChild(btnNextStep)
 
@@ -107,7 +104,8 @@ stepsContent.renderChoiceMulti = function (step, id) {
             },
         }).then(response => response.json()
         ).then(data => {
-            print('data PATCH: ', data)
+            printf(`=> PATCH:/api/step-item/choice_multi/${id}/`, data)
+            console.log('btnCheckedAgain.onclick.data', data)
             this.updateChoiceMulti(data, id)
         })
     }
@@ -181,7 +179,8 @@ stepsContent.renderChoiceMulti = function (step, id) {
                 },
             }).then(response => response.json()
             ).then(data => {
-                print('data POST:', data)
+                print(`=> POST: /api/step-item/choice_multi/${id}/`, 'green')
+                console.log('mainForm.onsubmit.data:', data)
                 if (formFooter.classList.contains('hide')) {
                     formFooter.classList.remove('hide')
                 }

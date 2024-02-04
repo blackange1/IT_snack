@@ -34,7 +34,6 @@ class StepCode(APIView):
             if not repeat_task:
                 progress_code_item = progress.progresscodeitem_set.order_by('-id').first()
                 if progress_code_item:
-                    print('progress_code_item.user_code', progress_code_item.user_code)
                     data.update({
                         'repeat_task': repeat_task,
                         'solved': progress.solved,
@@ -54,13 +53,11 @@ class StepCode(APIView):
             "has_progress": has_progress,
             "student_points": student_points,
             "user_code": "# write code\n\n\n\n\n\n\n\n\n"
-            # "user_code": "# write code\n\n\n\n\n\n\n\n\n"
         })
         return Response(data)
 
     def post(self, request, step_id):
         data = request.data
-        print('data', data)
         code = get_object_or_404(Code, pk=step_id)
         user_code = data.get('code', '')
         # RUN CODE
@@ -71,7 +68,7 @@ class StepCode(APIView):
             print('run_code', user_print)
             return Response({
                 "status": "ok",
-                "print": user_print
+                "print": user_print,
             })
 
         user = request.user
@@ -98,20 +95,31 @@ class StepCode(APIView):
         )
 
         progress_code_item_set = progress.progresscodeitem_set.all().order_by('-id')
-        print('progress_code_item_set', progress_code_item_set)
         for progress_code_item in progress_code_item_set[LIMIT_RECORD:]:
             progress_code_item.delete()
 
         print('progress, points, solved, tests', progress, points, solved, tests)
         check_code = ''
-        print('progress', check_code)
-        print('check_code', check_code)
-
+        test_info = tests
         return Response({
             "status": "ok",
-            'points': points,  # int
-            'solved': solved  # bool
-            # "student_points": 0,
+            # 'points': points,  # int
+            'solved': solved,  # bool
+            'test_info': test_info,  # list
+            "student_points": points,
             # "check_code": check_code,
+        })
 
+    def patch(self, request, step_id):
+        code = get_object_or_404(Code, pk=step_id)
+        progress = code.progresscode_set.filter(user=request.user).first()
+        if not progress:
+            return error
+
+        progress.repeat_task = True
+        progress.save()
+
+        return Response({
+            'points': code.points,
+            'repeat_task': True,
         })

@@ -1,20 +1,16 @@
-import getCookie from '../tools.js'
-import colors from '../vars.js'
-// import stepsContent from './content-steps-choice-multi.js'
+import {printf} from '../tools.js'
 import stepsContent from './content-steps-code.js'
 
-let print = console.log
 // carcass => choice => choice-multi => code
-
 stepsContent.renderContent = function (type, id) {
-    print("type, id =>", type, id)
+    printf(`stepsContent.renderContent(type: ${type}, id:${id})`, 'yellow')
     const div = document.getElementById(type + id)
     if (div) {
         this.activeTheoryItem.classList.add('hide')
         div.classList.remove('hide')
         this.activeTheoryItem = div
     } else {
-        print('/api/step-item type', type)
+        printf(`=> GET /api/step-item/${type}/${id}`, "green")
         fetch(`/api/step-item/${type}/${id}/?format=json`)
             .then(response => response.json())
             .then(step => {
@@ -34,7 +30,7 @@ stepsContent.renderContent = function (type, id) {
                 }
                 //TODO: запускати лише в необхідних місцях
                 hljs.highlightAll()
-                print('fetch_step', step)
+                console.warn('fetch_step', step)
                 // menuSteps.renderMenuStep(lessons)
             })
     }

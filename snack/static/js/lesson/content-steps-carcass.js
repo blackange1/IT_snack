@@ -1,4 +1,4 @@
-import {printf} from "../tools.js";
+import {printFun, printReq} from "../tools.js";
 
 
 const stepsContent = {
@@ -9,6 +9,7 @@ const stepsContent = {
     // menuSteps: undefined,
     // steps: [],
     init() {
+        printFun('stepsContent.init()')
         this.$theory = document.querySelector('.step-content')
         // this.menuSteps = menuSteps
     },
@@ -33,12 +34,13 @@ const stepsContent = {
     },
     // https://learn.javascript.ru/decorators
     renderText(step, id) {
+        printFun(`stepsContent.renderText(step: ..., id: ${id})`, step)
         const stepInner = this.createElement('div', 'step-inner')
         stepInner.setAttribute('id', 'text' + id)
         stepInner.innerHTML = `
             5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
             <hr>
-            ${step.text_html}
+            ${step["text_html"]}
         `
         this.$theory.appendChild(stepInner)
         if (this.activeTheoryItem) {
@@ -77,7 +79,7 @@ const stepsContent = {
         $fieldset.querySelector('button[type="submit"]').classList.toggle('hide')
     },
     getMenuItem(type, stepId) {
-        printf(`stepsContent.getMenuItem(type: ${type}, stepId: ${stepId})`, "yellow")
+        printFun(`stepsContent.getMenuItem(type: ${type}, stepId: ${stepId})`)
         const menuTasks = stepsContent.$menuSteps.querySelectorAll(`a[data-type="${type}"]`)
         for (const menuTask of menuTasks) {
             if (menuTask.dataset.id == stepId) {

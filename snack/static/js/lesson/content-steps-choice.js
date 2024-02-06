@@ -1,4 +1,4 @@
-import getCookie, {printf} from '../tools.js'
+import getCookie, {printFun, printReq} from '../tools.js'
 import colors from '../vars.js'
 import stepsContent from './content-steps-carcass.js'
 
@@ -78,7 +78,7 @@ stepsContent.renderChoice = function (step, id) {
     const btnNextStep = this.createElement('div',
         'button button-primary button-next-step hide', 'Наступний крок')
     btnNextStep.onclick = () => {
-        printf('btnNextStep.onclick', 'blue')
+        printFun('renderChoice.btnNextStep.onclick')
     }
     taskCheck.appendChild(btnNextStep)
 
@@ -100,8 +100,7 @@ stepsContent.renderChoice = function (step, id) {
             },
         }).then(response => response.json()
         ).then(data => {
-            printf(`=> PATCH /api/step-item/choice/${id}/`, 'green')
-            console.log('btnCheckedAgain.onclick.data:', data)
+            printReq(`PATCH /api/step-item/choice/${id}/`, data)
             this.updateChoice(data, id)
         })
     }
@@ -175,8 +174,7 @@ stepsContent.renderChoice = function (step, id) {
                 },
             }).then(response => response.json()
             ).then(data => {
-                printf(`=> POST: /api/step-item/choice/${id}`, 'green')
-                console.log('mainForm.onsubmit.data', data)
+                printReq(`POST: /api/step-item/choice/${id}`, data)
                 if (formFooter.classList.contains('hide')) {
                     formFooter.classList.remove('hide')
                 }

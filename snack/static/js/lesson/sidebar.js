@@ -1,5 +1,6 @@
 import menuSteps from './menu.js'
-const print = console.log
+import {printReq} from "../tools.js";
+
 // const $lessonSidebar = document.querySelector('.lesson-sidebar')
 
 
@@ -91,7 +92,7 @@ const sidebar = {
         fetch(`/api/courses/${this.courseId}?format=json`)
             .then(response => response.json())
             .then(course => {
-                print('course', course)
+                printReq(`GET:/api/courses/${this.courseId}?format=json`, course)
                 this.render(course)
             });
     }

@@ -1,4 +1,4 @@
-import getCookie from '../tools.js'
+import getCookie, {printReq, printFun} from '../tools.js'
 import colors from '../vars.js'
 import stepsContent from './content-steps.js'
 
@@ -35,7 +35,7 @@ const menuSteps = {
         this.root.appendChild(div)
     },
     updateElement(menuItem, attributes) {
-        print('f updateElement')
+        printFun('menuSteps.updateElement')
         for (const [key, value] of Object.entries(attributes)) {
             menuItem.setAttribute(`data-${key}`, value)
         }
@@ -124,8 +124,6 @@ const menuSteps = {
             switch (type) {
                 case 'text':
                     if (this.dataset.solved === 'false') {
-                        print('type', type)
-
                         // menuSteps.setPoint["text"](this, id)
                         const csrftoken = getCookie('csrftoken');
                         fetch(`/api/step-item/text/${id}/?format=json`, {
@@ -139,17 +137,17 @@ const menuSteps = {
                         })
                             .then(response => response.json())
                             .then(data => {
-                                print('data aaaaaaa', data)
+                                printReq(`GET:/api/step-item/text/${id}/?format=json`)
+                                // TODO: дублювання коду, видалити switch
                                 if (data.status === 'ok') {
-                                    print('status okkkkkkkkk')
                                     menuSteps.updateElement(this, { 'solved': true })
                                 }
                             })
                     }
                     break
-                case 'choice':
-                    print('choice')
-                    break
+                // case 'choice':
+                //     print('choice')
+                //     break
             }
 
             if (menuSteps.activeElement == this) {
@@ -201,11 +199,11 @@ const menuSteps = {
         }
     },
     run() {
-        print('this.numberLesson', this.numberLesson)
+        // console.log('this.numberLesson', this.numberLesson)
         fetch(`/api/step-menu/${this.numberLesson}?format=json`)
             .then(response => response.json())
             .then(lessons => {
-                print('lessons', lessons)
+                printReq(`GET:/api/step-menu/${this.numberLesson}?format=json`)
                 menuSteps.renderMenuStep(lessons)
                 stepsContent.$stepContent.innerHTML = ''
             })

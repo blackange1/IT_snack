@@ -1,4 +1,4 @@
-import getCookie, {printf} from '../tools.js'
+import getCookie, {printReq, printFun} from '../tools.js'
 import colors from '../vars.js'
 import stepsContent from './content-steps-choice.js'
 
@@ -82,7 +82,7 @@ stepsContent.renderChoiceMulti = function (step, id) {
     const btnNextStep = this.createElement('div',
         'button button-primary button-next-step hide', 'Наступний крок')
     btnNextStep.onclick = () => {
-        printf('btnNextStep.onclick')
+        printFun('btnNextStep.onclick')
     }
     taskCheck.appendChild(btnNextStep)
 
@@ -104,8 +104,7 @@ stepsContent.renderChoiceMulti = function (step, id) {
             },
         }).then(response => response.json()
         ).then(data => {
-            printf(`=> PATCH:/api/step-item/choice_multi/${id}/`, data)
-            console.log('btnCheckedAgain.onclick.data', data)
+            printReq(`PATCH:/api/step-item/choice_multi/${id}/`, data)
             this.updateChoiceMulti(data, id)
         })
     }
@@ -179,8 +178,7 @@ stepsContent.renderChoiceMulti = function (step, id) {
                 },
             }).then(response => response.json()
             ).then(data => {
-                print(`=> POST: /api/step-item/choice_multi/${id}/`, 'green')
-                console.log('mainForm.onsubmit.data:', data)
+                printReq(`POST: /api/step-item/choice_multi/${id}/`, data)
                 if (formFooter.classList.contains('hide')) {
                     formFooter.classList.remove('hide')
                 }

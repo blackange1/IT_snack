@@ -1,8 +1,20 @@
-import getCookie, {printf} from '../tools.js'
+import getCookie, {printReq, printFun} from '../tools.js'
 import colors from '../vars.js'
 import stepsContent from "./content-steps-choice-multi.js";
 
-
+// TODO: Змінити функціонал обрахунку ширити та висоти textarea
+// https://stackoverflow.com/questions/17772260/textarea-auto-height
+// function auto_grow(element) {
+//   element.style.height = "5px";
+//   element.style.height = (element.scrollHeight) + "px";
+// }
+// textarea {
+//   resize: none;
+//   overflow: hidden;
+//   min-height: 50px;
+//   max-height: 100px;
+// }
+// <textarea oninput="auto_grow(this)"></textarea>
 
 const coefficientProportionality = 0.09257
 
@@ -407,8 +419,7 @@ stepsContent.renderCode = function (step, id) {
             },
         }).then(response => response.json()
         ).then(data => {
-            printf(`=> POST:/api/step-item/code/${id}/`, "green")
-            console.log('btnRunCode.onclick', data)
+            printReq(`POST:/api/step-item/code/${id}/`, data)
             const $footerOutput = mainForm.querySelector('.footer__output pre code')
             const codePrint = data["print"] !== "" ? data["print"] : "¯\\_(ツ)_/¯"
             $footerOutput.textContent = codePrint
@@ -437,8 +448,7 @@ stepsContent.renderCode = function (step, id) {
             },
         }).then(response => response.json()
         ).then(data => {
-            printf(`=> PATCH:/api/step-item/code/${id}/`, "green")
-            console.log("btnCheckedAgain.onclick.data", data)
+            printReq(`PATCH:/api/step-item/code/${id}/`, data)
             if (!$testInfo.classList.contains('hide')) {
                 $testInfo.classList.add('hide')
             }
@@ -494,8 +504,7 @@ stepsContent.renderCode = function (step, id) {
             },
         }).then(response => response.json()
         ).then(data => {
-            printf(`=> POST /api/step-item/code/${id}/`, "green")
-            console.log('mainForm.onsubmit', data)
+            printReq(`POST /api/step-item/code/${id}/`, data)
             btnRunCode.classList.add('hide')
             if ($testInfo.classList.contains("hide")) {
                 $testInfo.classList.remove("hide")

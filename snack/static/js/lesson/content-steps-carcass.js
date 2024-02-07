@@ -102,6 +102,22 @@ const stepsContent = {
             return `${num} бали`
         }
         return `${num} балів`
+    },
+    goToNextStep() {
+        const $activeStepMenu = document.getElementById('steps').querySelector('.active')
+        const $nextStepMenu = $activeStepMenu.nextElementSibling
+        if ($nextStepMenu) {
+            const $nextStepMenuLink = $nextStepMenu.querySelector('a')
+            if ($nextStepMenuLink) {
+                $nextStepMenuLink.click()
+                return
+            }
+        }
+        const $lessonActive = document.querySelector('.lesson-active')
+        const $nextLesson = $lessonActive.parentElement.nextElementSibling
+        if ($nextLesson) {
+            $nextLesson.click()
+        }
     }
 }
 

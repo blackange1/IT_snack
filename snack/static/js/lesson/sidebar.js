@@ -65,7 +65,10 @@ const sidebar = {
                 // ${numberModule}.${numberLesson}&nbsp;&nbsp;
                 lessonSidebarLessonsInner.onclick = function (event) {
                     event.preventDefault();
-
+                    // перевірка на повторне натискання
+                    if (this.firstElementChild.classList.contains('lesson-active')) {
+                        return
+                    }
                     if (sidebar.activeLesson !== 0) {
                         const $oldLessonHeader = this.parentElement.querySelector('.lesson-active')
                         $oldLessonHeader.classList.remove('lesson-active')

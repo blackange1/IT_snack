@@ -54,6 +54,10 @@ textarea.code__number {
 
 }
 
+.code__example .example__type{
+    margin: 5px;
+}
+
 /*.button {*/
 /*    padding: 10px 20px;*/
 /*    border-width: 0;*/

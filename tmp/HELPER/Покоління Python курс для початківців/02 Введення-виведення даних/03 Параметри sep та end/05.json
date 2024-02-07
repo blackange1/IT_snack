@@ -1,0 +1,11 @@
+{
+    "CLASS_NAME": "Code",
+    "text_html": "<h1>I like Python</h1><p>Напишіть програму, яка виводить на екран текст I***like***Python (без лапок).</p>",
+    "points": 5,
+    "testcase_set": [
+        {
+            "input": "",
+            "output": "I***like***Python\n"
+        }
+    ]
+  }

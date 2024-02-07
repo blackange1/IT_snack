@@ -1,0 +1,19 @@
+{
+    "CLASS_NAME": "Code",
+    "text_html": "<h1>Кастомний розділювач</h1><p>Напишіть програму, яка зчитує рядок-розділювач і три рядки, а потім виводить зазначені рядки через роздільник.</p>",
+    "points": 5,
+    "testcase_set": [
+        {
+            "input": "*\nОдин\nДва\nТри\n",
+            "output": "Один*Два*Три\n"
+        },
+        {
+            "input": "##\nMoney often\ncosts\ntoo much\n",
+            "output": "Money often##costs##too much\n"
+        },
+        {
+            "input": "python\n1\n2\n3\n",
+            "output": "1python2python3\n"
+        }
+    ]
+  }

@@ -10,7 +10,6 @@ stepsContent.renderContent = function (type, id) {
         div.classList.remove('hide')
         this.activeTheoryItem = div
     } else {
-        printReq(`GET:/api/step-item/${type}/${id}`)
         fetch(`/api/step-item/${type}/${id}/?format=json`)
             .then(response => response.json())
             .then(step => {

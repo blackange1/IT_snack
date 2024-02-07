@@ -1,0 +1,19 @@
+{
+    "CLASS_NAME": "Code",
+    "text_html": "<h1>Повторюй за мною 2</h1><p>Напишіть програму, яка зчитує три рядки по черзі, а потім виводить їх у зворотній послідовності, кожну на окремому рядку.</p>",
+    "points": 5,
+    "testcase_set": [
+      {
+        "input": "Hello\nit's\nme\n",
+        "output":  "me\nit's\nHello\n"
+      },
+      {
+        "input": "I love\nPython\nso much\n",
+        "output": "so much\nPython\nI love\n"
+      },
+      {
+        "input": "Мене звати\nГеральд\nя полюю на монстрів\n",
+        "output": "я полюю на монстрів\nГеральд\nМене звати\n"
+      }
+    ]
+  }

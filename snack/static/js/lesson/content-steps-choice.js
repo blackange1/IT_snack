@@ -79,6 +79,7 @@ stepsContent.renderChoice = function (step, id) {
         'button button-primary button-next-step hide', 'Наступний крок')
     btnNextStep.onclick = () => {
         printFun('renderChoice.btnNextStep.onclick')
+        this.goToNextStep()
     }
     taskCheck.appendChild(btnNextStep)
 

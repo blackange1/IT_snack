@@ -52,7 +52,7 @@ class StepCode(APIView):
             "status": "ok",
             "has_progress": has_progress,
             "student_points": student_points,
-            "user_code": "# write code\n\n\n\n\n\n\n\n\n"
+            "user_code": ""
         })
         return Response(data)
 

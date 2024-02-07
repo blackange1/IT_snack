@@ -34,4 +34,9 @@ export function printFun(...args) {
     console.log(`%c${firstElem}`, style, ...args);
 }
 
-
+export function printError(...args) {
+    console.error(...args)
+    // const style = 'color: red; background-color: white'
+    // const firstElem = args.shift()
+    // console.log(`%c => ERROR`, style, ...args);
+}

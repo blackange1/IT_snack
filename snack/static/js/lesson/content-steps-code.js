@@ -1,5 +1,5 @@
-import getCookie, {printReq, printFun} from '../tools.js'
-import colors from '../vars.js'
+import getCookie, {printReq, printFun, printError} from '../tools.js'
+import colors, {lineOfCode} from '../vars.js'
 import stepsContent from "./content-steps-choice-multi.js";
 
 // TODO: Змінити функціонал обрахунку ширити та висоти textarea
@@ -22,10 +22,12 @@ class CodeEditor {
     constructor(elem, codeText) {
         this.countParagraphs = 0  // 3
         this.spaceParagraphs = {} // {2: 3}  12***3
-
+        if (codeText === '') {
+            codeText = lineOfCode.defaultText()
+        }
         elem.innerHTML = `
             <div class="code__wraper">
-                <ul class="code__number" data-row="10"></ul>
+                <ul class="code__number"></ul>
                 <div class="wrapper__usercode">
                     <div class="usercode">
                         <pre><code class="language-python hljs" data-highlighted=""></code></pre>
@@ -296,13 +298,14 @@ stepsContent.renderCode = function (step, id) {
         5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
         <hr>${step['text_html']}`, true)
 
-    const codeExemple = this.createElement('div', 'code__exemple')
+    const codeExemple = this.createElement('div', 'code__example')
     for (const exemple of step["code_examples"]) {
-        const itemExemple = this.createElement('div', 'code__exemple', `
-            <span>input:</span>
-            <pre><code class="hljs language-plaintext">${exemple[0]}</code></pre>
-            <span>output:</span>
+        const itemExemple = this.createElement('div', 'code__example', `
+            <div class="example__type">input:</div>
+            <pre><code class="hljs language-plaintext">${exemple[0] === '' ? ' ' : exemple[0]}</code></pre>
+            <div class="example__type">output:</div>
             <pre><code class="hljs language-plaintext">${exemple[1]}</code></pre>
+            <hr>
         `, true)
         codeExemple.appendChild(itemExemple)
     }
@@ -392,7 +395,8 @@ stepsContent.renderCode = function (step, id) {
     fieldset.appendChild($codeCheck)
 
     btnNextStep.onclick = () => {
-        console.log('btnNextStep.onclick')
+        printFun('btnNextStep.onclick')
+        this.goToNextStep()
     }
 
     btnRunCode.onclick = () => {
@@ -429,12 +433,17 @@ stepsContent.renderCode = function (step, id) {
     }
 
     btnCheckedAgain.onclick = () => {
+        printError(fieldset)
+        if (fieldset.classList.contains('form__code-true')) {
+            printError(fieldset)
+            codeEditor.clearCode(lineOfCode.defaultText())
+        }
+
         // розморозити
         this.toggleFrozen(mainForm, '', true, "code")
         btnNextStep.classList.add('hide')
         btnRunCode.classList.remove('hide')
 
-        codeEditor.clearCode('# write code\n\n\n\n\n\n\n\n\n')
         const csrftoken = getCookie('csrftoken')
         fetch(`/api/step-item/code/${id}/`, {
             method: 'PATCH',
@@ -506,6 +515,8 @@ stepsContent.renderCode = function (step, id) {
         ).then(data => {
             printReq(`POST /api/step-item/code/${id}/`, data)
             btnRunCode.classList.add('hide')
+
+
             if ($testInfo.classList.contains("hide")) {
                 $testInfo.classList.remove("hide")
             }
@@ -513,7 +524,7 @@ stepsContent.renderCode = function (step, id) {
             const testInfo = data['test_info']
             const textContent = []
             for (let i = 0; i < testInfo.length; i++) {
-                textContent.push(`test ${i} ${testInfo[i]}`)
+                textContent.push(`test: ${i} ${testInfo[i]}`)
             }
             $testInfoCode.textContent = textContent.join('\n')
 

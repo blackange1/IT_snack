@@ -5,7 +5,7 @@ from django.db import models
 # add course | test data
 from course.models import Course, Module
 from lesson.models import Lesson
-from step.models import Text, Choice, AnswerChoice, ChoiceMulti, AnswerChoiceMulti
+from step.models import Text, Choice, AnswerChoice, ChoiceMulti, AnswerChoiceMulti, Code, TestCase
 from pathlib import Path
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -109,7 +109,27 @@ if 0:
                                 )
                                 obj_answer.save()
                         elif type_step == 'Code':
-                            pass
+                            obj_code = Code(
+                                order=step.get('order', 0),
+                                text_html=step.get('text_html', 'text_html'),
+                                lesson=obj_lesson,
+                                count_show_test=step.get('count_show_test', 3),
+                                points=step.get('points', 1)
+                            )
+                            obj_code.save()
+                            i = 1
+                            for testcase in step.get('testcase_set', []):
+                                print('testcase', testcase)
+                                obj_testcase = TestCase(
+                                    code=obj_code,
+                                    order=i,
+                                    input=testcase.get('input', ''),
+                                    output=testcase.get('output', '')
+                                )
+                                obj_testcase.save()
+                                print('obj_testcase', obj_testcase)
+                                i += 1
+
     # m = Module.objects.get(name='test Module')
 
 

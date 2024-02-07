@@ -1,4 +1,4 @@
-import getCookie, {printReq, printFun} from '../tools.js'
+import getCookie, {printReq, printFun, printError} from '../tools.js'
 import colors from '../vars.js'
 import stepsContent from './content-steps.js'
 
@@ -140,7 +140,7 @@ const menuSteps = {
                                 printReq(`GET:/api/step-item/text/${id}/?format=json`)
                                 // TODO: дублювання коду, видалити switch
                                 if (data.status === 'ok') {
-                                    menuSteps.updateElement(this, { 'solved': true })
+                                    menuSteps.updateElement(this, {'solved': true})
                                 }
                             })
                     }
@@ -156,8 +156,10 @@ const menuSteps = {
             menuSteps.changeStep(this, true)
             if (menuSteps.activeElement) {
                 menuSteps.changeStep(menuSteps.activeElement, false)
+                menuSteps.activeElement.parentElement.classList.remove('active')
             }
             menuSteps.activeElement = this
+            this.parentElement.classList.add('active')
         }
 
         this.root.appendChild(div)

@@ -294,9 +294,7 @@ stepsContent.updateCode = function (step, id) {
 }
 
 stepsContent.renderCode = function (step, id) {
-    const stepInner = this.createElement('div', {'class': 'step-inner', 'id': 'code' + id}, `
-        5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
-        <hr>${step['text_html']}`, true)
+    const stepInner = this.createElement('div', {'class': 'step-inner', 'id': 'code' + id}, `${step['text_html']}`, true)
 
     const codeExemple = this.createElement('div', 'code__example')
     for (const exemple of step["code_examples"]) {

@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const print = console.log
     const tabs = {
         data: [
             {

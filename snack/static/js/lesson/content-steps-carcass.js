@@ -13,6 +13,11 @@ const stepsContent = {
         this.$theory = document.querySelector('.step-content')
         // this.menuSteps = menuSteps
     },
+    renderProgressOfLesson() {
+        stepsContent.$stepContent.innerHTML = '<div id="progress_of_lesson">1.6 Задача на програмування: основна інформація 11 з 14 кроків пройдено 0 з 3 бали отримано</div><hr>'
+
+        // TODO: рендерити => 5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
+    },
     createElement(nameElement, data, content = '', isHTML = false) {
         const elem = document.createElement(nameElement)
         // data is cssClass or objectAttribute
@@ -37,11 +42,7 @@ const stepsContent = {
         printFun(`stepsContent.renderText(step: ..., id: ${id})`, step)
         const stepInner = this.createElement('div', 'step-inner')
         stepInner.setAttribute('id', 'text' + id)
-        stepInner.innerHTML = `
-            5.1 Задача на программирование: основная информация 11 з 14 кроків пройдено 0 з 3 бали отримано
-            <hr>
-            ${step["text_html"]}
-        `
+        stepInner.innerHTML = `${step["text_html"]}`
         this.$theory.appendChild(stepInner)
         if (this.activeTheoryItem) {
             this.activeTheoryItem.classList.add('hide')

@@ -2,7 +2,7 @@ import getCookie, {printReq, printFun, printError} from '../tools.js'
 import colors from '../vars.js'
 import stepsContent from './content-steps.js'
 
-let print = console.log
+
 const menuSteps = {
     root: undefined,
     maxSteps: 15,
@@ -160,6 +160,10 @@ const menuSteps = {
             }
             menuSteps.activeElement = this
             this.parentElement.classList.add('active')
+
+            // TODO: додати кнопку перейти вверх
+            // <a id=""  href="#progress_of_lesson">up top</a>
+
         }
 
         this.root.appendChild(div)
@@ -207,7 +211,7 @@ const menuSteps = {
             .then(lessons => {
                 printReq(`GET:/api/step-menu/${this.numberLesson}?format=json`)
                 menuSteps.renderMenuStep(lessons)
-                stepsContent.$stepContent.innerHTML = ''
+                stepsContent.renderProgressOfLesson()
             })
     }
 }

@@ -32,7 +32,7 @@ const sidebar = {
     render(course) {
         const $lessonSidebarContent = this.root.querySelector('.lesson-sidebar__content')
         let numberModule = 1
-        for (const module of course.module_set) {
+        for (const module of course["module_set"]) {
             const lessonSidebarModuleHeader = document.createElement('div')
             lessonSidebarModuleHeader.classList.add('lesson-sidebar__module-header')
             lessonSidebarModuleHeader.innerHTML = `

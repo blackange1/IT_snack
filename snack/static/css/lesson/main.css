@@ -59,7 +59,10 @@ article {
 .step-content {
     line-height: 1.5;
 }
-
+#progress_of_lesson,
 .step-inner {
     padding: var(--padding);
+}
+#progress_of_lesson {
+    padding-bottom: 0;
 }

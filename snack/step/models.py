@@ -1,6 +1,13 @@
 from django.db import models
 from lesson.models import Lesson
 from step.check_code.py_compile import ValidateCodePython
+from django_quill.fields import QuillField
+
+# TODO:
+# https://pypi.org/project/django-quill-editor/
+# https://django-quill-editor.readthedocs.io/en/latest/pages/migrating-to-quillfield.html
+class Test(models.Model):
+    text_html_test = QuillField()
 
 
 # parents = {

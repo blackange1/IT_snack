@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'progress.apps.ProgressConfig',
     'api.apps.ApiConfig',
     # 'polls.apps.PollsConfig',
+    # TEXT EDITOR
+    'django_quill',
     # comment
     # solution
     # teachers

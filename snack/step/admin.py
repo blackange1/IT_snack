@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import Text, Video, Choice, Code, AnswerChoice, TestCase, ChoiceMulti, AnswerChoiceMulti
+from .models import Text, Video, Choice, Code, AnswerChoice, TestCase, ChoiceMulti, AnswerChoiceMulti, Test
 
 admin.site.register(Video)
 admin.site.register(Text)
+admin.site.register(Test)
 
 
 # Choice

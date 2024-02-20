@@ -1,10 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Lesson
 from step.models import LESSON_METHODS
 
 
 # lesson/<int:lesson_id>"
 def lesson(request, lesson_id, step_id):
+    if not request.user.is_authenticated:
+        return redirect('login')
     obj_lesson = get_object_or_404(Lesson, pk=lesson_id)
     print('#', )
     # get step

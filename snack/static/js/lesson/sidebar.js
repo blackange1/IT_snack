@@ -37,7 +37,7 @@ const sidebar = {
             lessonSidebarModuleHeader.classList.add('lesson-sidebar__module-header')
             lessonSidebarModuleHeader.innerHTML = `
                     <div class="line-progress-bar">&nbsp;</div>
-                    <div class="line-progress-bar-done" style="height: 33%;">&nbsp;</div>
+                    <div class="line-progress-bar-done" style="height: 1%;">&nbsp;</div>
                     <div class="sidebar-module-header__title" style="width: 100%;" title="${module.name}">
                         ${this.cutTitleModule(numberModule + ' ' + module.name)}
                     </div>
@@ -54,7 +54,7 @@ const sidebar = {
                 lessonSidebarLessonsInner.innerHTML = `
                         <div class="lesson-sidebar__lesson-header">
                             <div class="line-progress-bar">&nbsp;</div>
-                            <div class="line-progress-bar-done" style="height: 67%;">
+                            <div class="line-progress-bar-done" style="height: 99%;">
                                 &nbsp;
                             </div>
                             <div class="sidebar-lesson-header__title" style="width: 100%;">

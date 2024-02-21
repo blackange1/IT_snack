@@ -2,4 +2,4 @@ Django==4.2
 RestrictedPython==6.0
 djangorestframework==3.14.0
 Markdown==3.4.4
-
+django-quill-editor==0.1.40

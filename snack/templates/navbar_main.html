@@ -40,15 +40,21 @@
         <div class="colum-center menu__search">
             <input type="search" placeholder="Пошук...">
         </div>
-<!--        <div class="colum-center userlogo">-->
-<!--            <img src="{% static 'img/userlogo.jpg' %}" alt="user_logo">-->
-<!--        </div>-->
+        <!--        <div class="colum-center userlogo">-->
+        <!--            <img src="{% static 'img/userlogo.jpg' %}" alt="user_logo">-->
+        <!--        </div>-->
+
+        {% if user.is_authenticated %}
+        <div class="wrapper__username">
+            <div class="menu__username">{{user}}</div>
+        </div>
+        {% endif %}
+
         <div class="menu__authorization">
             {% if user.is_authenticated %}
-            <div style="color: white">{{user}}</div>
-            <a href="{% url 'logout' %}" style="color: white">Вийти</a>
+            <a href="{% url 'logout' %}">Вийти</a>
             {% else %}
-            <a href="{% url 'login' %}" style="color: white">Увійти</a><br>
+            <a href="{% url 'login' %}">Увійти</a><br>
             {% endif %}
         </div>
     </div>

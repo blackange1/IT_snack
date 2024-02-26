@@ -3,7 +3,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
-
+<div class="lesson-content">
 <!-- SIDEBAR -->
 <div class="lesson-sidebar" data-course-id="{{ course_id }}">
     <div class="lesson-sidebar__body">
@@ -54,8 +54,8 @@
 </div>
 
 <main>
-    <div class="empty-sidebar">empty-sidebar</div>
-    <div class="empty-tabs">t</div>
+<!--    <div class="empty-sidebar">empty-sidebar</div>-->
+<!--    <div class="empty-tabs">t</div>-->
     <article class="step-content step-wrapper">
 
     </article>
@@ -63,5 +63,6 @@
 <i class="scroll-up" id="scroll-up">
     <img src="{% static 'img/ico/icons8-upward-arrow.png' %}" class="socicon up-arrow" alt="up-arrow"/>
 </i>
+</div>
 <!--<a id="get_top"  href="#progress_of_lesson">up top</a>-->
 {% endblock %}

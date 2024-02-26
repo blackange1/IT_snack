@@ -2,11 +2,11 @@
 .lesson-sidebar {
     background-color: var(--bg-grey);
     border-right: var(--width-line) solid var(--color-line-orange);
-    /* height: 100vh; */
-    position: fixed;
-    top: var(--height-menu);
-    left: 0;
-    bottom: 0;
+    /*height: 100vh;*/
+    /*position: fixed;*/
+    /*top: var(--height-menu);*/
+    /*left: 0;*/
+    /*bottom: 0;*/
     /* position: relative; */
     z-index: 2;
 }
@@ -32,9 +32,11 @@
     text-decoration: underline;
 }
 
-.lesson-sidebar__course-progress-wrap {}
+.lesson-sidebar__course-progress-wrap {
+}
 
-.lesson-sidebar__course-progress {}
+.lesson-sidebar__course-progress {
+}
 
 .lesson-sidebar__progress-line,
 .lesson-sidebar__progress-line-done {
@@ -124,14 +126,20 @@
     background-color: var(--color-lesson-active);
 }
 
-a .sidebar-lesson-header__title {
-    display: block;
-    width: 100%;
-}
+/*a .sidebar-lesson-header__title {*/
+/*    display: block;*/
+/*    width: 100%;*/
+/*}*/
 
 .sidebar-lesson-header__title {
     padding: .5em 1em .5em 2em;
+}
 
+.sidebar-module-header__title,
+.sidebar-lesson-header__title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .lesson-sidebar__footer {
@@ -155,6 +163,8 @@ article {
     background-color: var(--bg-black);
 }
 
-.step-wrapper {}
+.step-wrapper {
+}
 
-.step-inner {}
+.step-inner {
+}

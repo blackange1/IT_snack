@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load tetra %}
 <!DOCTYPE html>
 <html>
 
@@ -17,6 +17,10 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/lib/flexboxgrid.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/lib/superflex.css' %}">
+
+    {% tetra_styles %}
+    {% tetra_scripts include_alpine=True %}
+
     {% block link %}
     {% endblock %}
 

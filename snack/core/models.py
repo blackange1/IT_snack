@@ -11,6 +11,13 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
+class ToDo(models.Model):
+    session_key = models.CharField(max_length=40, db_index=True)
+    title = models.CharField(max_length=80)
+    done = models.BooleanField(default=False)
+
+
 CURRENT_FILE_PATH = Path.cwd().joinpath('core').joinpath('models_TEST_DATA.json')
 
 TYPE_STEP = [

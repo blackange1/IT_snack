@@ -1,8 +1,8 @@
 /* TABS */
 .tabs {
-    top: var(--height-menu);
-    left: var(--width-sidebar);
-    position: fixed;
+    /*top: var(--height-menu);*/
+    /*left: var(--width-sidebar);*/
+    /*position: fixed;*/
 }
 
 .tabs__body {

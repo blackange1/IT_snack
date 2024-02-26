@@ -25,19 +25,24 @@ p {
     line-height: 1.25;
 }
 
-.conteiner {
-    /* margin-top: 74px; */
-    height: 100vh;
+/*.conteiner {*/
+/*    !* margin-top: 74px; *!*/
+/*    height: 100vh;*/
+/*}*/
+
+.lesson-content {
+    display: flex;
+    height: calc(100vh - var(--height-menu));
 }
 
-
 main {
-    display: flex;
+    /*display: flex;*/
     overflow-x: hidden;
+    width: 100%;
     /*padding-top: var(--height-menu)*/
-    position: relative;
-    top: var(--height-menu);
-    height: calc(100% - var(--height-menu));
+    /*position: relative;*/
+    /*top: var(--height-menu);*/
+    /*height: calc(100% - var(--height-menu));*/
     /*overflow-x: hidden;*/
     /*overflow-y: overlay;*/
 }
@@ -53,17 +58,17 @@ main::-webkit-scrollbar-thumb {
     background-color: var(--color-line-orange);
     border: 3px solid var(--bg-grey);
 }
-
+.lesson-sidebar__body,
 .lesson-sidebar,
 .empty-sidebar {
     width: var(--width-sidebar);
-    left: 0;
+    /*left: 0;*/
 
 }
 
 /* step-wrapper */
 article {
-    width: calc(100% - var(--width-sidebar) - var(--width-tabs));
+    /*width: calc(100% - var(--width-sidebar) - var(--width-tabs));*/
     background-color: var(--bg-black);
 }
 
@@ -71,6 +76,7 @@ article {
 .step-wrapper {
     max-width: var(--width-content);
     margin: 0 auto;
+    /*width: 100%;*/
 }
 
 .step-content {

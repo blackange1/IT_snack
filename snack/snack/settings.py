@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # 'polls.apps.PollsConfig',
     # TEXT EDITOR
     'django_quill',
+    'tetra',
     # comment
     # solution
     # teachers
@@ -138,7 +139,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR.joinpath('static')]
+# STATICFILES_DIRS = []
+# STATIC_ROOT = ''
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR.joinpath('static')
+    ]
+else:
+    STATIC_ROOT = BASE_DIR.joinpath('static')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -147,3 +156,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Authentication
 LOGIN_REDIRECT_URL = '/'
+
+TETRA_ESBUILD_PATH = BASE_DIR.joinpath('node_modules').joinpath('.bin').joinpath('esbuild')
+# print('TETRA_ESBUILD_PATH', TETRA_ESBUILD_PATH)

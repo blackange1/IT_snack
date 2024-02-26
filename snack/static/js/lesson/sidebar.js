@@ -4,10 +4,9 @@ import {printReq} from "../tools.js";
 // const $lessonSidebar = document.querySelector('.lesson-sidebar')
 
 
+
 const sidebar = {
     activeLesson: 0,
-    maxLengthModule: 26,
-    maxLengthLesson: 26,
     courseId: undefined,
     root: undefined,
     init(courseId, activeLesson = 0) {
@@ -16,18 +15,6 @@ const sidebar = {
         // if (activeLesson == 0) {
         //     const activeLesson = this.root.querySelector('lesson-sidebar__lessons-inner')
         // }
-    },
-    cutTitleModule(string) {
-        if (string.length > this.maxLengthModule) {
-            return string.slice(0, this.maxLengthModule) + '...'
-        }
-        return string
-    },
-    cutTitleLesson(string) {
-        if (string.length > this.maxLengthLesson) {
-            return string.slice(0, this.maxLengthLesson) + '...'
-        }
-        return string
     },
     render(course) {
         const $lessonSidebarContent = this.root.querySelector('.lesson-sidebar__content')
@@ -39,7 +26,7 @@ const sidebar = {
                     <div class="line-progress-bar">&nbsp;</div>
                     <div class="line-progress-bar-done" style="height: 1%;">&nbsp;</div>
                     <div class="sidebar-module-header__title" style="width: 100%;" title="${module.name}">
-                        ${this.cutTitleModule(numberModule + ' ' + module.name)}
+                        ${numberModule + ' ' + module.name}
                     </div>
                     `
             $lessonSidebarContent.appendChild(lessonSidebarModuleHeader)
@@ -57,8 +44,8 @@ const sidebar = {
                             <div class="line-progress-bar-done" style="height: 99%;">
                                 &nbsp;
                             </div>
-                            <div class="sidebar-lesson-header__title" style="width: 100%;">
-                                ${this.cutTitleLesson(numberModule + '.' + numberLesson + ' ' + lesson.name)}
+                            <div class="sidebar-lesson-header__title" style="width: 100%;" title="${lesson.name}">
+                                ${numberModule + '.' + numberLesson + ' ' + lesson.name}
                             </div>
                         </div>
                         `
@@ -91,7 +78,6 @@ const sidebar = {
         }
     },
     run() {
-        // const courseId = 3
         fetch(`/api/courses/${this.courseId}?format=json`)
             .then(response => response.json())
             .then(course => {

@@ -7,7 +7,7 @@ python manage.py startapp core
 
 ### створення міграційного файлу та міграція до бази даних
 ```shell
-python manage.py makemigrations course
+python manage.py makemigrations
 ```
 ```shell
 python manage.py migrate

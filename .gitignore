@@ -2,3 +2,4 @@
 __pycache__
 venv
 snack/db.sqlite3
+snack/node_modules

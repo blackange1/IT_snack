@@ -4,24 +4,24 @@
     "points": 5,
     "testcase_set": [
         {
-            "input": "3\n6\n",
-            "output": "2\n0\n"
+            "input": "1\n",
+            "output": "1\n"
         },
         {
-            "input": "12\n6\n",
-            "output": "0\n6\n"
+            "input": "2\n",
+            "output": "1\n"
         },
         {
-            "input": "7\n4\n",
-            "output": "0\n4\n"
+            "input": "3\n",
+            "output": "1\n"
         },
         {
-            "input": "5\n60\n",
-            "output": "12\n0\n"
+            "input": "4\n",
+            "output": "1\n"
         },
         {
-            "input": "6\n6\n",
-            "output": "1\n0\n"
+            "input": "5\n",
+            "output": "2\n"
         }
     ]
 }

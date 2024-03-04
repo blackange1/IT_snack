@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # 'polls.apps.PollsConfig',
     # TEXT EDITOR
     'django_quill',
+
     'tetra',
     # comment
     # solution
@@ -68,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'tetra.middleware.TetraMiddleware'
 ]
 
 ROOT_URLCONF = 'snack.urls'

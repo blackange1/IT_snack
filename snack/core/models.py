@@ -20,7 +20,7 @@ TYPE_STEP = [
     'Code',
 ]
 
-if 0:
+if 1:
     with open(CURRENT_FILE_PATH, 'r', encoding='utf-8') as file:
         print('file', file)
         json_content = file.read()

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import CourseList, CourseDetail, ModuleDetail, StepMenu
+from .views import CourseList, CourseDetail, ModuleDetail, StepMenu, hello_world
 
 from .views_lessons_text import StepTextItem
 from .views_lessons_choice import StepChoice
@@ -21,4 +21,5 @@ urlpatterns = [
     path("step-item/choice_multi/<int:step_id>/", StepChoiceMulti.as_view(), name="steps_choice_multi"),
     path("step-item/code/<int:step_id>/", StepCode.as_view(), name="steps_code"),
     # path("test/", Test.as_view(), name="test"),
+    path('hello-world/', hello_world, name='hello_world'),
 ]

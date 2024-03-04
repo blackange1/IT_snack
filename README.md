@@ -14,3 +14,5 @@ venv\Scripts\activate
 * vscode on widows: `Ctrl` + `Shift` + `F`
 * vscode on linux: `Ctrl` + `Shift` + `I`
 
+
+[Django-React-jwt-authentication Public](https://github.com/seankwarren/Django-React-jwt-authentication/tree/main)

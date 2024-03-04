@@ -6,6 +6,7 @@ from .serializers import CourseSerializer, \
 from course.models import Course, Module
 from lesson.models import Lesson
 from step.models import LESSON_METHODS
+from rest_framework.decorators import api_view
 
 error = Response({
     'status': 'error'
@@ -60,3 +61,8 @@ class StepMenu(APIView):
 
         data.sort(key=lambda x: x.get('order'))
         return Response(data)
+
+
+@api_view(['GET'])
+def hello_world(request):
+    return Response({'message': 'Hello, world!'})

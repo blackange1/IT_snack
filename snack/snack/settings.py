@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,7 +34,9 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    # 'corsheaders',
     'rest_framework',
+    # 'rest_framework_simplejwt.token_blacklist',
     # 'snippets',
     'core.apps.CoreConfig',
     'step.apps.StepConfig',
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
     # TEXT EDITOR
     'django_quill',
 
-    'tetra',
+    # 'tetra',
     # comment
     # solution
     # teachers
@@ -69,8 +71,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'tetra.middleware.TetraMiddleware'
+    # 'tetra.middleware.TetraMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
 ]
+
+# CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'snack.urls'
 
@@ -92,8 +97,18 @@ TEMPLATES = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 10,
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
+    # ],
 }
+
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+#     'ROTATE_REFRESH_TOKENS': True,
+#     'BLACKLIST_AFTER_ROTATION': True
+# }
 
 WSGI_APPLICATION = 'snack.wsgi.application'
 
@@ -150,7 +165,6 @@ if DEBUG:
 else:
     STATIC_ROOT = BASE_DIR.joinpath('static')
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -158,6 +172,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Authentication
 LOGIN_REDIRECT_URL = '/'
-
-TETRA_ESBUILD_PATH = BASE_DIR.joinpath('node_modules').joinpath('.bin').joinpath('esbuild')
-# print('TETRA_ESBUILD_PATH', TETRA_ESBUILD_PATH)

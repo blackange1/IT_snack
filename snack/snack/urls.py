@@ -18,13 +18,14 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_simplejwt import views as jwt_views
 
 admin.site.site_header = "IT SNACK Admin"
 admin.site.site_title = "IT SNACK Admin Portal"
 admin.site.index_title = "Welcome to IT SNACK Researcher Portal"
 
 urlpatterns = [
-    path('tetra/', include('tetra.urls')),
+    # path('tetra/', include('tetra.urls')),
 
     path('', include('core.urls')),
     path('api/', include('api.urls')),
@@ -33,7 +34,12 @@ urlpatterns = [
     # path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-print(static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))
+    path('', include('authentification.urls')),
+    path('token/',
+         jwt_views.TokenObtainPairView.as_view(),
+         name='token_obtain_pair'),
+    path('token/refresh/',
+         jwt_views.TokenRefreshView.as_view(),
+         name='token_refresh')
+]
 print('settings.STATIC_ROOT', settings.STATIC_ROOT)

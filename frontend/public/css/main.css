@@ -1,0 +1,9 @@
+main {
+    /*padding-top: var(--height-menu);*/
+    padding-top: 86px;
+}
+
+.wrapper {
+    margin: 0 auto;
+    max-width: 1200px;
+}

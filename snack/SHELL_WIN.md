@@ -7,7 +7,7 @@
 
 ### створення міграційного файлу та міграція до бази даних
 ```shell
-.\manage.py makemigrations course
+.\manage.py makemigrations
 ```
 ```shell
 .\manage.py migrate

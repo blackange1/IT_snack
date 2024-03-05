@@ -17,7 +17,7 @@ def course(request):
 def syllabus(request, course_id):
     # print(request.user)
     course = get_object_or_404(Course, pk=course_id)
-    module = course.module_set.all()
+    module = course.module_set.all().order_by('order')
     print(dir(course))
     print(module)
     return render(request, "course/syllabus.html", {

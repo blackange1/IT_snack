@@ -44,10 +44,9 @@ INSTALLED_APPS = [
     'course.apps.CourseConfig',
     'progress.apps.ProgressConfig',
     'api.apps.ApiConfig',
-    # 'polls.apps.PollsConfig',
     # TEXT EDITOR
     'django_quill',
-
+    'adminsortable2',
     # 'tetra',
     # comment
     # solution

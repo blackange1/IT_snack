@@ -6,6 +6,8 @@ from .views_lessons_text import StepTextItem
 from .views_lessons_choice import StepChoice
 from .views_lessons_choice_multi import StepChoiceMulti
 from .views_lessons_code import StepCode
+from .views_lessons_result import ResultLesson
+
 
 urlpatterns = [
     # ex: /api/
@@ -21,4 +23,6 @@ urlpatterns = [
     path("step-item/choice_multi/<int:step_id>/", StepChoiceMulti.as_view(), name="steps_choice_multi"),
     path("step-item/code/<int:step_id>/", StepCode.as_view(), name="steps_code"),
     # path("test/", Test.as_view(), name="test"),
+
+    path("result/lesson/<int:lesson_id>/", ResultLesson.as_view(), name="result_lesson"),
 ]

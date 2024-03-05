@@ -1,17 +1,8 @@
 /* select radiobatton */
-.task__title {
-    font-weight: bold;
-}
-
 .task__check {
     /*margin: 20px 0 10px 0;*/
     padding: 10px;
 }
-
-/*.task__points {*/
-/*    font-size: 10px;*/
-/*    padding: 0 10px 10px 5px;*/
-/*}*/
 
 .lesson-form  input[type="radio"] {
     appearance: none;

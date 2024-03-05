@@ -16,6 +16,10 @@
     background-color: #235;
 }
 
+.task__title {
+    font-weight: bold;
+}
+
 .button-next-step,
 .button-checked-again {
     display: inline-block;

@@ -14,3 +14,5 @@ venv\Scripts\activate
 * vscode on widows: `Ctrl` + `Shift` + `F`
 * vscode on linux: `Ctrl` + `Shift` + `I`
 
+[діаграма бази даних](https://app.diagrams.net/#G1H3o6GOGh_exggByUGEhttWhRbm65s-6U#%7B%22pageId%22%3A%22C5RBs43oDa-KdzZeNtuy%22%7D)
+

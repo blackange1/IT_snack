@@ -31,7 +31,7 @@ def syllabus(request, course_id):
 def syllabus_edit(request, course_id):
     # print(syllabus_edit)
     course = get_object_or_404(Course, pk=course_id)
-    return render(request, "course/syllabus_edit.html", {
+    return render(request, "course/syllabus-edit.html", {
         'title': course.name + ' - IT snack',
         'course': course
     })

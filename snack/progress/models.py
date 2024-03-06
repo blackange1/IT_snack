@@ -73,27 +73,27 @@ class ProgressCodeItem(models.Model):
     # output = models.TextField()
 
 
-PROGRESS_LIST = {
-    'text': ProgressText,
-    'choice': ProgressChoice,
-    # 'code': Code,
-    # 'video': Video,
-}
+# PROGRESS_LIST = {
+#     'text': ProgressText,
+#     'choice': ProgressChoice,
+#     # 'code': Code,
+#     # 'video': Video,
+# }
 
 
-def get_step_progress(typeof, step, user):
-    if typeof in ['text']:
-        progress = PROGRESS_LIST.get(typeof)
-        item = 0
-        # item = progress.objects.filter(step=step, user=user)
-        return 1 if item else 0
-    progress = PROGRESS_LIST.get(typeof)
-    item = 0
-    # item = progress.objects.filter(step=step, user=user)
-    if item:
-        print(item)
-        return item[0].points
-    return 0
+# def get_step_progress(typeof, step, user):
+#     if typeof in ['text']:
+#         progress = PROGRESS_LIST.get(typeof)
+#         item = 0
+#         # item = progress.objects.filter(step=step, user=user)
+#         return 1 if item else 0
+#     progress = PROGRESS_LIST.get(typeof)
+#     item = 0
+#     # item = progress.objects.filter(step=step, user=user)
+#     if item:
+#         print(item)
+#         return item[0].points
+#     return 0
 
 # class StepText(Text):
 #     class Meta:

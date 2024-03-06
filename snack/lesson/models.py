@@ -1,5 +1,5 @@
 from django.db import models
-from course.models import EducationalMaterial, Module
+from course.models import Module, EducationalMaterial
 
 
 class Lesson(EducationalMaterial):

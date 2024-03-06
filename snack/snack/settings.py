@@ -34,15 +34,21 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     # 'corsheaders',
     'rest_framework',
     # 'rest_framework_simplejwt.token_blacklist',
     # 'snippets',
-    'core.apps.CoreConfig',
-    'step.apps.StepConfig',
-    'lesson.apps.LessonConfig',
     'course.apps.CourseConfig',
+    'lesson.apps.LessonConfig',
+    'step.apps.StepConfig',
     'progress.apps.ProgressConfig',
+    'core.apps.CoreConfig',
     'api.apps.ApiConfig',
     # TEXT EDITOR
     'django_quill',
@@ -54,12 +60,6 @@ INSTALLED_APPS = [
     # statistics
     # tabel
     # certificate
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [

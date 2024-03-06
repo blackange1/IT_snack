@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block link %}
+<!--<link rel="stylesheet" type="text/css" href="{% static 'css/module_editor.css' %}">-->
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        {% include 'teach_courses_sidebar.html' %}
+        <div class="col-sm-8">
+            <h1>Програма курсу</h1>
+            <div>Курс не має уроків. <br>Створіть перший модуль, щоб додати уроки</div>
+
+            <div class="btn btn-primary" id="create_module">+ Додати модуль</div>
+        </div>
+    </div>
+</div>
+<div class="course-editor__menu p-2">
+    <div class="course-editoror__inner">
+        <div class="btn btn-primary">Зберегти зміни</div>
+        <a href="{% url 'syllabus' course.id %}" class="btn btn-secondary">Повернутися до перегляду</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<!--<script src="{% static 'js/module_editor.js' %}"></script>-->
+{% endblock %}

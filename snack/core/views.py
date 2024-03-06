@@ -25,3 +25,9 @@ def teach_courses(request):
         'courses': courses
     }
     return render(request, "core/teach_courses.html", context)
+
+
+# teach/edit-course/<int:course_id>
+# def edit_course(request, course_id):
+#     print('course_id', course_id)
+#     return render(request, "core/edit/course.html", {})

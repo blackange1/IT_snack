@@ -19,14 +19,15 @@ class CourseAdmin(SortableAdminBase, admin.ModelAdmin):
 
 
 # Module
-class LessonInline(admin.StackedInline):
+# class LessonInline(admin.StackedInline):
+class LessonInline(SortableStackedInline):
     model = Lesson
     extra = 0
 
 
 @admin.register(Module)
-class ModuleAdmin(admin.ModelAdmin):
+class ModuleAdmin(SortableAdminBase, admin.ModelAdmin):
     model = Module
     inlines = [LessonInline]
-    list_display = ("name", "description", "count_lessons")
+    list_display = ("name", "description", "count_lessons", "order")
     list_filter = ("course",)

@@ -9,3 +9,6 @@ class Lesson(EducationalMaterial):
 
     def get_course(self):
         return self.module.course
+
+    class Meta:
+        ordering = ['order']

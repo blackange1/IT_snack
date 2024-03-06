@@ -3,6 +3,7 @@ from lesson.models import Lesson
 from step.check_code.py_compile import ValidateCodePython
 from django_quill.fields import QuillField
 
+
 # TODO:
 # https://pypi.org/project/django-quill-editor/
 # https://django-quill-editor.readthedocs.io/en/latest/pages/migrating-to-quillfield.html
@@ -221,6 +222,9 @@ class ChoiceMulti(Step, StepChoice):
 
 
 class AnswerChoice(Order):
+    class Meta:
+        ordering = ['order']
+
     choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
     is_correct = models.BooleanField(default=False)
     text = models.CharField(max_length=512)
@@ -228,6 +232,9 @@ class AnswerChoice(Order):
 
 
 class AnswerChoiceMulti(Order):
+    class Meta:
+        ordering = ['order']
+
     choice_multi = models.ForeignKey(ChoiceMulti, on_delete=models.CASCADE)
     is_correct = models.BooleanField(default=False)
     text = models.CharField(max_length=512)
@@ -236,8 +243,6 @@ class AnswerChoiceMulti(Order):
 
 ## знак консолі
 class Code(Step):
-    TYPE = 'code'
-
     class Meta:
         verbose_name_plural = step_verbose_name.get_verbose_name("Code")
 
@@ -280,6 +285,9 @@ class Code(Step):
 
 
 class TestCase(Order):
+    class Meta:
+        ordering = ['order']
+
     code = models.ForeignKey(Code, on_delete=models.CASCADE)
     input = models.TextField(blank=True, null=True)
     output = models.TextField(blank=True, null=True)

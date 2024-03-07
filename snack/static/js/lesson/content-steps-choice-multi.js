@@ -9,7 +9,7 @@ stepsContent.updateChoiceMulti = function (step, id) {
     wrapperLabel.innerHTML = ''
     for (const answer of step['answers']) {
 
-        const label = this.createElement('label', 'container', `
+        const label = this.createElement('label', 'checkbox-container', `
                 <input type="checkbox" name="answer${step.id}"  id="answer${answer.id}" data-id="${answer.id}">
                 <span class="checkmark"></span>${answer.text}`, true)
             wrapperLabel.appendChild(label)
@@ -39,7 +39,7 @@ stepsContent.renderChoiceMulti = function (step, id) {
     const wrapperLabel = this.createElement('div', 'wrapper_label')
     if (repeatTask) {
         for (const answer of answers) {
-            const label = this.createElement('label', 'container', `
+            const label = this.createElement('label', 'checkbox-container', `
                 <input type="checkbox" name="answer${step.id}"  id="answer${answer.id}" data-id="${answer.id}">
                 <span class="checkmark"></span>${answer.text}`, true)
             wrapperLabel.appendChild(label)
@@ -50,7 +50,7 @@ stepsContent.renderChoiceMulti = function (step, id) {
         let j = 0
         const index = step['answers_json'][1]
         for (const answer of step["answers_json"][0]) {
-            const label = this.createElement('label', 'container')
+            const label = this.createElement('label', 'checkbox-container')
             const input = this.createElement('input', {type: 'checkbox'})
             const span = this.createElement('span', 'checkmark')
             label.appendChild(input)

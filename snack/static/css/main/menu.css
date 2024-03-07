@@ -69,14 +69,14 @@
     border-width: 0;
 }
 
-/* userlogo */
-.userlogo {
+/* user_logo */
+.user_logo {
     text-align: right;
     z-index: 1;
 }
 
-.userlogo img {
-    width: var(--width-userlogo);
+.user_logo img {
+    width: var(--width-user-logo);
     border: var(--width-line) solid var(--color-line-grey);
     border-radius: 50%;
 }

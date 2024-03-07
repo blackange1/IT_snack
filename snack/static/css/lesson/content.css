@@ -1,21 +1,8 @@
-.code-sample::first-line {
-    font-weight: bold;
-}
-
-.code-sample {
-    list-style-type: none;
-    padding-left: 20px;
-}
-
-.code-sample__item {}
-
 /* CODE EDITOR */
 
-.code-editor {
-    /* display: flex; */
-}
+
 /*
-.code__wraper {
+.code__wrapper {
     display: flex;
 }
 
@@ -34,7 +21,7 @@
 
 .code__number .number__item {}
 
-.usercode {
+.user_code {
     width: 100%;
     resize: none;
     background-color: var(--bg-black);
@@ -46,7 +33,7 @@
     font-size: 18px;
 }
 
-.usercode:focus {
+.user_code:focus {
     background-color: var(--bg-grey);
 }
 

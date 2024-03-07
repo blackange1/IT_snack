@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
     class CodeEditer {
         constructor(elem, numberItem = 10) {
             elem.innerHTML = `
-            <div class="code__wraper">
+            <div class="code__wrapper">
                 <ul class="code__number" data-row="10"></ul>
-                <textarea name="code" class="usercode"></textarea>
+                <textarea name="code" class="user_code"></textarea>
             </div>
             <div class="code__check">
                 <button type="button" class="button button-primary">Надіслати</button>
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
             `
 
             this.$codeEditorNumber = elem.querySelector('.code__number')
-            this.$usercode = elem.querySelector('.usercode')
+            this.$user_code = elem.querySelector('.user_code')
 
             for (let i = 1; i <= numberItem; i++) {
                 this.appendNumberItem(i)
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         addEventListenerInput() {
             const obj = this
-            this.$usercode.addEventListener('input', function () {
+            this.$user_code.addEventListener('input', function () {
                 const code = this.value
                 let row = code.split('\n').length
 

@@ -26,7 +26,7 @@ p {
     color: white;
 } */
 
-.colum-center {
+.column-center {
     display: flex;
     flex-direction: column;
     justify-content: center;

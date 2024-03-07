@@ -1,27 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap');
-
-.code-sample::first-line {
-    font-weight: bold;
-}
-
-.code-sample {
-    list-style-type: none;
-    padding-left: 20px;
-}
-
-.code-sample__item {
+/*CODE EXAMPLES*/
+.code__examples {
 
 }
 
-/* CODE EDITOR */
+.code__example {
 
-.code-editor {
-    /* display: flex; */
 }
 
+.code__example .example__type {
+    margin: 5px;
+}
+
+/*CODE EDITOR*/
+/*FONT*/
 .code__number,
 code,
-.usercode_main,
+.user_code_main,
 textarea.code__number {
     font-family: 'Source Code Pro', monospace;
     font-weight: 400;
@@ -29,12 +24,20 @@ textarea.code__number {
     line-height: 1.5;
 }
 
+pre {
+    margin: 0;
+}
+
 .fieldset__default {
     padding: 0;
     border-width: 0;
 }
 
-.code__wraper {
+.attempt__message {
+    margin: 5px;
+}
+
+.code__wrapper {
     display: flex;
 }
 
@@ -51,71 +54,30 @@ textarea.code__number {
     user-select: none;
 }
 
-.code__number .number__item {
-
-}
-
-.code__example .example__type{
-    margin: 5px;
-}
-
-/*.button {*/
-/*    padding: 10px 20px;*/
-/*    border-width: 0;*/
-/*    font-weight: bold;*/
-/*    cursor: pointer;*/
-/*    border-radius: 5px;*/
-/*}*/
-
-/*.button-primary {*/
-/*    background-color: var(--color-line-orange);*/
-/*}*/
-
-/*.button-secondary {*/
-/*    background-color: var(--color-progress-bar-done);*/
-/*    color: white;*/
-/*}*/
-
-.code__check {
-    display: flex;
-    justify-content: space-between;
-    /* padding: 20px 0; */
-    margin: 20px 10px;
-    /* delete */
-    /*margin-top: 260px;*/
-}
-
-.code_buttons {
-
-}
-/* test */
-
-.usercode {
-    height: 100%;
-}
-
-.wrapper__usercode {
+.wrapper__user_code {
     padding: .5em;
     border: 2px solid white;
     border-radius: 0 15px 15px 0;
 }
 
-.usercode {
+.wrapper__user_code,
+.user_code {
+    width: 100%;
+}
+
+.user_code {
+    height: 100%;
     position: relative;
     padding: 0;
 }
 
-pre {
-    margin: 0;
-}
-
-.usercode code.hljs {
+.user_code code.hljs {
     white-space: pre-wrap;
     padding: 0;
     word-wrap: break-word;
 }
 
-textarea.usercode_main {
+textarea.user_code_main {
     position: absolute;
     top: 0;
     height: 100%;
@@ -134,38 +96,54 @@ textarea.usercode_main {
     border-width: 0
 }
 
-textarea.usercode_main:focus {
+textarea.user_code_main:focus {
     border: none;
     outline: none;
+}
+
+/*CODE CONSOLE*/
+code__console {
+
+}
+
+.test__title {
+    display: block;
+}
+
+.test__block {
+    display: flex;
+    align-items: flex-start;
+}
+
+/*FOOTER*/
+.test__footer {
+
+}
+
+.footer__title,
+.test__title {
+    margin-top: 10px;
+}
+
+.footer__output {
+    /*padding: 10px;*/
+}
+
+/* test */
+
+.code__check {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 20px 0; */
+    margin: 20px 10px;
+    /* delete */
+    /*margin-top: 260px;*/
 }
 
 .not_color {
     color: rgba(0, 0, 0, 0)
 }
 
-.wrapper__usercode,
-.usercode {
-    width: 100%;
-}
-
-/* CODE PRINTER */
-.code__printer {
-    border: 2px solid white;
-    border-top-width: 0;
-    border-radius: 0 0 15px 15px; 
-
-    margin-top: -15px; 
-    padding: 0.5em;
-    padding-top: 15px; 
-    /*padding-top: calc(0.5em + 15px);*/
-}
-.footer__title,
-.test_title {
-    margin-top: 10px;
-}
-.test_title {
-    display: block;
-}
 textarea.block__input {
     font-size: 18px;
     padding: 0.24em 0.5em;
@@ -173,20 +151,20 @@ textarea.block__input {
     height: 100%;
     box-sizing: border-box;
     resize: none;
-    border-radius: 5px; 
+    border-radius: 5px;
     /*overflow: hidden;*/
     border: none;
 }
+
+fieldset[disabled] textarea.block__input {
+    background-color: white;
+}
+
 textarea.block__input:focus {
     /*color: red;*/
     background-color: #eee;
     border: none;
     outline: none;
-}
-.test__footer {}
-
-.footer__output {
-    /*padding: 10px;*/
 }
 
 .test__info {
@@ -202,15 +180,13 @@ textarea.block__input:focus {
 
 }
 
-.test__block{
-    display: flex;
-    align-items: flex-start;
-}
-
-
-.button-run-code{
+/*BUTTON*/
+.button-run-code {
     display: inline-block;
     font-size: .8rem;
     margin-left: .5em;
 }
 
+.group-btn-code {
+
+}

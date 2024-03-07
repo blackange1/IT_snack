@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>URL</title>
+</head>
+<body>
+<h1 style="text-align: center">API URL</h1>
+
+<ul>
+{% for link in links %}
+<li><h2><a href="{{ link.url }}">{{ link.url }}</a> - {{link.desc}}</h2></li>
+{% endfor %}
+</ul>
+</body>
+</html>

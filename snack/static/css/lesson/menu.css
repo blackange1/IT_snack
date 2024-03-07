@@ -20,7 +20,7 @@
 /* step */
 #steps {
     display: flex;
-    /* width: calc(var(--width-content) - var(--width-userlogo)); */
+    /* width: calc(var(--width-content) - var(--width-user-logo)); */
     padding: 0 10px;
 }
 
@@ -45,14 +45,14 @@
     margin-left: -8px;
 }
 
-/* userlogo */
-.userlogo {
+/* user-logo */
+.user_logo {
     text-align: right;
     z-index: 1;
 }
 
-.userlogo img {
-    width: var(--width-userlogo);
+.user_logo img {
+    width: var(--width-user-logo);
     border: var(--width-line) solid var(--color-line-grey);
     border-radius: 50%;
 }

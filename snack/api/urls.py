@@ -7,10 +7,12 @@ from .views_lessons_choice import StepChoice
 from .views_lessons_choice_multi import StepChoiceMulti
 from .views_lessons_code import StepCode
 from .views_lessons_result import ResultLesson
-
+from .views_urls import api_url
 
 urlpatterns = [
     # ex: /api/
+    path("", api_url, name="api_url"),
+
     path("courses/", CourseList.as_view(), name="courses_list"),
     path("courses/<int:course_id>/", CourseDetail.as_view(), name="courses_detail"),
     path("modules/<int:module_id>/", ModuleDetail.as_view(), name="module_detail"),

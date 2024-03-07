@@ -26,19 +26,19 @@ class CodeEditor {
             codeText = lineOfCode.defaultText()
         }
         elem.innerHTML = `
-            <div class="code__wraper">
+            <div class="code__wrapper">
                 <ul class="code__number"></ul>
-                <div class="wrapper__usercode">
-                    <div class="usercode">
+                <div class="wrapper__user_code">
+                    <div class="user_code">
                         <pre><code class="language-python hljs" data-highlighted=""></code></pre>
-                        <textarea name="code" class="usercode_main">${codeText}</textarea>
+                        <textarea name="code" class="user_code_main">${codeText}</textarea>
                     </div>
                 </div>
             </div>
             `
-        const $wrappeUsercode = elem.querySelector('.wrapper__usercode')
-        this.$code = $wrappeUsercode.querySelector('code.hljs')
-        $wrappeUsercode.style.backgroundColor = window.getComputedStyle(this.$code, null).getPropertyValue('background-color')
+        const $wrappeuser_code = elem.querySelector('.wrapper__user_code')
+        this.$code = $wrappeuser_code.querySelector('code.hljs')
+        $wrappeuser_code.style.backgroundColor = window.getComputedStyle(this.$code, null).getPropertyValue('background-color')
         this.maxCountCharsOfLine = Math.floor(this.$code.offsetWidth * coefficientProportionality)
         // this.maxCountCharsOfLine = Math.round(this.$code.offsetWidth * coefficientProportionality)
 
@@ -296,7 +296,7 @@ stepsContent.updateCode = function (step, id) {
 stepsContent.renderCode = function (step, id) {
     const stepInner = this.createElement('div', {'class': 'step-inner', 'id': 'code' + id}, `${step['text_html']}`, true)
 
-    const codeExemple = this.createElement('div', 'code__example')
+    const codeExemple = this.createElement('div', 'code__examples')
     for (const exemple of step["code_examples"]) {
         const itemExemple = this.createElement('div', 'code__example', `
             <div class="example__type">input:</div>
@@ -360,9 +360,9 @@ stepsContent.renderCode = function (step, id) {
         }
     }
 
-    const $codePrinter = this.createElement("div", "code__console.loger hide")
+    const $codePrinter = this.createElement("div", "code__console hide")
     $codePrinter.innerHTML = `
-        <label for="code_input_${id}" class="test_title">Test input:</label>
+        <label for="code_input_${id}" class="test__title">Test input:</label>
             <div class="test__block">
                 <textarea id="code_input_${id}" class="block__input" rows="3">${firstInput}</textarea>
             </div>
@@ -378,7 +378,7 @@ stepsContent.renderCode = function (step, id) {
 
     // BUTTON
     const $codeCheck = this.createElement('div', 'code__check')
-    const $codeButtons = this.createElement('div', 'code_buttons')
+    const $codeButtons = this.createElement('div', 'group-btn-code')
     const btnSubmit = this.createElement('button', {'class': 'button button-primary', 'type': 'submit'}, 'Надіслати')
     const btnNextStep = this.createElement('div', 'button button-primary button-next-step hide', 'Наступний крок')
     const btnCheckedAgain = this.createElement('div', 'button button-secondary button-checked-again hide', "btnCheckedAgain")

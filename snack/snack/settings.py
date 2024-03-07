@@ -40,8 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'corsheaders',
     'rest_framework',
+    # TEXT EDITOR
+    'django_quill',
+    'adminsortable2',
+
+    # 'corsheaders',
     # 'rest_framework_simplejwt.token_blacklist',
     # 'snippets',
     'course.apps.CourseConfig',
@@ -50,9 +54,8 @@ INSTALLED_APPS = [
     'progress.apps.ProgressConfig',
     'core.apps.CoreConfig',
     'api.apps.ApiConfig',
-    # TEXT EDITOR
-    'django_quill',
-    'adminsortable2',
+    # 'testapp.apps.TestappConfig',
+
     # 'tetra',
     # comment
     # solution

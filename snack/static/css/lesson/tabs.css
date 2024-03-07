@@ -10,7 +10,6 @@
     transform: rotate(180deg);
 }
 
-
 .tabs__item {
     position: relative;
     margin-top: -10px;
@@ -26,10 +25,6 @@
 
 .tabs__item.active {
     background-color: var(--color-progress-bar-done);
-}
-
-.test {
-    z-index: 1000;
 }
 
 .empty-tabs {

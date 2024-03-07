@@ -9,9 +9,9 @@ stepsContent.updateChoice = function (step, id) {
     wrapperLabel.innerHTML = ''
     for (const answer of step['answers']) {
         const label = this.createElement(
-            'label', 'custom-radio__label', `
+            'label', 'choice__label', `
                 <input type="radio" name="answer${step.id}" id="answer${answer.id}" data-id="${answer.id}">
-                <span class="custom-radio__text">${answer.text}</span>`, true)
+                <span class="choice__text">${answer.text}</span>`, true)
         wrapperLabel.appendChild(label)
     }
     const btnNextStep = $form.querySelector('.button-next-step')
@@ -25,7 +25,7 @@ stepsContent.renderChoice = function (step, id) {
     // CREATE FORM
     const mainForm = this.createElement('form', {'class': 'lesson-form', 'data-id': id})
     const fieldset = document.createElement('fieldset')
-    const legend = this.createElement('legend', 'task__title', "Виберіть декілька відповідей")
+    const legend = this.createElement('legend', 'task__title', "Виберіть одну відповідь")
 
     mainForm.appendChild(fieldset)
     fieldset.appendChild(legend)
@@ -35,9 +35,9 @@ stepsContent.renderChoice = function (step, id) {
     const wrapperLabel = this.createElement('div', 'wrapper_label')
     if (repeat_task) {
         for (const answer of answers) {
-            const label = this.createElement('label', 'custom-radio__label', `
+            const label = this.createElement('label', 'choice__label', `
                     <input type="radio" name="answer${step.id}" id="answer${answer.id}" data-id="${answer.id}">
-                    <span class="custom-radio__text">${answer.text}</span>`, true)
+                    <span class="choice__text">${answer.text}</span>`, true)
             wrapperLabel.appendChild(label)
         }
         fieldset.appendChild(wrapperLabel)
@@ -47,9 +47,9 @@ stepsContent.renderChoice = function (step, id) {
         let j = 0
         const index = step['answers_json'][1]
         for (const answer of step["answers_json"][0]) {
-            const label = this.createElement('label', 'custom-radio__label')
+            const label = this.createElement('label', 'choice__label')
             const input = this.createElement('input', {type: 'radio'})
-            const span = this.createElement('span', 'custom-radio__text', answer)
+            const span = this.createElement('span', 'choice__text', answer)
             label.appendChild(input)
             label.appendChild(span)
             if (j === index) {

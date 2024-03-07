@@ -26,22 +26,22 @@
 <!--</nav>-->
 {% load static %}
 <nav class="menu">
-    <div class="menu-logo colum-center">
+    <div class="menu-logo column-center">
         <a href="{% url 'index'%}">
             <img src="{% static 'img/main_logo.png' %}" width="180px" alt="main_logo">
         </a>
     </div>
-    <ul class="menu__list colum-center">
+    <ul class="menu__list column-center">
         <li class="menu__item"><a href="{% url 'index'%}" class="menu__link">Каталог</a></li>
         <li class="menu__item"><a href="#" class="menu__link">Моє навчання</a></li>
         <li class="menu__item"><a href="{% url 'teach_courses'%}" class="menu__link">Викладання</a></li>
     </ul>
     <div class="menu__right">
-        <div class="colum-center menu__search">
+        <div class="column-center menu__search">
             <input type="search" placeholder="Пошук...">
         </div>
-        <!--        <div class="colum-center userlogo">-->
-        <!--            <img src="{% static 'img/userlogo.jpg' %}" alt="user_logo">-->
+        <!--        <div class="column-center user_logo">-->
+        <!--            <img src="{% static 'img/user_logo.jpg' %}" alt="user_logo">-->
         <!--        </div>-->
 
         {% if user.is_authenticated %}

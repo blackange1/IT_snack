@@ -42,7 +42,6 @@ class StepMenu(APIView):
         user = request.user
         for attribute in LESSON_METHODS:
             for item in lesson.__getattribute__(attribute).all():
-                print('item', item.TYPE)
                 data_item = {
                     'order': item.order,
                     'type': item.TYPE,
@@ -60,3 +59,5 @@ class StepMenu(APIView):
 
         data.sort(key=lambda x: x.get('order'))
         return Response(data)
+
+

@@ -1,6 +1,7 @@
 :root {
     --color-line-grey: #9e9ca4ff;
-    --color-line-orange: #ffbd00ff;
+    /*--color-line-orange: #ffbd00ff;*/
+    --color-line-orange: #9e9ca4ff;
     --color-hover: #77755188;
     --color-lesson-active: #235ecd88;
     --color-progress-bar: #292c4b;

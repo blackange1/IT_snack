@@ -7,7 +7,7 @@
 
 <div class="container">
     <div class="row">
-        {% include 'teach_courses_sidebar.html' %}
+        {% include 'sidebar_course.html' %}
         <div class="col-sm-8">
 
             <h1>Програма курсу</h1>
@@ -15,7 +15,7 @@
             {{ module.name }}
             <ul>
                 {% for lesson in module.lesson_set.all %}
-                <li><a href="{% url 'lesson' lesson.id 1 %}">{{ lesson }}</a></li>
+                <li><a href="{% url 'lessons' lesson.id 1 %}">{{ lesson }}</a></li>
                 {% endfor %}
             </ul>
             {% endfor %}

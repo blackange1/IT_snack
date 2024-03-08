@@ -4,15 +4,6 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 
 
-# /course/
-def course(request):
-    courses = Course.objects.all()
-    context = {
-        'courses': courses,
-    }
-    return render(request, "course/course.html", context)
-
-
 # /course/<int:course_id>/syllabus/
 def syllabus(request, course_id):
     # print(request.user)

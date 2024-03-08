@@ -4,30 +4,33 @@ from step.models import LESSON_METHODS
 
 
 # lesson/<int:lesson_id>"
-def lesson(request, lesson_id, step_id):
+def lessons(request, lesson_id, step_id):
     if not request.user.is_authenticated:
         return redirect('login')
-    obj_lesson = get_object_or_404(Lesson, pk=lesson_id)
-    print('#', )
+    lesson = get_object_or_404(Lesson, pk=lesson_id)
+    course = lesson.module.course
+    print('#', lesson.module.course.name)
     # get step
     current_step = None
-    steps = []
+    # steps = []
 
-    for method_name in LESSON_METHODS:
-        method = getattr(obj_lesson, method_name)
-        for step in method.all():
-            if step_id == step.order:
-                current_step = step
-            steps.append(step)
-    if not current_step:
-        current_step = steps[0]
+    # for method_name in LESSON_METHODS:
+    #     method = getattr(lesson, method_name)
+    #     for step in method.all():
+    #         if step_id == step.order:
+    #             current_step = step
+    #         steps.append(step)
+    # if not current_step:
+    #     current_step = steps[0]
 
-    print('obj_lesson', obj_lesson)
+    print('lesson', lesson)
     context = {
-        'title': obj_lesson.name,
-        'steps': steps,
+        "course_title": course.name,
+        "course_id": course.pk,
+        # 'title': lesson.name,
+        # 'steps': steps,
         'current_step': current_step,
-        'lesson_id': obj_lesson.id,
-        'course_id': obj_lesson.get_course().id,
+        'lesson_id': lesson.id,
+        # 'course_id': lesson.get_course().id,
     }
     return render(request, "lesson/lesson.html", context)

@@ -1,4 +1,6 @@
-# Views Lessons Text
+#[Всі посилання для api](http://localhost:8000/api/)
+
+## Views Lessons Text
 
 ### url `api/step-item/text/int:step_id`
 
@@ -10,7 +12,7 @@
 
 * `status` - статус повідомлення => `'ok'`
 
-# Views Lessons Choice
+## Views Lessons Choice
 
 ### url `api/step-item/choice/int:step_id`
 
@@ -62,7 +64,7 @@
 * `answers` - варіанти відповіді `[{'id': 1, 'text':'Київ'}, {'id': 2, 'text':'Харків'}]`
 * `repeat_task` - чи може юзер повторити завдання | `bool` => `True`
 
-# Views Lessons Choice Multi
+## Views Lessons Choice Multi
 
 ### url `api/step-item/choice_multi/int:step_id`
 

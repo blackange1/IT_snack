@@ -6,3 +6,4 @@
 * додати іконки в соти, типу гантелі, лампочки, книги
 * додати історію переходів
 * [сортування в адмінці](https://django-admin-sortable2.readthedocs.io/en/latest/usage.html)
+* не проацює перехід на посилання `http://localhost:8000/lesson/3/step/1` бо `3`

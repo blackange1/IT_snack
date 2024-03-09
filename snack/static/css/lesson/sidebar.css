@@ -1,7 +1,7 @@
 /* lesson-sidebar */
 .lesson-sidebar {
     background-color: var(--bg-grey);
-    border-right: var(--width-line) solid var(--color-line-orange);
+    border-right: var(--width-line) solid var(--color-line-lessons);
     /*height: 100vh;*/
     /*position: fixed;*/
     /*top: var(--height-menu);*/
@@ -70,7 +70,7 @@
 
 .lesson-sidebar__content::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: var(--color-line-orange);
+    background-color: var(--color-line-lessons);
     border: 3px solid var(--bg-grey);
 
 }

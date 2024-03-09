@@ -34,3 +34,10 @@ def lessons(request, lesson_id, step_id):
         # 'course_id': lesson.get_course().id,
     }
     return render(request, "lesson/lesson.html", context)
+
+
+def edit_lessons(request, lesson_id, step_id):
+    lesson = get_object_or_404(Lesson, pk=lesson_id)
+    print('lesson', lesson)
+    context = {}
+    return render(request, "lesson/edit_lesson.html", context)

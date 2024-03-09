@@ -181,11 +181,7 @@ textarea.block__input:focus {
 }
 
 /*BUTTON*/
-.button-run-code {
-    display: inline-block;
-    font-size: .8rem;
-    margin-left: .5em;
-}
+
 
 .group-btn-code {
 

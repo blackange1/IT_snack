@@ -1,0 +1,10 @@
+.sidebar__inner {
+    padding: 25px;
+}
+
+.sidebar__content {
+
+}
+.sidebar__content .content__item{
+    margin-top: 10px;
+}

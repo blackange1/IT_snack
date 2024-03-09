@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     padding: var(--padding-menu);
-    border-bottom: var(--width-line) solid var(--color-line-orange);
+    border-bottom: var(--width-line) solid var(--color-line-lessons);
     background-color: var(--bg-black);
     /* position: sticky; */
     /*position: fixed;*/

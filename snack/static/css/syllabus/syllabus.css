@@ -1,0 +1,83 @@
+body {
+    /*background-color: rebeccapurple !important;*/
+}
+
+.syllabus .line-progress-bar {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 6px;
+    background: var(--color-progress-bar-done);
+    /*height: 100%;*/
+}
+
+
+/*MODULE*/
+.syllabus .module__content {
+    position: relative;
+    padding: 15px;
+    border: 2px solid var(--color-table-syllabus);
+    /*border-radius: */
+    border-bottom-left-radius: var(--border-radius-syllabus);
+    border-top-right-radius: var(--border-radius-syllabus);
+    border-top-left-radius: var(--border-radius-syllabus);
+
+}
+
+.syllabus .module__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.syllabus .module__name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.syllabus .module__progress {
+    font-size: 16px;
+}
+
+.syllabus .module__description {
+
+}
+
+/*LESSONS*/
+.syllabus .wrapper_lessons {
+    border: 2px solid var(--color-table-syllabus);
+    margin-left: 40px;
+    margin-top: -2px;
+    margin-bottom: 20px;
+    border-bottom-left-radius: var(--border-radius-syllabus);;
+    border-bottom-right-radius: var(--border-radius-syllabus);;
+}
+
+.syllabus .module__lesson {
+    position: relative;
+    padding: 0 10px;
+}
+
+.syllabus .lesson__content {
+    padding: 15px 10px;
+    border-bottom: 2px solid var(--color-table-syllabus);;
+    display: flex;
+    justify-content: space-between;
+}
+
+.syllabus .module__lesson:last-child .lesson__content {
+    border: none;
+}
+
+.syllabus .lesson__name {
+    text-decoration: none;
+    color: black;
+}
+
+.syllabus .lesson__name:hover {
+    color: rebeccapurple;
+}
+
+.syllabus .lesson__progress {
+    font-size: 16px;
+}

@@ -1,0 +1,41 @@
+
+.button {
+    padding: 10px 20px;
+    border-width: 0;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    display: inline-block;
+
+}
+
+button.button-primary {
+    font-family: 'Arial';
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.button-primary {
+    background-color: var(--color-orange);
+}
+
+.button-secondary {
+    background-color: var(--color-progress-bar-done);
+    color: white;
+}
+
+.button-run-code {
+    font-size: .8rem;
+    margin-left: .5em;
+}
+
+.button-next-step,
+.button-checked-again {
+    font-size: .8rem;
+    /*margin-left: 10px;*/
+    margin-right: 10px;
+}
+
+.button-next-step {
+    color: buttontext;
+}

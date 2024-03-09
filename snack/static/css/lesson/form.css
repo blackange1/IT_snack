@@ -20,16 +20,6 @@
     font-weight: bold;
 }
 
-.button-next-step,
-.button-checked-again {
-    display: inline-block;
-    font-size: .8rem;
-    /*margin-left: 10px;*/
-    margin-right: 10px;
-}
-.button-next-step{
-    color: buttontext;
-}
 .wrapper_label {
     /*padding: 10px 0;*/
 }

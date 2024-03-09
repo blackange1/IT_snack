@@ -1,32 +1,57 @@
-{% extends 'base.html' %}
+{% extends 'base_main.html' %}
 {% load static %}
-
 {% block title %}{{ title }}{% endblock %}
 
 {% block content %}
+<main class="wrapper">
+    <div class="container">
+        <div class="row">
+            {% include 'course/sidebar.html' %}
+            <div class="col-sm-8 syllabus">
+                <h1>Програма курсу</h1>
+                {% for module in course.module_set.all %}
+                <div class="module__content">
+                    <div class="line-progress-bar" style="height: 70%">&nbsp</div>
+                    <div class="module__header">
+                        <div class="module__name">{{forloop.counter}}. {{ module.name }}</div>
+                        <div class="module__progress">60 / 60</div>
+                    </div>
+                    <div class="module__description">В цьому модулі бла бла бла</div>
+                </div>
 
-<div class="container">
-    <div class="row">
-        {% include 'sidebar_course.html' %}
-        <div class="col-sm-8">
-
-            <h1>Програма курсу</h1>
-            {% for module in course.module_set.all %}
-            {{ module.name }}
-            <ul>
-                {% for lesson in module.lesson_set.all %}
-                <li><a href="{% url 'lessons' lesson.id 1 %}">{{ lesson }}</a></li>
+                <div class="wrapper_lessons">
+                    {% with j=forloop.counter %}
+                    {% for lesson in module.lesson_set.all %}
+                    <div class="module__lesson">
+                        <div class="line-progress-bar" style="height: 100%">&nbsp</div>
+                        <div class="lesson__content">
+                            <a class="lesson__name" href="{% url 'lessons' lesson.id 1 %}">
+                                {{j}}.{{forloop.counter}} {{lesson }}</a>
+                            <div class="lesson__progress">6 / 6 <a href="{% url 'edit_lessons' lesson.id 1 %}">🖊️</a></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endwith %}
+                </div>
                 {% endfor %}
-            </ul>
-            {% endfor %}
-            <div>
-                У цьому курсі нема уроків. <br>
-                Додайте ваш перший урок у редакторі вмісту курсу.
+                <div>
+                    У цьому курсі нема уроків. <br>
+                    Додайте ваш перший урок у редакторі вмісту курсу.
+                </div>
+                <p>Це якщо ти автор</p>
+                <a class="btn btn-primary" href="{% url 'syllabus_edit' course.id %}">Редагувати зміст</a>
             </div>
-            <p>Це якщо ти автор</p>
-            <a class="btn btn-primary" href="{% url 'syllabus_edit' course.id %}">Редагувати зміст</a>
         </div>
-    </div>
 
-</div>
+    </div>
+</main>
+<!--<h2>{{courses}}</h2>-->
+
+
 {% endblock %}
+
+
+
+
+
+

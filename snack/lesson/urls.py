@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # ex: /lesson/
-    path("<int:lesson_id>/step/<int:step_id>", views.lessons, name="lessons"),
+    # ex: /
+    path("lesson/<int:lesson_id>/step/<int:step_id>", views.lessons, name="lessons"),
+    path("edit-lesson/<int:lesson_id>/step/<int:step_id>", views.edit_lessons, name="edit_lessons"),
 ]

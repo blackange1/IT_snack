@@ -55,7 +55,7 @@ main::-webkit-scrollbar {
 
 main::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: var(--color-line-orange);
+    background-color: var(--color-line-lessons);
     border: 3px solid var(--bg-grey);
 }
 .lesson-sidebar__body,

@@ -27,8 +27,7 @@ course
 `syllabus`
 ![](images/temp/syllabus.png)
 
-***TODO***
-`syllabus-edit`
+***TODO***: `syllabus-edit`
 
 [comment]: <> (LESSON)
 
@@ -36,11 +35,16 @@ course
 
 ```text
 lesson
+    |---edit_lesson.html
     |---lesson.html
 ```
 
 `lesson`
 ![](images/temp/lesson.png)
+
+`edit_lesson`
+![](images/temp/edit_lesson.png)
+
 
 [comment]: <> (TEMPLATES)
 

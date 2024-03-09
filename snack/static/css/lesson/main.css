@@ -33,6 +33,7 @@ p {
 .lesson-content {
     display: flex;
     height: calc(100vh - var(--height-menu));
+    border-top: var(--width-line) solid var(--color-line-lessons);
 }
 
 main {

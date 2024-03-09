@@ -7,6 +7,7 @@ class Order(models.Model):
 
     class Meta:
         abstract = True
+        ordering = ["order"]
 
 
 class BaseStep(Order):

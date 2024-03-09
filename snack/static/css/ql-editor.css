@@ -1,0 +1,11 @@
+.ql-editor code {
+    background-color: #605f62 !important;
+}
+.ql-code-block-container {
+    background-color: darkslategrey !important;
+}
+
+.step__text_html #ql-text-html-editor {
+    width: 100%;
+    resize: vertical;
+}

@@ -1,5 +1,5 @@
-import {printReq, printFun} from '../tools.js'
-import stepsContent from './content-steps-code.js'
+import {printReq, printFun} from '../../tools.js'
+import stepsContent from './code.js'
 
 // carcass => choice => choice-multi => code
 stepsContent.renderContent = function (type, id) {

@@ -1,4 +1,4 @@
-import {printFun, printReq} from "../tools.js";
+import {printFun, printReq} from "../../tools.js";
 
 
 const stepsContent = {
@@ -59,7 +59,8 @@ const stepsContent = {
             // const $attemptMessage = $form.querySelector('.attempt__message')
             if (isMessage) {
                 // додати привітальні фрази
-                $form.querySelector('.attempt__message').innerHTML = (result === '1') ? '<i class="fa fa-check"></i> Відмінно!' : '<i class="fa fa-crosshairs"></i> Хибно!'
+                // $form.querySelector('.attempt__message').innerHTML = (result === '1') ? '<i class="fa fa-check"></i> Відмінно!' : '<i class="fa fa-crosshairs"></i> Хибно!'
+                $form.querySelector('.attempt__message').innerHTML = (result === '1') ? '✅ Відмінно!' : '❌ Хибно!'
             }
             $btnCheckedAgain.innerHTML = (result === '1') ? "Розв’язати знову" : "Спробувати ще раз"
         } else {

@@ -7,7 +7,7 @@
     /* border-bottom: var(--width-line) solid var(--color-line-orange); */
     background-color: var(--bg-black);
     /* position: sticky; */
-    position: fixed;
+    /*position: fixed;*/
     top: 0;
     right: 0;
     left: 0;
@@ -83,7 +83,7 @@
 
 .wrapper__username {
     display: flex;
-        align-items: center
+    align-items: center
 }
 
 .menu__username {

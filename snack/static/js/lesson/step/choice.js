@@ -1,18 +1,17 @@
-import getCookie, {printReq, printFun} from '../tools.js'
-import colors from '../vars.js'
-import stepsContent from './content-steps-choice.js'
+import getCookie, {printFun, printReq} from '../../tools.js'
+import colors from '../../vars.js'
+import stepsContent from './carcass.js'
 
 // https://learn.javascript.ru/decorators
-stepsContent.updateChoiceMulti = function (step, id) {
-    const $form = document.querySelector(`#choice_multi${id} form`)
+stepsContent.updateChoice = function (step, id) {
+    const $form = document.querySelector(`#choice${id} form`)
     const wrapperLabel = $form.querySelector('.wrapper_label')
     wrapperLabel.innerHTML = ''
     for (const answer of step['answers']) {
-
-        const label = this.createElement('label', 'checkbox-container', `
-                <input type="checkbox" name="answer${step.id}"  id="answer${answer.id}" data-id="${answer.id}">
-                <span class="checkmark"></span>${answer.text}`, true)
-            wrapperLabel.appendChild(label)
+        const label = this.createElement(
+            'label', 'choice__label', `
+                <input type="radio" name="answer${step.id}" id="answer${answer.id}" data-id="${answer.id}">
+                <span class="choice__text">${answer.text}</span>`, true)
         wrapperLabel.appendChild(label)
     }
     const btnNextStep = $form.querySelector('.button-next-step')
@@ -20,43 +19,40 @@ stepsContent.updateChoiceMulti = function (step, id) {
         btnNextStep.classList.add('hide')
     }
 }
-
-stepsContent.renderChoiceMulti = function (step, id) {
-    const stepInner = this.createElement('div', {'class': 'step-inner', 'id': 'choice_multi' + id}, `${step['text_html']}`, true)
+stepsContent.renderChoice = function (step, id) {
+    const stepInner = this.createElement('div', {'class': 'step-inner', 'id': 'choice' + id}, `${step['text_html']}`, true)
 
     // CREATE FORM
     const mainForm = this.createElement('form', {'class': 'lesson-form', 'data-id': id})
-    const isMultipleChoice = true
     const fieldset = document.createElement('fieldset')
-    const legend = this.createElement('legend', 'task__title',
-        (isMultipleChoice) ? "Виберіть декілька відповідей" : "Виберіть один варіант зі списку")
+    const legend = this.createElement('legend', 'task__title', "Виберіть одну відповідь")
 
     mainForm.appendChild(fieldset)
     fieldset.appendChild(legend)
     fieldset.appendChild(this.createElement('div', 'attempt__message'))
     const answers = step['answers']
-    const repeatTask = step['repeat_task']
+    const repeat_task = step['repeat_task']
     const wrapperLabel = this.createElement('div', 'wrapper_label')
-    if (repeatTask) {
+    if (repeat_task) {
         for (const answer of answers) {
-            const label = this.createElement('label', 'checkbox-container', `
-                <input type="checkbox" name="answer${step.id}"  id="answer${answer.id}" data-id="${answer.id}">
-                <span class="checkmark"></span>${answer.text}`, true)
+            const label = this.createElement('label', 'choice__label', `
+                    <input type="radio" name="answer${step.id}" id="answer${answer.id}" data-id="${answer.id}">
+                    <span class="choice__text">${answer.text}</span>`, true)
             wrapperLabel.appendChild(label)
         }
         fieldset.appendChild(wrapperLabel)
     } else {
+        // FIXED
         const wrapperLabel = this.createElement('div', 'wrapper_label')
         let j = 0
         const index = step['answers_json'][1]
         for (const answer of step["answers_json"][0]) {
-            const label = this.createElement('label', 'checkbox-container')
-            const input = this.createElement('input', {type: 'checkbox'})
-            const span = this.createElement('span', 'checkmark')
+            const label = this.createElement('label', 'choice__label')
+            const input = this.createElement('input', {type: 'radio'})
+            const span = this.createElement('span', 'choice__text', answer)
             label.appendChild(input)
             label.appendChild(span)
-            label.appendChild(this.createElement('span', '', answer))
-            if (index.includes(j)) {
+            if (j === index) {
                 input.checked = true
             }
             j++
@@ -74,13 +70,13 @@ stepsContent.renderChoiceMulti = function (step, id) {
     // taskCheck.appendChild(taskPoints)
     // BUTTON
     const btnSubmit = this.createElement('button',
-        {'class': 'button button-primary', type: 'submit'}, 'Надіслати')
+        {'class': 'button button-primary', 'type': 'submit'}, 'Надіслати')
     taskCheck.appendChild(btnSubmit)
 
     const btnNextStep = this.createElement('div',
         'button button-primary button-next-step hide', 'Наступний крок')
     btnNextStep.onclick = () => {
-        printFun('btnNextStep.onclick')
+        printFun('renderChoice.btnNextStep.onclick')
         this.goToNextStep()
     }
     taskCheck.appendChild(btnNextStep)
@@ -91,7 +87,7 @@ stepsContent.renderChoiceMulti = function (step, id) {
         // розморозити
         this.toggleFrozen(mainForm)
         const csrftoken = getCookie('csrftoken')
-        fetch(`/api/step-item/choice_multi/${id}/`, {
+        fetch(`/api/step-item/choice/${id}/`, {
             method: 'PATCH',
             body: JSON.stringify({
                 repeat_task: true,
@@ -103,8 +99,8 @@ stepsContent.renderChoiceMulti = function (step, id) {
             },
         }).then(response => response.json()
         ).then(data => {
-            printReq(`PATCH:/api/step-item/choice_multi/${id}/`, data)
-            this.updateChoiceMulti(data, id)
+            printReq(`PATCH /api/step-item/choice/${id}/`, data)
+            this.updateChoice(data, id)
         })
     }
     taskCheck.appendChild(btnCheckedAgain)
@@ -122,19 +118,19 @@ stepsContent.renderChoiceMulti = function (step, id) {
     } else {
         formFooter.innerHTML = `${this.getTextPoints(step.points)} за розв’язок.`
     }
-
     fieldset.appendChild(formFooter)
     mainForm.appendChild(fieldset)
     stepInner.appendChild(mainForm)
     this.$theory.appendChild(stepInner)
 
-    if (!repeatTask) {
+    if (!repeat_task) {
         if (step['student_solved']) {
             this.toggleFrozen(mainForm, '1', false)
             btnNextStep.classList.remove('hide')
         } else {
             this.toggleFrozen(mainForm, '0', false)
         }
+        // this.toggleFrozen(mainForm, (step['student_solved']) ? '1' : '0')
     }
     if (this.activeTheoryItem) {
         this.activeTheoryItem.classList.add('hide')
@@ -147,14 +143,14 @@ stepsContent.renderChoiceMulti = function (step, id) {
         let listAnswerId = []
         let selectedIndexes
         let selected = []
-        const listCheckboxAnswer = mainForm.querySelectorAll('input[type="checkbox"]')
-        selectedIndexes = []
+
+        const listRadioAnswer = mainForm.querySelectorAll('input[type="radio"]')
         let i = 0
-        for (const checkboxAnswer of listCheckboxAnswer) {
-            listAnswerId.push(checkboxAnswer.dataset.id)
-            if (checkboxAnswer.checked) {
-                selected.push(checkboxAnswer.dataset.id)
-                selectedIndexes.push(i)
+        for (const radioAnswer of listRadioAnswer) {
+            listAnswerId.push(radioAnswer.dataset.id)
+            if (radioAnswer.checked) {
+                selected.push(+radioAnswer.dataset.id)
+                selectedIndexes = i
             }
             i++
         }
@@ -163,10 +159,10 @@ stepsContent.renderChoiceMulti = function (step, id) {
         if (selected.length) {
             const csrftoken = getCookie('csrftoken')
 
-            fetch(`/api/step-item/choice_multi/${id}/`, {
+            fetch(`/api/step-item/choice/${id}/`, {
                 method: 'POST',
                 body: JSON.stringify({
-                    // selected: (isMultipleChoice) ? selected : selected[0],
+                    selected: selected[0],
                     selected_indexes: selectedIndexes,
                     answer_ids: listAnswerId
                 }),
@@ -177,7 +173,7 @@ stepsContent.renderChoiceMulti = function (step, id) {
                 },
             }).then(response => response.json()
             ).then(data => {
-                printReq(`POST: /api/step-item/choice_multi/${id}/`, data)
+                printReq(`POST: /api/step-item/choice/${id}`, data)
                 if (formFooter.classList.contains('hide')) {
                     formFooter.classList.remove('hide')
                 }
@@ -195,7 +191,7 @@ stepsContent.renderChoiceMulti = function (step, id) {
                 if (data['solved']) {
                     mainForm.querySelector('.form__footer .student_points').textContent = this.getTextPoints(data['student_points'])
                     btnNextStep.classList.remove('hide')
-                    const $menuChoice = this.getMenuItem('choice_multi', id)
+                    const $menuChoice = this.getMenuItem('choice', id)
                     if ($menuChoice) {
                         // $menuChoice.dataset.points = data['student_points']
                         $menuChoice.dataset.solved = 'true'

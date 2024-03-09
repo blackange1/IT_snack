@@ -1,6 +1,6 @@
-import getCookie, {printReq, printFun, printError} from '../tools.js'
-import colors, {lineOfCode} from '../vars.js'
-import stepsContent from "./content-steps-choice-multi.js";
+import getCookie, {printReq, printFun, printError} from '../../tools.js'
+import colors, {lineOfCode} from '../../vars.js'
+import stepsContent from "./choice-multi.js";
 
 // TODO: Змінити функціонал обрахунку ширити та висоти textarea
 // https://stackoverflow.com/questions/17772260/textarea-auto-height
@@ -522,7 +522,7 @@ stepsContent.renderCode = function (step, id) {
             const testInfo = data['test_info']
             const textContent = []
             for (let i = 0; i < testInfo.length; i++) {
-                textContent.push(`test: ${i} ${testInfo[i]}`)
+                textContent.push(`test ${i + 1}: ${testInfo[i] ? '✅': '❌'}`)
             }
             $testInfoCode.textContent = textContent.join('\n')
 

@@ -1,6 +1,6 @@
 import getCookie, {printReq, printFun, printError} from '../tools.js'
 import colors from '../vars.js'
-import stepsContent from './content-steps.js'
+import stepsContent from './step/content-steps.js'
 
 
 const menuSteps = {

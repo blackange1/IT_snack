@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main/main.css' %} ">
+<link rel="stylesheet" type="text/css" href="{% static 'css/main/menu.css' %} ">
+<link rel="stylesheet" type="text/css" href="{% static 'css/main/course.css' %} ">
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/syllabus/sidebar.css' %} ">
+<link rel="stylesheet" type="text/css" href="{% static 'css/syllabus/syllabus.css' %} ">
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/lesson/sidebar.css' %}">
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/lesson/main.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/lesson/content.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/lesson/edit/lesson.css' %}">
+{% endblock %}
+
+{% block main_menu %}
+{% include 'navbar_main.html' %}
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/lesson/edit/sidebar.js' %}"></script>
+
+<!--<script src="{% static 'js/lesson/sidebar.js' %}"></script>-->
+{% endblock %}
